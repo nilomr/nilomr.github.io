@@ -148,7 +148,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: inherit;
 	font-weight: 300;
 	line-height: 1.75em;
-	margin-bottom: 1em;
+	margin-bottom: 0em;
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -1951,7 +1951,7 @@ input[type="email"] {
 	border: 0;
 	border-radius: 100%;
 	display: inline-block;
-	font-size: 1.25em;
+	font-size: 1em;
 	height: 2.25em;
 	left: 0;
 	line-height: 2.25em;
@@ -2313,6 +2313,7 @@ button.small,
 .wrapper {
 	margin-bottom: 5em;
 	padding: 5em;
+
 }
 
 .wrapper.style1 {
@@ -2364,18 +2365,12 @@ button.small,
 	background: none;
 	color: inherit;
 	padding: 4em;
+	padding-top: 5em;
 }
 
 
 
-#software {
-	background-image: url("../../images/noise.png"),
-		url("../../images/white-background.jpg");
-	background-attachment: scroll, fixed;
-	background-position: top center;
-	background-repeat: repeat, no-repeat;
-	background-size: 200px, cover;
-}
+
 
 
 
@@ -2457,7 +2452,7 @@ button.small,
 
 #header nav ul li {
 	display: inline-block;
-	margin-left: 1.5em;
+	margin-left: 0em;
 	padding-left: 0;
 }
 
@@ -2488,7 +2483,7 @@ button.small,
 	text-decoration: none;
 }
 
-#header nav ul li.submenu>a:before {
+#header nav ul li.submenu>a:after {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	display: inline-block;
@@ -2501,9 +2496,9 @@ button.small,
 	font-weight: 900;
 }
 
-#header nav ul li.submenu>a:before {
+#header nav ul li.submenu>a::after {
 	content: '\f107';
-	margin-right: 0.65em;
+	margin-left: 0.65em;
 }
 
 #header nav ul li.active>a, #header nav ul li:hover>a {
@@ -2645,8 +2640,10 @@ button.small,
 	}
 }
 
+/* SECTIONS ───────────────────────────────────────────────────────────────── */
+
+
 #greti-song {
-	background-color: #645862;
 	background-image: url("../../images/noise.png"),
 		url("../../images/dark_texture.jpg");
 	background-attachment: scroll, fixed;
@@ -2667,10 +2664,10 @@ button.small,
 	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
 	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
 	animation: reveal-banner 1s 0.25s ease-in-out;
-	-moz-animation-fill-mode: forwards;
-	-webkit-animation-fill-mode: forwards;
-	-ms-animation-fill-mode: forwards;
-	animation-fill-mode: forwards;
+	-moz-animation-fill-mode: both;
+	-webkit-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	animation-fill-mode: both;
 	background: rgba(41, 41, 41, 0);
 	color: #fff;
 	display: inline-block;
@@ -2719,10 +2716,136 @@ button.small,
 	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
 	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
 	animation: reveal-banner 1s 0.25s ease-in-out;
-	-moz-animation-fill-mode: forwards;
-	-webkit-animation-fill-mode: forwards;
-	-ms-animation-fill-mode: forwards;
-	animation-fill-mode: forwards;
+	-moz-animation-fill-mode: both;
+	-webkit-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+
+#software {
+	background-image: url("../../images/noise.png"),
+		url("../../images/white-background.jpg");
+	background-attachment: scroll, fixed;
+	background-position: top center;
+	background-repeat: repeat, no-repeat;
+	background-size: 200px, cover;
+}
+
+
+
+#film {
+	background-image: url("../../images/noise.png"),
+		url("../../images/dark_texture.jpg");
+	background-attachment: scroll, fixed;
+	background-position: top center;
+	background-repeat: repeat, no-repeat;
+	background-size: 200px, cover;
+	color: #fff;
+	cursor: default;
+	padding-top: 6em;
+	padding-right: 0px;
+	padding-bottom: 1em;
+	padding-left: 0px;
+	text-align: center;
+}
+
+#film .inner {
+	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
+	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
+	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
+	animation: reveal-banner 1s 0.25s ease-in-out;
+	-moz-animation-fill-mode: both;
+	-webkit-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	animation-fill-mode: both;
+	background: rgba(41, 41, 41, 0);
+	color: #fff;
+	display: inline-block;
+	opacity: 0;
+	padding: 3em;
+	text-align: center;
+}
+
+#film .inner header {
+	display: inline-block;
+	margin: 0 0 2em 0;
+	padding: 3px 0 3px 0;
+}
+
+#film .inner header h2 {
+	border-bottom: solid 2px;
+	border-top: solid 2px;
+	font-size: 2.5em;
+	font-weight: 900;
+	letter-spacing: 0.2em;
+	margin: 0;
+	padding-left: 0.05em;
+	position: relative;
+}
+
+#film .inner p {
+	letter-spacing: 0.1em;
+	margin: 0;
+}
+
+#film .inner p a {
+	color: inherit;
+	font-weight: 400;
+	text-decoration: none;
+}
+
+#film .inner footer {
+	margin: 2em 0 0 0;
+}
+
+
+#film p {
+	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
+	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
+	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
+	animation: reveal-banner 1s 0.25s ease-in-out;
+	-moz-animation-fill-mode: both;
+	-webkit-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+#film .image.featured {
+	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
+	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
+	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
+	animation: reveal-banner 1s 0.25s ease-in-out;
+	-moz-animation-fill-mode: both;
+	-webkit-animation-fill-mode: both;
+	-ms-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+
+#about {
+	background-image: url("../../images/noise.png"),
+		url("../../images/lake.png");
+	background-attachment: scroll, fixed;
+	background-position: top center;
+	background-repeat: repeat, no-repeat;
+	background-size: 200px, cover;
+	padding-top: 7em;
+	padding-bottom: 7em;
+}
+
+#about .wrapper.style3 {
+	background: rgba(255, 255, 255, 0.753);
+	color: inherit;
+}
+
+#about .container {
+	background: rgba(255, 255, 255, 0.753);
+	color: inherit;
+}
+
+#about p {
+	color: #7c8081
 }
 
 /* Main */
@@ -2778,7 +2901,7 @@ body.index #main {
 #footer {
 	background: #E8EEF4;
 	color: #7c8081;
-	padding: 5em 5em 10em 5em;
+	padding: 2em 5em 2em 5em;
 	text-align: center;
 }
 
@@ -2858,12 +2981,13 @@ body.index #main {
 
 	.wrapper.style4 {
 		padding: 3em;
+		padding-top: 4em;
 	}
 
 	/* Header */
 
 	#header nav ul li {
-		margin-left: 1em;
+		margin-left: 0em;
 	}
 
 	/* Banner */
@@ -2942,6 +3066,7 @@ body.index #main {
 
 	.wrapper.style4 {
 		padding: 2.5em;
+		padding-top: 3.5em;
 	}
 
 	/* Banner */
@@ -3069,6 +3194,7 @@ body.index #main {
 
 	.wrapper.style4 {
 		padding-bottom: 3em;
+		padding-top: 4em;
 	}
 
 	/* Main */
@@ -3403,7 +3529,7 @@ body.index #main {
 
 	.wrapper.style4 {
 		background-size: 10em;
-		padding: 1.5em 1.5em 3em 1.5em;
+		padding: 2.5em 1.5em 3em 1.5em;
 	}
 
 	/* Banner */
