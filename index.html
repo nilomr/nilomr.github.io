@@ -6,10 +6,27 @@
 <html>
 
 <head>
-	<title>Twenty by HTML5 UP</title>
+	<title>Nilo's website</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1,
-		user-scalable=no" />
+			user-scalable=no" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.png">
+	<!-- HTML Meta Tags -->
+	<meta name="description" content="Nilo Merino Recalde - personal website">
+
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="https://nilomr.github.io/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Nilo Merino Recalde - personal website">
+	<meta property="og:image" content="images/nilo.jpg">
+
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="nilomr.github.io">
+	<meta property="twitter:url" content="https://nilomr.github.io/">
+	<meta name="twitter:title" content="Nilo Merino Recalde - personal website">
+	<meta name="twitter:image" content="images/nilo.jpg">
+
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<noscript>
@@ -24,28 +41,20 @@
 
 
 		<!-- HEADER ──────────────────────────────────────────────────────────────── -->
-
 		<header id="header">
 			<h1 id="logo"><a href="index.html">nilo <span>merino
-				recalde</span></a></h1>
+							recalde</span></a></h1>
 			<nav id="nav">
 				<ul>
 
 					<li class="current"><a href="index.html">home</a></li>
-
-					<li class="submenu">
+					<li><a href="#greti-song">research</a></li>
+					<!-- <li class="submenu">
 						<a href="#">research</a>
 						<ul>
 							<li><a href="#greti-song">bird song</a></li>
-							<li><a href="left-sidebar.html">left
-									sidebar</a></li>
-							<li><a href="right-sidebar.html">Right
-									Sidebar</a></li>
-							<li><a href="no-sidebar.html">No
-									Sidebar</a></li>
-							<li><a href="contact.html">Contact</a></li>
 						</ul>
-					</li>
+					</li> -->
 
 					<li><a href="#software">software</a></li>
 
@@ -57,448 +66,510 @@
 			</nav>
 		</header>
 
+		<section id="banner">
+
+			<!--
+				".inner" is set up as an inline-block so it automatically expands
+				in both directions to fit whatever's inside it. This means it won't
+				automatically wrap lines, so be sure to use line breaks where
+				appropriate (<br />).
+			-->
+			<div class="inner">
+
+				<header>
+					<h1>nilo merino recalde</h1>
+				</header>
+				<p>welcome
+				</p>
+				<footer>
+					<ul class="buttons stacked">
+						<li><a href="#main" class="button fit scrolly">research</a></li>
+					</ul>
+				</footer>
+
+			</div>
+
+		</section>
+
 		<!-- MAIN ────────────────────────────────────────────────────────────────── -->
 
-		<article id="main">
 
-			<header class="special container">
-				<span class="icon solid fa-chart-bar"></span>
-				<h2>As this is my <strong>twentieth</strong> freebie for
-					HTML5 UP
-					<br /> I decided to give it a really creative name.
-				</h2>
-				<p>Turns out <strong>Twenty</strong> was the best I could
-					come up with. Anyway, lame name aside,
-					<br /> it's minimally designed, fully responsive, built on
-					HTML5/CSS3, and, like all my stuff,
-					<br /> released for free under the <a href="http://html5up.net/license">Creative Commons
-						Attribution 3.0</a> license. Have fun!
-				</p>
-			</header>
-
-			<!-- One -->
-			<section class="wrapper style2 container special-alt">
-				<div class="row gtr-50">
-					<div class="col-8 col-12-narrower">
-
-						<header>
-							<h2>Behold the <strong>icons</strong>
-								that visualize what you’re all about. or
-								just take up space. your call bro.</h2>
-						</header>
-						<p>Sed tristique purus vitae volutpat ultrices.
-							Aliquam eu elit eget arcu comteger ut fermentum
-							lorem. Lorem ipsum dolor sit amet. Sed tristique
-							purus vitae volutpat ultrices. eu elit eget
-							commodo. Sed tristique purus vitae volutpat
-							ultrices. Aliquam eu elit eget arcu commodo.</p>
-						<footer>
-							<ul class="buttons">
-								<li><a href="#" class="button">Find Out
-										More</a></li>
-							</ul>
-						</footer>
-
-					</div>
-					<div class="col-4 col-12-narrower imp-narrower">
-
-						<ul class="featured-icons">
-							<li><span class="icon fa-clock"><span
-									class="label">Feature 1</span></span></li>
-							<li><span class="icon solid
-									fa-volume-up"><span class="label">Feature
-									2</span></span></li>
-							<li><span class="icon solid fa-laptop"><span
-									class="label">Feature 3</span></span></li>
-							<li><span class="icon solid fa-inbox"><span
-									class="label">Feature 4</span></span></li>
-							<li><span class="icon solid fa-lock"><span
-									class="label">Feature 5</span></span></li>
-							<li><span class="icon solid fa-cog"><span
-									class="label">Feature 6</span></span></li>
-						</ul>
-
-					</div>
-				</div>
-			</section>
-
-
-			<!-- GREAT TIT SONG ──────────────────────────────────────────────────────── -->
-
-			<section id="greti-song">
-
-				<div class="inner">
-
-					<p>Research projects
-					</p>
-
-					<div class="arrow-container">
-						<a data-scroll>
-							<div class="arrow"></div>
-						</a>
-					</div>
-
-				</div>
-
-				<div class="textblock centered">
-
-					<zero-md src="text/research/great_tit_1.md">
-						<template>
-							<link rel="stylesheet" href="assets/css/main.css">
-						</template>
-					</zero-md>
-
-				</div>
-
-				<div class="image featured">
-					<img src="images/gretis_large.png" alt="great tits
-							singing">
-				</div>
-
-				<div class="textblock centered">
-					<zero-md src="text/research/great_tit_1.md">
-						<template>
-							<link rel="stylesheet" href="assets/css/main.css">
-						</template>
-					</zero-md>
-				</div>
-
-
-				<div class="image featured">
-					<img src="images/amplitude.png" alt="song" style="width: 90%;">
-				</div>
-
-
+		<!-- GREAT TIT SONG ──────────────────────────────────────────────────────── -->
+		<section id="greti-song">
+			<div class="inner">
+				<p>Research projects</p>
 				<div class="arrow-container">
-					<a data-scroll href="#software">
+					<a data-scroll>
 						<div class="arrow"></div>
 					</a>
 				</div>
+			</div>
 
-			</section>
+			<div class="research title">
+				<s1>CULTURAL<br>EVOLUTION<br>IN THE WILD</s1>
+				<br>
+				<s2>Tracking the Landscape<br>of Diversity in Bird Song</s2><br>
+				<s3>Nilo Merino Recalde & Ben C. Sheldon</s3><br>
+				<s4>Edward Grey Institute & Department of Biology<br>
+					University of Oxford, Oxford, UK</s4>
 
-			<!-- CODE AND SOFTWARE ───────────────────────────────────────────────────── -->
+			</div>
+			<hr />
 
-			<section id="software">
-				<div class="wrapper style4 container">
+			<div class="image featured">
+				<img src="images/research-song/birds_st.png" style="max-width: 100%; width: 90%">
+			</div>
 
-					<header class="major">
-						<h2>Software & Code</h2>
-					</header>
-					<div class="row gtr-150">
+			<div class="textblock centered">
+				<zero-md src="text/research/great_tit_1.md">
+					<template>
+						<link rel="stylesheet" href="assets/css/main.css">
+					</template>
+				</zero-md>
+			</div>
 
-						<div class="col-8 col-12-narrower">
+			<div class="flex-container">
+				<div class="textblocky">
+					<zero-md src="text/research/great_tit_1.1.md">
+						<template>
+							<link rel="stylesheet" href="assets/css/main.css">
+						</template>
+					</zero-md>
+				</div>
+				<div class="datacont">
+					<datah1>
+						21,283h<span class="small-white"> recordings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+						85,000+<span class="small-white"> songs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+						950.000+<span class="small-white"> notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+						430<span class="small-white"> birds&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</datah1>
+				</div>
+			</div>
 
-							<!-- Content -->
-							<div class="content">
+			<hr />
+			<div class="image featured">
+				<img src="images/research-song/wytham_st.png" style="max-width: 100%; width:85% ">
+			</div>
 
-								<header>
-									<p>I am passionate about open-source software
-										and transparent, reproducible data science.
-										These are a few of the projects I've worked
-										on.
-									</p>
-								</header>
+			<div class="textblock centered">
+				<zero-md src="text/research/great_tit_1.2.md">
+					<template>
+						<link rel="stylesheet" href="assets/css/main.css">
+					</template>
+				</zero-md>
+			</div>
 
-								<!-- PYKANTO ─────────────────────────────────────────────────────────────── -->
-								<section>
-									<a href="https://github.com/nilomr/pykanto" class="image
+			<hr />
+			<div class="textblock centered">
+				<zero-md src="text/research/great_tit_2.md">
+					<template>
+						<link rel="stylesheet" href="assets/css/main.css">
+					</template>
+				</zero-md>
+			</div>
+
+
+			<div class="image animfeatured">
+				<img src="images/research-song/nebula_st.png" alt="song" style="width: 70%;">
+			</div>
+
+			<div class="textblock centered">
+				<zero-md src="text/research/great_tit_3.md">
+					<template>
+						<link rel="stylesheet" href="assets/css/main.css">
+					</template>
+				</zero-md>
+			</div>
+			<hr />
+
+			<div class="image featured">
+				<img src="images/research-song/loops_st_legend.png"
+					style="max-width: 300px; height: auto; width: 85%; position: inherit;">
+			</div>
+
+			<div class="image featured">
+				<img src="images/research-song/loops_st.png"
+					style="max-width: 900px; height: auto; width: 85%; position: inherit;">
+			</div>
+			<hr />
+			<div class="textblock centered">
+				<zero-md src="text/research/great_tit_4.md">
+					<template>
+						<link rel="stylesheet" href="assets/css/main.css">
+					</template>
+				</zero-md>
+			</div>
+			<hr />
+			<div class="image featured">
+				<img src="images/research-song/intervals.png"
+					style="max-width: 600px; opacity: 80%; height: auto; width: 70%; position: inherit;">
+			</div>
+
+			<hr />
+
+			<div class="image-box">
+				<div class="text-box">
+					<div class="text-box-content">
+						<maptitle>Local & global song diversity</maptitle>
+
+						<p>We know that even relatively small populations of great tits can
+							harbour hundreds of different song types. But how does this diversity
+							compare with that found across larger geographic areas? And what
+							can the answer to this question tell us about the forces that shape
+							bird song?
+							We are curating a large dataset that will allow us to answer these
+							questions in unprecedented detail.
+							This is a collaboration with Sara Keen and the
+							Lisa Yang Center for Conservation Bioacoustics at the Cornell Lab of
+							Ornithology.</p>
+					</div>
+				</div>
+				<img src="images/research-song/eumap_st.png" alt="An image">
+			</div>
+
+			<hr />
+			<hr />
+
+			<div class="image featured">
+				<img src="images/research-song/oxford-logo.png" style="max-width: 500px; height: auto; width: 85%;">
+			</div>
+
+
+			<div class="arrow-container">
+				<a data-scroll href="#software">
+					<div class="arrow"></div>
+				</a>
+			</div>
+
+		</section>
+
+		<!-- CODE AND SOFTWARE ───────────────────────────────────────────────────── -->
+		<section id="software">
+			<div class="wrapper style4 container">
+
+				<header class="major">
+					<h2>Software & Code</h2>
+				</header>
+				<div class="row gtr-150">
+
+					<div class="col-8 col-12-narrower">
+
+						<!-- Content -->
+						<div class="content">
+
+							<header>
+								<p>I am passionate about open-source software
+									and transparent, reproducible data science.
+									These are a few of the projects I've worked
+									on.
+								</p>
+							</header>
+
+							<!-- PYKANTO ─────────────────────────────────────────────────────────────── -->
+							<section>
+								<a href="https://github.com/nilomr/pykanto" class="image
 											featured"><img src="images/web_pykantoapp.png" alt="" /></a>
 
-									<ul class="buttons">
-										<li><a href="https://github.com/nilomr/pykanto"
-												class="button small">github/pykanto</a></li>
-									</ul>
-									<div class="textblock">
-										<zero-md src="text/software/pykanto.md">
-											<template>
-												<link rel="stylesheet" href="assets/css/main.css">
-											</template>
-										</zero-md>
-									</div>
-								</section>
-								<!-- DAWN CHORUS ─────────────────────────────────────────────────────────── -->
-								<section>
-									<a href="https://nilomr.github.io/DawnChorus/" class="image
-											featured"><img src="images/dawnchorus.gif" alt="" /></a>
-
-									<ul class="buttons">
-										<li><a href="https://nilomr.github.io/DawnChorus/"
-												class="button small">github/DawnChorus</a></li>
-									</ul>
-									<div class="textblock">
-										<zero-md src="text/software/dawnchorus.md">
-											<template>
-												<link rel="stylesheet" href="assets/css/main.css">
-											</template>
-										</zero-md>
-									</div>
-								</section>
-
-								<!-- WHYTHAM MAPS ────────────────────────────────────────────────────────── -->
-								<section>
-									<a href="https://github.com/nilomr/wytham-maps" class="image
-									featured"><img src="images/wytham_woods.jpg" alt="" /></a>
-
-									<ul class="buttons">
-										<li><a href="https://github.com/nilomr/wytham-maps"
-												class="button small">github/3D-maps</a></li>
-									</ul>
-									<div class="textblock">
-										<zero-md src="text/software/wytham-maps.md">
-											<template>
-												<link rel="stylesheet" href="assets/css/main.css">
-											</template>
-										</zero-md>
-									</div>
-								</section>
-
-
-							</div>
-						</div>
-
-						<div class="col-4 col-12-narrower">
-
-							<!-- Sidebar -->
-							<div class="sidebar">
-								<!-- FIELDTOOLS ──────────────────────────────────────────────────── -->
-								<section>
-									<a href="https://github.com/nilomr/fieldtools" class="image
-									featured"><img src="https://raw.githubusercontent.com/nilomr/fieldtools/master/fieldtools/src/fieldwork-helper.gif"
-											alt="" /></a>
-
-									<ul class="buttons">
-										<li><a href="https://github.com/nilomr/fieldtools"
-												class="button small">github/fieldtools</a></li>
-									</ul>
-									<div class="textblock">
-										<zero-md src="text/software/fieldtools.md">
-											<template>
-												<link rel="stylesheet" href="assets/css/main.css">
-											</template>
-										</zero-md>
-									</div>
-								</section>
-								<!-- INTRODUCTION TO BIOACOUSTICS ────────────────────────────────────────── -->
-								<section>
-									<a href="https://github.com/nilomr/bioacoustics-practical" class="image
-									featured"><img src="images/tree.jpg" alt="" /></a>
-
-									<ul class="buttons">
-										<li><a href="https://github.com/nilomr/bioacoustics-practical"
-												class="button small">github/bioacoustics</a></li>
-									</ul>
-									<div class="textblock">
-										<zero-md src="text/software/intro_to_bioacoustics.md">
-											<template>
-												<link rel="stylesheet" href="assets/css/main.css">
-											</template>
-										</zero-md>
-									</div>
-								</section>
-								<!-- BIACOUSTICS PIPELINE ────────────────────────────────────────────────── -->
-								<section>
-									<a href="https://github.com/nilomr/pykanto-example" class="image
-									featured"><img src="images/pykantoapi.jpeg" alt="" /></a>
-
-									<ul class="buttons">
-										<li><a href="https://github.com/nilomr/pykanto-example"
-												class="button small">github/ac-pipeline</a></li>
-									</ul>
-									<div class="textblock">
-										<zero-md src="text/software/pykanto-example.md">
-											<template>
-												<link rel="stylesheet" href="assets/css/main.css">
-											</template>
-										</zero-md>
-									</div>
-								</section>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="arrow-container-dark">
-					<a data-scroll href="#film">
-						<div class="arrow-dark"></div>
-					</a>
-				</div>
-			</section>
-
-			<!-- FILM AND PHOTOGRAPHY ────────────────────────────────────────────────── -->
-
-			<section id="film">
-
-				<div class="inner">
-
-					<h2>Films</h2>
-					<hr />
-
-					<p>From 2012 to 2017 I worked on several film productions<br>
-						These are a few sample shots and theatrical trailers from that time<br>
-						<a href="https://www.imdb.com/name/nm4945222">IMDB</a>
-					</p>
-				</div>
-
-				<div class="image featured">
-					<video controls style="width: 90%; height: 100%;" poster="images/mona.jpg">
-						<source src="images/portfolio_lowres.mp4" type="video/mp4">
-						Your browser does not support the video tag.
-					</video>
-				</div>
-
-				<section style="width: 90%;" class="wrapper style1 container special">
-					<div class="row">
-						<div class="col-4 col-12-narrow">
-
-							<section>
-								<iframe style="width: 100%; height: 350px;"
-									src="https://www.youtube.com/embed/P1teZQpCQYI" title="Awaken" frameborder="0"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-									allowfullscreen></iframe>
-								<h3>Awaken</h3>
-								<span class="small">(Tom Lowe, 2016)</span>
-								<h1><b>Second Unit Director</b></h1>
-								<p>Documentary narrated by Liv Tyler. Ukraine, Belarus, Romania,
-									Mongolia, UK, Spain, Sweden, Norway, UAE</p>
-							</section>
-
-						</div>
-						<div class="col-4 col-12-narrow">
-
-							<section>
-
-								<iframe style="width: 100%; height: 350px;"
-									src="https://www.youtube.com/embed/lbTqdQbyisA" title="Voyage of Time"
-									frameborder="0"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-									allowfullscreen></iframe>
-								<h3>Voyage of Time</h3>
-								<span class="small">(Terrence Malick, 2016)</span>
-								<h1><b>Camera and Jib Operator</b></h1>
-								<p>Documentary narrated by Cate Blanchett and Brad
-									Pitt. US unit (California, Wyoming,
-									Montana)<br></p>
-							</section>
-
-						</div>
-						<div class="col-4 col-12-narrow">
-							<section>
-
-								<iframe style="width: 100%; height: 350px;"
-									src="https://www.youtube.com/embed/e-GYrbecb88" title="Timescapes" frameborder="0"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-									allowfullscreen></iframe>
-
-								<h3>TimeScapes</h3>
-								<span class="small">(Tom Lowe, 2012)</span>
-								<h1><b>Co-producer</b></h1>
-								<p> Non-narrative film portraying the Southwestern US
-									(Arizona, New Mexico, Utah,
-									California, Colorado)</p>
-
-							</section>
-						</div>
-					</div>
-
-				</section>
-				<section style="width: 90%;" class="wrapper style1 container special">
-					<div class="inner">
-
-						<h2>Photography</h2>
-
-					</div>
-
-					<div class="image featured">
-						<img src="images/mng1.png" alt="great tits
-						singing" style="width: 90%;">
-						<br>
-						<img src="images/mng2.png" alt="great tits
-							singing" style="width: 90%;"><br>
-						<img src="images/nevada.jpg" alt="great tits
-							singing" style="width: 90%;"><br>
-						<img src="images/lapwings.jpg" alt="great tits
-							singing" style="width: 90%;"><br>
-
-					</div>
-
-				</section>
-			</section>
-
-			<!-- ABOUT ME - BIO ──────────────────────────────────────────────────────── -->
-
-			<section id="about">
-				<div class="wrapper style3 container">
-
-					<header class="major">
-						<h2>About me</h2>
-					</header>
-
-					<div class="row gtr-150">
-						<div class="col-4 col-12-narrower">
-
-							<!-- Sidebar -->
-							<div class="sidebar">
-
-								<section>
-
-									<a href="#" class="image featured"><img src="images/nilo.jpg" alt="" />
-									</a>
-
-								</section>
-							</div>
-						</div>
-
-						<div class="col-8 col-12-narrower">
-
-							<!-- Content -->
-							<div class="content">
-
-								<ul class="icons">
-									<li><a href="https://github.com/nilomr"
-											class="icon brands circle fa-github"><span class="label">Github</span></a>
-									</li>
-									<li><a href="https://twitter.com/nilomr"
-											class="icon brands circle fa-twitter"><span class="label">Twitter</span></a>
-									</li>
-									<li><a href="https://github.com/nilomr"
-											class="icon brands circle fa-cv"><span>CV</span></a></li>
+								<ul class="buttons">
+									<li><a href="https://github.com/nilomr/pykanto"
+											class="button small">github/pykanto</a></li>
 								</ul>
 								<div class="textblock">
-									<zero-md src="text/about/bio.md">
+									<zero-md src="text/software/pykanto.md">
 										<template>
 											<link rel="stylesheet" href="assets/css/main.css">
 										</template>
 									</zero-md>
 								</div>
-								<hr />
+							</section>
+							<!-- DAWN CHORUS ─────────────────────────────────────────────────────────── -->
+							<section>
+								<a href="https://nilomr.github.io/DawnChorus/" class="image
+											featured"><img src="images/dawnchorus.gif" alt="" /></a>
 
+								<ul class="buttons">
+									<li><a href="https://nilomr.github.io/DawnChorus/"
+											class="button small">github/DawnChorus</a></li>
+								</ul>
+								<div class="textblock">
+									<zero-md src="text/software/dawnchorus.md">
+										<template>
+											<link rel="stylesheet" href="assets/css/main.css">
+										</template>
+									</zero-md>
+								</div>
+							</section>
 
+							<!-- WHYTHAM MAPS ────────────────────────────────────────────────────────── -->
+							<section>
+								<a href="https://github.com/nilomr/wytham-maps" class="image
+											featured"><img src="images/wytham_woods.jpg" alt="" /></a>
 
+								<ul class="buttons">
+									<li><a href="https://github.com/nilomr/wytham-maps"
+											class="button small">github/3D-maps</a></li>
+								</ul>
+								<div class="textblock">
+									<zero-md src="text/software/wytham-maps.md">
+										<template>
+											<link rel="stylesheet" href="assets/css/main.css">
+										</template>
+									</zero-md>
+								</div>
+							</section>
+						</div>
+					</div>
 
+					<div class="col-4 col-12-narrower">
 
-							</div>
+						<!-- Sidebar -->
+						<div class="sidebar">
+							<!-- FIELDTOOLS ──────────────────────────────────────────────────── -->
+							<section>
+								<a href="https://github.com/nilomr/fieldtools" class="image
+											featured"><img src="https://raw.githubusercontent.com/nilomr/fieldtools/master/fieldtools/src/fieldwork-helper.gif"
+										alt="" /></a>
+
+								<ul class="buttons">
+									<li><a href="https://github.com/nilomr/fieldtools"
+											class="button small">github/fieldtools</a></li>
+								</ul>
+								<div class="textblock">
+									<zero-md src="text/software/fieldtools.md">
+										<template>
+											<link rel="stylesheet" href="assets/css/main.css">
+										</template>
+									</zero-md>
+								</div>
+							</section>
+							<!-- INTRODUCTION TO BIOACOUSTICS ────────────────────────────────────────── -->
+							<section>
+								<a href="https://github.com/nilomr/bioacoustics-practical" class="image
+											featured"><img src="images/tree.jpg" alt="" /></a>
+
+								<ul class="buttons">
+									<li><a href="https://github.com/nilomr/bioacoustics-practical"
+											class="button small">github/bioacoustics</a></li>
+								</ul>
+								<div class="textblock">
+									<zero-md src="text/software/intro_to_bioacoustics.md">
+										<template>
+											<link rel="stylesheet" href="assets/css/main.css">
+										</template>
+									</zero-md>
+								</div>
+							</section>
+							<!-- BIACOUSTICS PIPELINE ────────────────────────────────────────────────── -->
+							<section>
+								<a href="https://github.com/nilomr/pykanto-example" class="image
+											featured"><img src="images/pykantoapi.jpeg" alt="" /></a>
+
+								<ul class="buttons">
+									<li><a href="https://github.com/nilomr/pykanto-example"
+											class="button small">github/ac-pipeline</a></li>
+								</ul>
+								<div class="textblock">
+									<zero-md src="text/software/pykanto-example.md">
+										<template>
+											<link rel="stylesheet" href="assets/css/main.css">
+										</template>
+									</zero-md>
+								</div>
+							</section>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="arrow-container-dark">
+				<a data-scroll href="#film">
+					<div class="arrow-dark"></div>
+				</a>
+			</div>
+		</section>
+
+		<!-- FILM AND PHOTOGRAPHY ────────────────────────────────────────────────── -->
+		<section id="film">
+
+			<div class="inner">
+
+				<h2>Films</h2>
+				<hr />
+
+				<p>From 2012 to 2017 I worked on several film productions<br>
+					These are a few sample shots and theatrical trailers from that time<br>
+					<a href="https://www.imdb.com/name/nm4945222">IMDB</a>
+				</p>
+			</div>
+
+			<div class="image featured">
+				<video controls style="width: 90%; height: 100%;" poster="images/mona.jpg">
+					<source src="images/portfolio_lowres.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+
+			<section style="width: 90%;" class="wrapper style1 container special">
+				<div class="row">
+					<div class="col-4 col-12-narrow">
+
+						<section>
+							<iframe style="width: 100%; height: 350px;" src="https://www.youtube.com/embed/P1teZQpCQYI"
+								title="Awaken" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+										gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<h3>Awaken</h3>
+							<span class="small">(Tom Lowe, 2016)</span>
+							<h1><b>Second Unit Director</b></h1>
+							<p>Documentary narrated by Liv Tyler. Ukraine, Belarus, Romania,
+								Mongolia, UK, Spain, Sweden, Norway, UAE</p>
+						</section>
+
+					</div>
+					<div class="col-4 col-12-narrow">
+
+						<section>
+
+							<iframe style="width: 100%; height: 350px;" src="https://www.youtube.com/embed/lbTqdQbyisA"
+								title="Voyage of Time" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+										gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<h3>Voyage of Time</h3>
+							<span class="small">(Terrence Malick, 2016)</span>
+							<h1><b>Camera and Jib Operator</b></h1>
+							<p>Documentary narrated by Cate Blanchett and Brad
+								Pitt. US unit (California, Wyoming,
+								Montana)<br></p>
+						</section>
+
+					</div>
+					<div class="col-4 col-12-narrow">
+						<section>
+
+							<iframe style="width: 100%; height: 350px;" src="https://www.youtube.com/embed/e-GYrbecb88"
+								title="Timescapes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+										gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+							<h3>TimeScapes</h3>
+							<span class="small">(Tom Lowe, 2012)</span>
+							<h1><b>Co-producer</b></h1>
+							<p> Non-narrative film portraying the Southwestern US
+								(Arizona, New Mexico, Utah,
+								California, Colorado)</p>
+
+						</section>
+					</div>
+				</div>
+
 			</section>
+			<div class="inner">
+
+				<h2>Photography</h2>
+
+			</div>
+
+			<section style="width: 90%;" class="wrapper style1 container special">
+				<div class="image featured">
+					<img src="images/mng1.png" alt="great tits
+								singing">
+				</div>
+				<div class="image featured">
+					<img src="images/KSP06883_2.jpg" alt="great tits
+								singing">
+				</div>
+				<div class="image featured">
+					<img src="images/mng2.png" alt="great tits
+								singing">
+				</div>
+				<div class="image featured">
+					<img src="images/DSCF4932.jpg" alt="great tits singing">
+				</div>
+				<div class="image featured">
+					<img src="images/nevada.jpg" alt="great tits singing">
+				</div>
 
 
-			<!-- Footer -->
-			<footer id="footer">
+	</div>
 
-				<ul class="copyright">
+	</section>
+	</section>
 
-					<li>Design: Nilo Merino Recalde + <a href="http://html5up.net" style="text-decoration: none;">HTML5
-							UP</a></li>
+	<!-- ABOUT ME - BIO ──────────────────────────────────────────────────────── -->
+	<section id="about">
+		<div class="wrapper style3 container">
 
-					<li>&copy; 2022</li>
-				</ul>
+			<header class="major">
+				<h2>About me</h2>
+			</header>
 
-			</footer>
+			<div class="row gtr-150">
+				<div class="col-4 col-12-narrower">
+
+					<!-- Sidebar -->
+					<div class="sidebar">
+
+						<section>
+
+							<a href="#" class="image featured"><img src="images/nilo.jpg" alt="" />
+							</a>
+
+
+							<ul class="icons">
+								<li><a href="https://github.com/nilomr"
+										class="icon brands circle fa-github"><span class="label">Github</span></a>
+								</li>
+								<li><a href="https://twitter.com/nilomr"
+										class="icon brands circle fa-twitter"><span class="label">Twitter</span></a>
+								</li>
+								<li><a href="https://github.com/nilomr"
+										class="icon brands circle fa-cv"><span>CV</span></a></li>
+							</ul>
+
+						</section>
+					</div>
+				</div>
+
+				<div class="col-8 col-12-narrower">
+
+					<!-- Content -->
+					<div class="content">
+
+						<div class="textblock">
+							<zero-md src="text/about/bio.md">
+								<template>
+									<link rel="stylesheet" href="assets/css/main.css">
+								</template>
+							</zero-md>
+						</div>
+						<hr />
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer id="footer">
+
+		<ul class="copyright">
+
+			<li>Design: Nilo Merino Recalde + <a href="http://html5up.net" style="text-decoration: none;">HTML5
+					UP</a></li>
+
+			<li>&copy; 2022</li>
+		</ul>
+
+	</footer>
 
 	</div>
 
 	<!-- Scripts -->
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="assets/js/scale.js"></script>
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.dropotron.min.js"></script>
 	<script src="assets/js/jquery.scrolly.min.js"></script>

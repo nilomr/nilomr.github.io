@@ -1,8 +1,9 @@
 #### CV (short)
+
 - Studied visual arts; BSc in Anthropology; PhD in Biology
 - Interested in animal communication and cultural evolution
 - Proficient in R, Python (+ HTML, CSS, LaTeX, Git, Bash ...)
-- Skilled in machine learning, Bayesian inference, and data visualisation
+- Skilled in deep learning, Bayesian inference, and data visualisation
 - Experienced in bioacoustics research, audio analysis, and signal processing
 - 5-year professional experience leading small teams as a cinematographer
 - Experience in teaching and mentoring, fieldwork, and scientific writing
