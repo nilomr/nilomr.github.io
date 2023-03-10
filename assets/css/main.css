@@ -2713,7 +2713,7 @@ button.small,
 
 /* SECTIONS ───────────────────────────────────────────────────────────────── */
 #banner {
-	background-image: url("../../images/noise.png"), url("../../images/lake.png");
+	background-image: url("../../images/noise.png"), url("../../images/lake.jpg");
 	background-attachment: scroll, fixed;
 	background-position: center;
 	background-repeat: repeat, no-repeat;
@@ -2959,7 +2959,7 @@ button.small,
 
 #about {
 	background-image: url("../../images/noise.png"),
-		url("../../images/lake.png");
+		url("../../images/lake.jpg");
 	background-attachment: scroll, fixed;
 	background-position: top center;
 	background-repeat: repeat, no-repeat;
