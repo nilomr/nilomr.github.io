@@ -2116,6 +2116,29 @@ ul.featured-icons li .icon {
 
 /* Buttons */
 
+
+/* menu buttons */
+
+
+#banner .inner a.btn {
+	letter-spacing: 0.1em;
+	margin: 0;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: 1;
+	color: inherit;
+	text-decoration: none;
+	text-align: center;
+}
+
+#banner .inner a.btn:hover {
+	font-weight: bolder;
+	font-size: 12.9pt;
+
+}
+
+/* other */
+
 ul.buttons {
 	cursor: default;
 	list-style: none;
@@ -2689,42 +2712,32 @@ button.small,
 }
 
 /* SECTIONS ───────────────────────────────────────────────────────────────── */
-
-
 #banner {
-	background-attachment: scroll, scroll, scroll, fixed;
-	background-color: #645862;
-	background-image: url("images/light-bl.svg"), url("images/light-br.svg"), url("images/overlay.png"), url("../../images/banner.jpg");
-	background-position: bottom left, bottom right, top left, top center;
-	background-repeat: no-repeat, no-repeat, repeat, no-repeat;
-	background-size: 25em, 25em, auto, cover;
+	background-image: url("../../images/noise.png"), url("../../images/lake.png");
+	background-attachment: scroll, fixed;
+	background-position: center;
+	background-repeat: repeat, no-repeat;
+	background-size: 300px, cover;
 	color: #fff;
 	cursor: default;
-	padding: 6em 0;
 	text-align: center;
+	padding: 6em 2em 6em 2em;
+	height: 100%;
 }
 
 #banner .inner {
-	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
-	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
-	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
-	animation: reveal-banner 1s 0.25s ease-in-out;
-	-moz-animation-fill-mode: forwards;
-	-webkit-animation-fill-mode: forwards;
-	-ms-animation-fill-mode: forwards;
-	animation-fill-mode: forwards;
-	background: rgba(52, 27, 43, 0.5);
-	color: #fff;
+	color: #414141;
 	display: inline-block;
-	opacity: 0;
-	padding: 3em;
+	opacity: 1;
+	padding: 2em 2em 2em 2em;
+	padding-bottom: 2em;
 	text-align: center;
 }
 
 #banner .inner header {
 	display: inline-block;
-	border-bottom: solid 2px;
-	border-top: solid 2px;
+	border-bottom: solid 1px;
+	border-top: solid 1px;
 	margin: 0 0 2em 0;
 	padding: 3px 0 3px 0;
 	text-align: center;
@@ -2906,12 +2919,14 @@ button.small,
 #film .inner p {
 	letter-spacing: 0.1em;
 	margin: 0;
+	text-align: center;
 }
 
 #film .inner p a {
 	color: inherit;
 	font-weight: 400;
 	text-decoration: none;
+	text-align: center;
 }
 
 #film .inner footer {
@@ -2920,10 +2935,10 @@ button.small,
 
 
 #film p {
-	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
-	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
-	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
-	animation: reveal-banner 1s 0.25s ease-in-out;
+	-moz-animation: reveal-banner 1s 0s ease-in-out;
+	-webkit-animation: reveal-banner 1s 0s ease-in-out;
+	-ms-animation: reveal-banner 1s 0s ease-in-out;
+	animation: reveal-banner 1s 0s ease-in-out;
 	-moz-animation-fill-mode: both;
 	-webkit-animation-fill-mode: both;
 	-ms-animation-fill-mode: both;
@@ -2931,10 +2946,10 @@ button.small,
 }
 
 #film .image.featured {
-	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
-	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
-	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
-	animation: reveal-banner 1s 0.25s ease-in-out;
+	-moz-animation: reveal-banner 1s 0s ease-in-out;
+	-webkit-animation: reveal-banner 1s 0s ease-in-out;
+	-ms-animation: reveal-banner 1s 0s ease-in-out;
+	animation: reveal-banner 1s 0s ease-in-out;
 	-moz-animation-fill-mode: both;
 	-webkit-animation-fill-mode: both;
 	-ms-animation-fill-mode: both;
@@ -3311,7 +3326,7 @@ body.index #main {
 	/* Section/Article */
 
 	section {
-		margin: 0em 0 1em 0;
+		margin: 0em 0 0em 0;
 	}
 
 	section:first-child {
