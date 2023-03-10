@@ -1919,8 +1919,9 @@ input[type="email"] {
 
 .image.featured {
 	display: block;
-	margin: 0 0 2em 0;
-
+	margin: 0 0 1em 0;
+	width: 100%;
+	text-align: center;
 }
 
 .image.featured img {
@@ -2864,7 +2865,15 @@ button.small,
 	background-size: 200px, cover;
 }
 
+#software .wrapper {
+	padding-bottom: 0em
+}
 
+
+#software section {
+	padding-bottom: 2.5em;
+
+}
 
 #film {
 	background-image: url("../../images/noise.png"),
@@ -2880,6 +2889,11 @@ button.small,
 	padding-right: 2em;
 	padding-left: 2em;
 	text-align: center;
+	margin-bottom: -1px;
+}
+
+#film p {
+	text-align: center !important;
 }
 
 #film .inner {
@@ -2931,29 +2945,6 @@ button.small,
 
 #film .inner footer {
 	margin: 2em 0 0 0;
-}
-
-
-#film p {
-	-moz-animation: reveal-banner 1s 0s ease-in-out;
-	-webkit-animation: reveal-banner 1s 0s ease-in-out;
-	-ms-animation: reveal-banner 1s 0s ease-in-out;
-	animation: reveal-banner 1s 0s ease-in-out;
-	-moz-animation-fill-mode: both;
-	-webkit-animation-fill-mode: both;
-	-ms-animation-fill-mode: both;
-	animation-fill-mode: both;
-}
-
-#film .image.featured {
-	-moz-animation: reveal-banner 1s 0s ease-in-out;
-	-webkit-animation: reveal-banner 1s 0s ease-in-out;
-	-ms-animation: reveal-banner 1s 0s ease-in-out;
-	animation: reveal-banner 1s 0s ease-in-out;
-	-moz-animation-fill-mode: both;
-	-webkit-animation-fill-mode: both;
-	-ms-animation-fill-mode: both;
-	animation-fill-mode: both;
 }
 
 
@@ -3253,10 +3244,6 @@ body.index #main {
 
 	.wrapper.special br {
 		display: none;
-	}
-
-	.wrapper.style1 {
-		padding: 0 2.5em;
 	}
 
 	.wrapper.style2 {
@@ -3627,10 +3614,51 @@ body.index #main {
 	}
 
 	p {
-		text-align: justify;
-		hyphens: auto;
+		text-align: left;
+		-ms-word-break: break-all;
+		-ms-word-wrap: break-all;
+		-webkit-word-break: break-word;
+		-webkit-word-wrap: break-word;
+		word-break: break-word;
 		word-wrap: break-word;
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		hyphens: auto;
 		line-height: 18pt;
+	}
+
+	.markdown-body h3 {
+		text-align: left !important;
+	}
+
+	.markdown-body li {
+		text-align: left !important;
+	}
+
+	.markdown-body p {
+		text-align: left !important;
+	}
+
+	.textblock.centered {
+		width: 100%;
+	}
+
+	#greti-song {
+		padding-left: 2em;
+		padding-right: 1.5em;
+	}
+
+	#greti-song .image.featured {
+		width: 130%,  !important;
+	}
+
+	.flex-container {
+		width: 100% !important;
+	}
+
+	#film {
+		padding-left: 0.5em;
+		padding-right: 0.5em;
 	}
 
 	#film p {
@@ -3725,17 +3753,18 @@ body.index #main {
 	}
 
 	.wrapper.style1 {
-		padding: 0 1.5em;
+		padding: 0 1em;
+		width: 100% !important;
 	}
 
-	.wrapper.style2 {
+	element.style .wrapper.style2 {
 		background-size: 10em;
 		padding: 2.25em 1.5em;
 	}
 
 	.wrapper.style4 {
 		background-size: 10em;
-		padding: 2.5em 1.5em 3em 1.5em;
+		padding: 2.5em 1.5em 2.5em 1.5em;
 	}
 
 	/* Banner */
@@ -4906,6 +4935,27 @@ horizontalLine {
 	}
 }
 
+@media (max-width: 736px) {
+	.image.animfeatured img {
+		transform: scale(1.5);
+		padding-top: 4em;
+		padding-bottom: 4em;
+	}
+
+	@keyframes scaleRotate {
+		0% {
+			transform: scale(1.6) rotate(0deg);
+		}
+
+		50% {
+			transform: scale(1.3) rotate(1deg);
+		}
+
+		100% {
+			transform: scale(1.6) rotate(0deg);
+		}
+	}
+}
 
 /* research special title */
 
@@ -4937,7 +4987,7 @@ s2 {
 
 @media (max-width: 736px) {
 	s1 {
-		font-size: 40pt;
+		font-size: 30pt;
 		line-height: 22pt;
 	}
 
@@ -4948,9 +4998,14 @@ s2 {
 	}
 
 	.research.title {
-		justify-content: center;
-		align-items: center;
-		text-align: center;
+		justify-content: left;
+		align-items: left;
+		text-align: left;
+		width: 100%;
+	}
+
+	.image-box .text-box-content s2, .image-box .text-box-content p {
+		text-align: left !important;
 	}
 
 }
@@ -5001,8 +5056,8 @@ datah1 {
 }
 
 .flex-container {
-	justify-content: center;
-	align-items: center;
+	justify-content: left;
+	align-items: left;
 	flex-wrap: wrap;
 	margin: 0 auto;
 	max-width: 80em;
@@ -5011,11 +5066,9 @@ datah1 {
 
 .textblocky {
 	flex: 1;
-	width: 60%;
 	float: left;
-	padding-right: 20px;
-	box-sizing: border-box;
-	padding-top: 0;
+	width: 60%;
+
 }
 
 .datacont {
@@ -5029,7 +5082,6 @@ datah1 {
 @media screen and (max-width: 1000px) {
 	.textblocky, .datacont {
 		width: 100%;
-		float: none;
 	}
 
 	.datacont {
@@ -5107,14 +5159,30 @@ maptitle {
 	vertical-align: right;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 736px) {
 	.image-box {
 		flex-direction: column;
-		max-width: 85%;
+		max-width: 100%;
 	}
 
 	.image-box img {
 		max-width: 100%;
 		height: auto;
 	}
+}
+
+.video-wrapper {
+	position: relative;
+	padding-bottom: 56.25%;
+	/* 16:9 aspect ratio */
+	height: 0;
+}
+
+.video-wrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-bottom: 1.5em;
 }
