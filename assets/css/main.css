@@ -2489,7 +2489,7 @@ button.small,
 }
 
 #header {
-	background: rgb(255 255 255 / 98%);
+	background: rgb(255 255 255 / 96%);
 	color: black;
 	cursor: default;
 	font-size: 0.8em;
@@ -2500,6 +2500,7 @@ button.small,
 	width: 100%;
 	z-index: 10000;
 }
+
 
 #header h1 {
 	font-weight: 900;
