@@ -2794,18 +2794,17 @@ button.small,
 }
 
 #greti-song .inner {
-	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
+	/* -moz-animation: reveal-banner 1s 0.25s ease-in-out;
 	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
 	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
 	animation: reveal-banner 1s 0.25s ease-in-out;
 	-moz-animation-fill-mode: both;
 	-webkit-animation-fill-mode: both;
 	-ms-animation-fill-mode: both;
-	animation-fill-mode: both;
+	animation-fill-mode: both; */
 	background: rgba(41, 41, 41, 0);
 	color: #fff;
 	display: inline-block;
-	opacity: 0;
 	padding: 3em;
 	text-align: center;
 }
@@ -2846,10 +2845,10 @@ button.small,
 
 
 #greti-song p {
-	-moz-animation: reveal-banner 1s 0.25s ease-in-out;
+	/* -moz-animation: reveal-banner 1s 0.25s ease-in-out;
 	-webkit-animation: reveal-banner 1s 0.25s ease-in-out;
 	-ms-animation: reveal-banner 1s 0.25s ease-in-out;
-	animation: reveal-banner 1s 0.25s ease-in-out;
+	animation: reveal-banner 1s 0.25s ease-in-out; */
 	-moz-animation-fill-mode: both;
 	-webkit-animation-fill-mode: both;
 	-ms-animation-fill-mode: both;
@@ -2988,7 +2987,6 @@ button.small,
 	text-decoration: none;
 }
 
-
 #about .wrapper.style3 {
 	background: rgba(255, 255, 255, 0.753);
 	color: inherit;
@@ -3002,6 +3000,18 @@ button.small,
 #about p {
 	color: #7c8081
 }
+
+#about .markdown-body ol, .markdown-body ul {
+	padding-left: 1.1em !important;
+	text-align: left;
+	line-height: 1;
+}
+
+#about .markdown-body li, .markdown-body li {
+	padding-bottom: .5em;
+}
+
+
 
 /* Main */
 
@@ -4918,21 +4928,21 @@ horizontalLine {
 	left: 0;
 	width: auto;
 	transform: scale(1);
-	animation: scaleRotate 13s ease-in-out infinite alternate;
+	animation: scaleRotate 17s ease-in-out infinite alternate;
 	object-fit: contain;
 }
 
 @keyframes scaleRotate {
 	0% {
-		transform: scale(1) rotate(0deg);
+		transform: scale(1.1) rotate(0deg);
 	}
 
 	50% {
-		transform: scale(0.95) rotate(1deg);
+		transform: scale(0.95) rotate(3deg);
 	}
 
 	100% {
-		transform: scale(1) rotate(0deg);
+		transform: scale(1.1) rotate(0deg);
 	}
 }
 
