@@ -1,7 +1,8 @@
 #### CV (short)
 
 - Studied visual arts; BSc in Anthropology; PhD in Biology
-- Interested in animal communication and cultural evolution
+- Interested in data design, open science, animal communication,
+  aesthetics, politics and culture
 - Proficient in R, Python (+ HTML, CSS, LaTeX, Git, Bash ...)
 - Skilled in deep learning, Bayesian inference, and data visualisation
 - Experienced in bioacoustics research, audio analysis, and signal processing
@@ -10,11 +11,13 @@
 
 #### Bio
 I was born in Northern Spain, where I completed a baccalaureate in visual arts
-and worked as a freelance nature photographer. I then transitioned to cinematography, where I specialized in time-lapse and slow-motion techniques. After this, I finished a bachelor of science in
-Anthropology (Durham University, UK), where I took part in projects using
-evolutionary theory to understand cultural diversity and became interested in
-animal culture and communication. I am now completing a PhD thesis on bird song
-learning and transmission at the University of Oxford ([profile](https://www.biology.ox.ac.uk/people/nilo-merino-recalde-0)). I have a wide range
-of interests that include animal communication and the evolution of languages,
-data visualisation, Bayesian inference, open science and research methodology, and the philosophy
-of science.
+and worked as a freelance nature photographer. I then worked in the
+film industry in a few different countries, where I specialized in time-lapse and slow-motion techniques. At
+some point my academic interests prevailed, and I moved to the UK to study a Bachelor of Science in
+Anthropology. I became interested in animal culture and communication, and
+completed a PhD in Biology at the University of Oxford
+([profile](https://www.biology.ox.ac.uk/people/nilo-merino-recalde-0)), where I
+now work as a postdoctoral researcher. I have a wide range of interests that
+include animal communication and the evolution of languages, data visualisation
+and visual art, applied machine learning and statistics, open science and research methodology, and the philosophy of
+science.
