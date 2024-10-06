@@ -2743,7 +2743,7 @@ h1 a {
 @supports (-webkit-touch-callout: none) {
 	#banner {
 		background-image: none;
-		background-color: #dddddd;
+		background-color: #ececec;
 	}
 }
 
@@ -2899,7 +2899,7 @@ h1 a {
 @supports (-webkit-touch-callout: none) {
 	#software {
 		background-image: none;
-		background-color: #dddddd;
+		background-color: #ececec;
 	}
 }
 
