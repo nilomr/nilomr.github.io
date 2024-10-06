@@ -2740,6 +2740,13 @@ h1 a {
 	height: 100%;
 }
 
+@supports (-webkit-touch-callout: none) {
+	#banner {
+		background-image: none;
+		background-color: #dddddd;
+	}
+}
+
 #banner .inner {
 	color: #414141;
 	display: inline-block;
@@ -2889,6 +2896,13 @@ h1 a {
 	background-size: 200px, cover;
 }
 
+@supports (-webkit-touch-callout: none) {
+	#software {
+		background-image: none;
+		background-color: #dddddd;
+	}
+}
+
 #software .wrapper {
 	padding-bottom: 0em
 }
@@ -2914,6 +2928,13 @@ h1 a {
 	padding-left: 2em;
 	text-align: center;
 	margin-bottom: -1px;
+}
+
+@supports (-webkit-touch-callout: none) {
+	#film {
+		background-image: none;
+		background-color: #1c1c1d;
+	}
 }
 
 #film p {
@@ -2984,6 +3005,15 @@ h1 a {
 	padding-right: 2em;
 	padding-left: 2em;
 }
+
+
+@supports (-webkit-touch-callout: none) {
+	#about {
+		background-image: none;
+		background-color:  rgb(255, 255, 255);
+	}
+}
+
 
 #about p a:link {
 	text-decoration: none;
