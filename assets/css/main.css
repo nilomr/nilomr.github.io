@@ -2515,6 +2515,13 @@ h1 a {
 	font-weight: 300;
 }
 
+#data-viz h2 {
+  /* centre */
+  	text-align: center;
+	color: #ffffff;
+	
+}
+
 #header nav {
 	letter-spacing: 0.075em;
 	position: absolute;
@@ -3184,6 +3191,10 @@ body.index #main {
 	.wrapper {
 		margin-bottom: 4em;
 		padding: 4em 3em;
+	}
+
+	#data-viz .wrapper {
+		margin-bottom: 0em;
 	}
 
 	.wrapper.style4 {
