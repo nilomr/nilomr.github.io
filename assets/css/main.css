@@ -2791,42 +2791,26 @@ h1 a {
 
 
 #greti-song {
-    position: relative;
-    color: #fff;
-    cursor: default;
-    padding-top: 6em;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-    text-align: center;
-    background-image: url("../../images/noise.png"), url("../../images/forest_background.jpg");
-    background-attachment: scroll, fixed;
-    background-position: top center;
-    background-repeat: repeat, no-repeat;
-    background-size: 200px, cover;
+	background-image: url("../../images/noise.png"),
+		url("../../images/forest_background.jpg");
+	background-attachment: scroll, fixed;
+	background-position: top center;
+	background-repeat: repeat, no-repeat;
+	background-size: 200px, cover;
+	color: #fff;
+	cursor: default;
+	padding-top: 6em;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	text-align: center;
 }
-
-@media only screen and (max-width: 1024px) {
-    #greti-song {
-        background: none;
-    }
-
-    #greti-song::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-image: url("../../images/noise.png"), url("../../images/forest_background.jpg");
-        background-attachment: scroll, fixed;
-        background-position: top center;
-        background-repeat: repeat, no-repeat;
-        background-size: 200px, cover;
-        z-index: -1;
-    }
+@supports (-webkit-touch-callout: none) {
+	#greti-song {
+		background-image: none;
+		background-color: #1c1c1d;
+	}
 }
-
 
 #greti-song .inner {
 	/* -moz-animation: reveal-banner 1s 0.25s ease-in-out;
