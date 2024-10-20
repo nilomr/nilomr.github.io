@@ -240,6 +240,30 @@
 				</div>
 				<img src="images/research-song/eumap_st.png" alt="An image">
 			</div>
+			<style>
+				.zoom-image {
+					transition: transform 0.2s ease-in-out;
+				}
+			</style>
+
+			<script>
+				document.addEventListener('scroll', function() {
+					const image = document.querySelector('.image-box img');
+					const rect = image.getBoundingClientRect();
+					const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+					const offset = rect.top + scrollTop;
+					const windowHeight = window.innerHeight;
+					const zoomFactor = 1 + (scrollTop - offset + windowHeight) / windowHeight * 0.2; // Reduced zoom factor
+					const panFactor = (scrollTop - offset + windowHeight) / windowHeight * 30;
+					const tiltFactor = (scrollTop - offset + windowHeight) / windowHeight * -30; // Added tilt factor
+
+					if (scrollTop > offset - windowHeight && scrollTop < offset + rect.height) {
+						image.style.transform = `scale(${zoomFactor}) translateX(${panFactor}px) translateY(${tiltFactor}px)`;
+					} else {
+						image.style.transform = 'scale(1) translateX(0) translateY(0)';
+					}
+				});
+			</script>
 
 			<hr style="height:5em; border-bottom: 0.5px solid rgba(214, 214, 214, 0.521); width:60%;
 			min-width: 200px" />

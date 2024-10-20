@@ -24,8 +24,8 @@ section, summary, time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	font-family: var(--primary, "SuisseIntl"), var(--fallbackFont, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif);
 }
-
 span.small {
 	/* reduce space above */
 
@@ -156,7 +156,7 @@ strong, b {
 
 p, ul, ol, dl, table, blockquote {
 	margin: 0 0 2em 0;
-	text-align: justify;
+	text-align: left;
 	hyphens: auto;
 	word-wrap: break-word;
 }
@@ -175,8 +175,10 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 
 h2 {
-	font-size: 1.5em;
-	letter-spacing: 0.1em;
+	font-size: 1.2em;
+	font-weight: 500;
+	text-transform: uppercase;
+	
 }
 
 h3 {
@@ -2207,28 +2209,18 @@ input[type="submit"],
 input[type="reset"],
 button,
 .button {
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	-ms-appearance: none;
-	appearance: none;
-	-moz-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-	-webkit-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-	-ms-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-	transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 	background: none;
-	border: solid 1px;
-	border-radius: 0;
+	border: none;
 	color: inherit;
 	cursor: pointer;
 	display: inline-block;
-	font-size: 0.8em;
+	font-size: 1em;
 	font-weight: 900;
-	letter-spacing: 2px;
-	min-width: 18em;
-	padding: 0 0.75em;
-	line-height: 3.75em;
+	padding: 0;
 	text-align: center;
 	text-decoration: none;
+	font-family: 'Courier New', Courier, monospace;
+	transition: filter 0.2s ease-in-out;
 }
 
 input[type="button"]:hover,
@@ -2236,51 +2228,7 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 button:hover,
 .button:hover {
-	background: rgba(188, 202, 206, 0.15);
-	border-color: inherit;
-}
-
-input[type="button"].primary,
-input[type="submit"].primary,
-input[type="reset"].primary,
-button.primary,
-.button.primary {
-	background: #83d3c9;
-	border-color: #83d3c9;
-	color: #fff !important;
-}
-
-input[type="button"].primary:hover,
-input[type="submit"].primary:hover,
-input[type="reset"].primary:hover,
-button.primary:hover,
-.button.primary:hover {
-	background: #96dad1 !important;
-	border-color: #96dad1 !important;
-}
-
-input[type="button"].fit,
-input[type="submit"].fit,
-input[type="reset"].fit,
-button.fit,
-.button.fit {
-	width: 100%;
-}
-
-input[type="button"].small,
-input[type="submit"].small,
-input[type="reset"].small,
-button.small,
-.button.small {
-	font-size: 0.7em;
-	min-width: 14em;
-	padding: 0em 0;
-}
-
-/* reduce padding around small button in code section */
-#software ul {
-	margin: 0 0 1em 0 !important;
-
+	filter: blur(2px);
 }
 
 /* Down arrow button */
@@ -2728,12 +2676,7 @@ h1 a {
 
 /* SECTIONS ───────────────────────────────────────────────────────────────── */
 #banner {
-	background-image: url("../../images/noise.png"), url("../../images/lake.jpg");
-	background-attachment: scroll, fixed;
-	background-position: center;
-	background-repeat: repeat, no-repeat;
-	background-size: 300px, cover;
-	color: #fff;
+	background-color: #fcfcfc;
 	cursor: default;
 	text-align: center;
 	padding: 6em 2em 6em 2em;
@@ -2743,7 +2686,7 @@ h1 a {
 @supports (-webkit-touch-callout: none) {
 	#banner {
 		background-image: none;
-		background-color: #ececec;
+		background-color: #fcfcfc;
 	}
 }
 
@@ -2798,13 +2741,8 @@ h1 a {
 
 
 #greti-song {
-	background-image: url("../../images/noise.png"),
-		url("../../images/forest_background.jpg");
-	background-attachment: scroll, fixed;
-	background-position: top center;
-	background-repeat: repeat, no-repeat;
-	background-size: 200px, cover;
-	color: #fff;
+	background-color: #1d1d1d;
+	color: #edededdf;
 	cursor: default;
 	padding-top: 6em;
 	padding-right: 0px;
@@ -5038,7 +4976,7 @@ horizontalLine {
 }
 
 s1 {
-	text-transform: uppercase;
+	text-transform: uppercase; 	
 	color: #e4e1de;
 	word-wrap: normal;
 	font-weight: 800;
@@ -5174,6 +5112,7 @@ datah1 {
 	margin: 0 auto;
 	box-sizing: border-box;
 	height: auto;
+	overflow: hidden;
 	max-width: 70%;
 }
 
@@ -5219,7 +5158,6 @@ maptitle {
 	text-align: left;
 	font-size: 12pt;
 	line-height: 1.4;
-	text-align: justify;
 }
 
 .image-box .text-box,
