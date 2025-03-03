@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
-	Twenty by HTML5 UP html5up.net | @ajlkn Free for personal and commercial use
-	under the CCA 3.0 license (html5up.net/license)
+	Derived by Nilo Merino Recalde from a site by @ajlkn 
+	Free for personal and commercial use under the CCA 3.0 license
 -->
 <html>
 
@@ -49,60 +49,64 @@
 <body class="index is-preload">
 	<div id="page-wrapper">
 
+		<section id="banner">
+			<div class="inner">
+				<h1 id="logo"><a href="index.html"><strong>nilo</strong>
+				<span>merino recalde</span></a></h1>
+				<p>
+					<a class="btn" href="#greti-song">research</a>,		
+					<a class="btn" href="#data-viz">data visualization</a>,
+					<a class="btn" href="#software">software</a>,
+					<a class="btn" href="#film">film & photo</a>
+				</p>
+			</div>
+		</section>
 
 		<!-- HEADER ──────────────────────────────────────────────────────────────── -->
 		<header id="header">
-			<h1 id="logo"><a href="index.html">nilo <span>merino
-						recalde</span></a></h1>
-			<nav id="nav">
-				<ul>
-
-					<li class="current"><a href="index.html">home</a></li>
-					<li><a href="#greti-song">research</a></li>
-					<!-- <li class="submenu">
-						<a href="#">research</a>
-						<ul>
-							<li><a href="#greti-song">bird song</a></li>
-						</ul>
-					</li> -->
-					<li><a href="#data-viz">data viz</a></li>
-
-					<li><a href="#software">software</a></li>
-
-					<li><a href="#film">film & photo</a></li>
-
-					<li><a href="#about">about</a></li>
-
-				</ul>
-			</nav>
-		</header>
-
-		<section id="banner">
-
-			<!--
-				".inner" is set up as an inline-block so it automatically expands
-				in both directions to fit whatever's inside it. This means it won't
-				automatically wrap lines, so be sure to use line breaks where
-				appropriate (<br />).
-			-->
-			<div class="inner">
-
-				<header>
-					<h1>nilo merino recalde</h1>
-				</header>
-				<p><b>Portfolio & Résumé</b>
-				</p>
-				<p>
-					<a class="btn" href="#greti-song">research</a> ·
-					<a class="btn" href="#data-viz">data viz</a> ·
-					<a class="btn" href="#software">software</a> ·
-					<a class="btn" href="#film">film & photo</a> ·
-					<a class="btn" href="#about">about</a>
-				</p>
-
+			<div class="header-content">
+				<h1 id="logo"><strong>nilo</strong> <span>merino recalde</span></h1>
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="#banner">home</a></li>
+						<li><a href="#greti-song">research</a></li>
+						<li><a href="#data-viz">data viz</a></li>
+						<li><a href="#software">software</a></li>
+						<li><a href="#film">film & photo</a></li>
+						<li><a href="#about">about</a></li>
+					</ul>
+				</nav>
+				<script>
+					document.addEventListener('DOMContentLoaded', function () {
+						const navLinks = document.querySelectorAll('#nav a');
+						navLinks.forEach(link => {
+							link.addEventListener('click', function (event) {
+								// Only prevent default if the link is not an anchor link
+								if (!this.getAttribute('href').startsWith('#')) {
+									event.preventDefault();
+								}
+								// Remove the bold class from all links
+								navLinks.forEach(link => link.classList.remove('bold'));
+								// Add the bold class to the clicked link
+								this.classList.add('bold');
+							});
+						});
+					});
+				</script>
 			</div>
+		</header>
+		<script>
+			window.addEventListener('scroll', function () {
+				var header = document.getElementById('header');
+				var bannerHeight = document.getElementById('banner').offsetHeight;
 
-		</section>
+				if (window.scrollY > bannerHeight) {
+					header.classList.add('show');
+				} else {
+					header.classList.remove('show');
+				}
+			}, { passive: true });
+		</script>
 
 		<!-- MAIN ────────────────────────────────────────────────────────────────── -->
 
@@ -110,7 +114,7 @@
 		<!-- GREAT TIT SONG ──────────────────────────────────────────────────────── -->
 		<section id="greti-song">
 			<div class="inner">
-				<p>Research projects</p>
+				<p>Research rojects</p>
 				<div class="arrow-container">
 					<a data-scroll>
 						<div class="arrow"></div>
@@ -247,7 +251,7 @@
 			</style>
 
 			<script>
-				document.addEventListener('scroll', function() {
+				document.addEventListener('scroll', function () {
 					const image = document.querySelector('.image-box img');
 					const rect = image.getBoundingClientRect();
 					const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -287,10 +291,10 @@
 		<section id="data-viz">
 			<div class="wrapper style4 container">
 				<header class="major">
-					<h2>DATA VISUALIZATION</h2>
+					<h2>Data Visualization</h2>
 					<a style="color: white; text-align: center; display:
 					block;">
-						· PORTFOLIO ·
+						- portfolio - 
 					</a>
 				</header>
 				<div style="position: relative; width: 100%; height: 800px; overflow: hidden;">
@@ -335,8 +339,7 @@
 											featured"><img src="images/web_pykantoapp.png" alt="" /></a>
 
 								<ul class="buttons">
-									<li><a href="https://github.com/nilomr/pykanto"
-											class="button small">github/pykanto</a>
+									<li><a href="https://github.com/nilomr/pykanto" class="button">github/pykanto</a>
 									</li>
 								</ul>
 								<div class="textblock">
@@ -354,7 +357,7 @@
 
 								<ul class="buttons">
 									<li><a href="https://nilomr.github.io/DawnChorus/"
-											class="button small">github/DawnChorus</a></li>
+											class="button">github/DawnChorus</a></li>
 								</ul>
 								<div class="textblock">
 									<zero-md src="text/software/dawnchorus.md">
@@ -372,7 +375,7 @@
 
 								<ul class="buttons">
 									<li><a href="https://github.com/nilomr/wytham-maps"
-											class="button small">github/3D-maps</a></li>
+											class="button">github/3D-maps</a></li>
 								</ul>
 								<div class="textblock">
 									<zero-md src="text/software/wytham-maps.md">
@@ -397,7 +400,7 @@
 
 								<ul class="buttons">
 									<li><a href="https://github.com/nilomr/fieldtools"
-											class="button small">github/fieldtools</a></li>
+											class="button">github/fieldtools</a></li>
 								</ul>
 								<div class="textblock">
 									<zero-md src="text/software/fieldtools.md">
@@ -414,7 +417,7 @@
 
 								<ul class="buttons">
 									<li><a href="https://github.com/nilomr/bioacoustics-practical"
-											class="button small">github/bioacoustics</a></li>
+											class="button">github/bioacoustics</a></li>
 								</ul>
 								<div class="textblock">
 									<zero-md src="text/software/intro_to_bioacoustics.md">
@@ -431,7 +434,7 @@
 
 								<ul class="buttons">
 									<li><a href="https://github.com/nilomr/pykanto-example"
-											class="button small">github/ac-pipeline</a></li>
+											class="button">github/ac-pipeline</a></li>
 								</ul>
 								<div class="textblock">
 									<zero-md src="text/software/pykanto-example.md">
@@ -457,18 +460,19 @@
 
 			<div class="inner">
 
-				<h2>Films</h2>
+				<h2>Film</h2>
 				<hr />
 
-				<p>From 2012 to 2017 I worked as a cinematographer<br>
-					These are a few sample shots and theatrical trailers from that time<br>
+				<p>From 2012 to 2017 I worked as a cinematographer.<br>
+					These are a few sample shots and theatrical trailers from that time.<br>
 					<a href="https://www.imdb.com/name/nm4945222">IMDB</a>
 				</p>
 			</div>
 
 			<section style="width: 100%;" class="wrapper style1 container special">
 				<div class="image featured">
-					<video controls style="width: 100%; height: 100%;" poster="images/mona.jpg">
+					<video controls loop playsinline preload='none' style="width: 100%; height: 100%;"
+					poster="images/mona.jpg">
 						<source src="images/portfolio_lowres.mp4" type="video/mp4">
 						Your browser does not support the video tag.
 					</video>
@@ -567,10 +571,9 @@
 
 	<!-- ABOUT ME - BIO ──────────────────────────────────────────────────────── -->
 	<section id="about">
-		<div class="wrapper style3 container">
 
 			<header class="major">
-				<h2>About me</h2>
+				<h2>About Me</h2>
 			</header>
 
 			<div class="row gtr-150">
@@ -591,7 +594,7 @@
 								<li><a href="https://twitter.com/nilomr" class="icon brands circle fa-twitter"><span
 											class="label">Twitter</span></a>
 								</li>
-								<li><a href="images/docs/NiloShortCV_2022.pdf" target="_blank" rel="noopener noreferrer"
+								<li><a href="images/docs/nilo_cv.pdf" target="_blank" rel="noopener noreferrer"
 										class="icon brands circle fa-cv"><span>CV</span></a></li>
 							</ul>
 
@@ -617,7 +620,6 @@
 					<a>email at <b>nilo.recalde@biology.ox.ac.uk</b></a>
 				</div>
 			</div>
-		</div>
 	</section>
 
 
@@ -625,11 +627,7 @@
 	<footer id="footer">
 
 		<ul class="copyright">
-
-			<li>Design: Nilo Merino Recalde + <a href="http://html5up.net" style="text-decoration: none;">HTML5
-					UP</a></li>
-
-			<li>&copy; 2022</li>
+			<li>Nilo Merino Recalde &copy; 2024</li>
 		</ul>
 
 	</footer>
