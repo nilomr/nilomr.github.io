@@ -1,17 +1,17 @@
 #### CV
 
-- Studied visual arts; BSc in Anthropology; PhD in Biology
 - Currently: postdoc researcher at the University of Oxford
-- Enthusiastic about data visualization design, open science, animal communication, aesthetics
-  and cultural diversity
-- Proficient in R, Python, HTML, CSS, LaTeX, Git, Bash, and so on
-- Experience with Bayesian statistics, machine learning, signal
-  processing, large datasets, and reproducible research
-- I have a background in visual arts, graphic and web design, and data
-  visualization, as well as professional experience leading small teams as a cinematographer
-- I enjoy teaching and mentoring, and I have experience in both
-  academic and non-academic settings
+- PhD in Biology, BSc in Anthropology, background in visual arts
+- Proficient in Python, R, HTML, CSS, LaTeX, Git, Bash, 
+- Experience with Bayesian statistics, machine learning, signal processing,
+  large multimedia datasets, and reproducible research
+- Data visualization expertise with Svelte, D3.js, JavaScript and TypeScript and
+  tools like Blender, QGIS, Adobe Suite, Figma. I also have experience doing
+  color correction, video editing, and motion graphics.
+- Professional experience leading small teams as a cinematographer
+- Enthusiastic about data visualization design, open data and software, visual art and cultural diversity
+- Enjoy teaching and mentoring, with experience in both academic and non-academic settings
 
 #### Bio
 
-Born in Northern Spain, I began my journey with a baccalaureate in visual arts and worked as a freelance nature photographer. My career then took me to the film industry, where I specialized in time-lapse and slow-motion techniques. Eventually, my academic passions took precedence, leading me to the UK to pursue a Bachelor of Science in Anthropology. My fascination with animal culture and communication culminated in a PhD in Biology at the University of Oxford, where I now work as a postdoctoral researcher ([profile](https://www.biology.ox.ac.uk/people/nilo-merino-recalde-0)). My interests span a wide range, including animal communication and the evolution of languages, data visualization and visual art, applied machine learning and statistics, open science and research methodology, and the philosophy of science.
+I'm from Northern Spain and started my career as a freelance nature photographer after completing a visual arts baccalaureate. I later worked in the film industry, specializing in time-lapse and slow-motion techniques. Following my academic interests, I earned a Bachelor's in Anthropology and a PhD in Biology at Oxford University. Currently, I'm a postdoctoral researcher at Oxford ([profile](https://www.biology.ox.ac.uk/people/nilo-merino-recalde-0)) working across data science, ecology, and data visualization. My research interests include animal communication, language evolution, data visualization, machine learning, statistics, open science, and philosophy of science.
