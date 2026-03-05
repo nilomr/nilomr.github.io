@@ -33,7 +33,7 @@
 	async function cycleRoles(el) {
 		let idx = 0;
 		while (true) {
-			await new Promise((r) => setTimeout(r, 3000));
+			await new Promise((r) => setTimeout(r, 2000));
 			idx = (idx + 1) % roles.length;
 			await scrambleText(el, roles[idx], 600);
 		}
@@ -48,7 +48,7 @@
 		const textEls = [...section.querySelectorAll('.h-text')];
 		const footer = section.querySelector('.h-footer');
 		const scrollLabel = section.querySelector('.scroll-label');
-		const scrollLine = section.querySelector('.scroll-track');
+		const scrollArrow = section.querySelector('.scroll-arrow');
 		const roleSpan = section.querySelector('.h-role');
 
 		// Store final texts, blank them out
@@ -59,7 +59,7 @@
 		gsap.set(rows, { opacity: 0, y: 24 });
 		gsap.set(footer, { opacity: 0, y: 12 });
 		gsap.set(scrollLabel, { opacity: 0 });
-		gsap.set(scrollLine, { scaleY: 0, transformOrigin: 'top' });
+		gsap.set(scrollArrow, { opacity: 0 });
 
 		// Main reveal sequence
 		const tl = gsap.timeline({ delay: 0.3 });
@@ -74,7 +74,7 @@
 					duration: 0.5,
 					ease: 'power3.out',
 					onStart: () => {
-						scrambleText(textEls[i], finalTexts[i], 700);
+						scrambleText(textEls[i], finalTexts[i], 900);
 					},
 				},
 				i * 0.18
@@ -95,11 +95,11 @@
 
 		// Scroll indicator
 		tl.to(scrollLabel, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 1.0);
-		tl.to(scrollLine, { scaleY: 1, duration: 0.8, ease: 'power2.out' }, 1.0);
+		tl.to(scrollArrow, { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.0);
 
 		// Start role cycling
 		if (roleSpan) {
-			setTimeout(() => cycleRoles(roleSpan), 3000);
+			setTimeout(() => cycleRoles(roleSpan), 0);
 		}
 
 		// Magnetic hover on rows
@@ -185,7 +185,7 @@
 
 	<div class="scroll-hint">
 		<span class="scroll-label">Scroll</span>
-		<div class="scroll-track"></div>
+		<div class="scroll-arrow">↓</div>
 	</div>
 </section>
 
@@ -299,7 +299,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.6rem;
+		gap: 0.2rem;
 	}
 
 	.scroll-label {
@@ -310,23 +310,27 @@
 		color: #a09a94;
 	}
 
-	.scroll-track {
-		width: 1px;
-		height: 40px;
-		background: linear-gradient(to bottom, #b0aba5, transparent);
-		animation: scrollPulse 2.4s ease-in-out infinite;
+	.scroll-arrow {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.8rem;
+		color: #b0aba5;
+		animation: scrollBounce 2.4s ease-in-out infinite;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 0.5rem;
+		letter-spacing: 0.1em;
 	}
 
-	@keyframes scrollPulse {
+	@keyframes scrollBounce {
 		0%,
 		100% {
 			opacity: 0.3;
-			transform: scaleY(0.4);
-			transform-origin: top;
+			transform: translateY(0);
 		}
 		50% {
 			opacity: 0.9;
-			transform: scaleY(1);
+			transform: translateY(8px);
 		}
 	}
 
