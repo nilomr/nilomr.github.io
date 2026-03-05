@@ -1,1 +1,0 @@
-A trio of command-line applications that can be used to copy large volumes of data from many SD memory cards at once, format and rename multiple memory cards, and plan the deployment of sound recorders in the field. [Python + Bash]
