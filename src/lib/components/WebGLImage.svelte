@@ -89,6 +89,13 @@
 			texture.minFilter = THREE.LinearFilter;
 			texture.magFilter = THREE.LinearFilter;
 			uniforms.uTexture.value = texture;
+
+			// Set container width based on image aspect ratio and current height
+			const imageAspect = texture.image.width / texture.image.height;
+			const height = container.getBoundingClientRect().height;
+			if (height > 0) {
+				container.style.width = `${height * imageAspect}px`;
+			}
 		});
 
 		function resize() {
@@ -188,9 +195,9 @@
 <style>
 	.webgl-image {
 		position: relative;
-		width: 100%;
 		height: 100%;
 		overflow: hidden;
 		background: #e8e5e0;
+		flex-shrink: 0;
 	}
 </style>
