@@ -47,19 +47,16 @@
 		const rows = section.querySelectorAll('.h-row');
 		const textEls = [...section.querySelectorAll('.h-text')];
 		const footer = section.querySelector('.h-footer');
-		const scrollLabel = section.querySelector('.scroll-label');
-		const scrollArrow = section.querySelector('.scroll-arrow');
+		const scrollHint = section.querySelector('.scroll-hint');
 		const roleSpan = section.querySelector('.h-role');
 
 		// Store final texts, blank them out
 		const finalTexts = textEls.map((el) => el.textContent);
 		textEls.forEach((el) => (el.textContent = ''));
 
-		// Set initial states
-		gsap.set(rows, { opacity: 0, y: 24 });
-		gsap.set(footer, { opacity: 0, y: 12 });
-		gsap.set(scrollLabel, { opacity: 0 });
-		gsap.set(scrollArrow, { opacity: 0 });
+		// Nudge rows and footer down for the slide-up reveal (opacity already 0 in CSS)
+		gsap.set(rows, { y: 24 });
+		gsap.set(footer, { y: 12 });
 
 		// Main reveal sequence
 		const tl = gsap.timeline({ delay: 0.3 });
@@ -94,8 +91,7 @@
 		);
 
 		// Scroll indicator
-		tl.to(scrollLabel, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 1.0);
-		tl.to(scrollArrow, { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.0);
+		tl.to(scrollHint, { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.0);
 
 		// Start role cycling
 		if (roleSpan) {
@@ -139,7 +135,7 @@
 		});
 
 		// Fade out scroll hint on scroll
-		gsap.to(section.querySelector('.scroll-hint'), {
+		gsap.to(scrollHint, {
 			opacity: 0,
 			y: 20,
 			scrollTrigger: {
@@ -219,6 +215,7 @@
 		border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 		cursor: default;
 		transition: background 0.3s ease;
+		opacity: 0;
 	}
 
 	.h-row:first-child {
@@ -254,6 +251,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.35rem;
+		opacity: 0;
 	}
 
 	.h-id {
@@ -290,7 +288,7 @@
 		margin: 0;
 	}
 
-	/* Scroll indicator — bottom center, text + line */
+	/* Scroll indicator — bottom center, text + arrow */
 	.scroll-hint {
 		position: absolute;
 		bottom: 2.5rem;
@@ -300,6 +298,7 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 0.2rem;
+		opacity: 0;
 	}
 
 	.scroll-label {
