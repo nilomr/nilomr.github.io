@@ -150,7 +150,7 @@
 		overflow: hidden;
 		border-radius: 3px;
 		height: 68vh;
-		width: 52vw;
+		flex-shrink: 0;
 	}
 
 	.g-meta {
