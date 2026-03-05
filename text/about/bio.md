@@ -1,6 +1,6 @@
 #### CV
 
-- Currently: postdoc researcher at the University of Oxford
+- Currently: Senior Conservation Scientist at the RSPB, visiting researcher at the University of Oxford
 - PhD in Biology, BSc in Anthropology, background in visual arts
 - Proficient in Python, R, HTML, CSS, LaTeX, Git, Bash, 
 - Experience with Bayesian statistics, machine learning, signal processing,
