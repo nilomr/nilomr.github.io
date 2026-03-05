@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 
 	let section = $state(null);
-	let roleEl = $state(null);
 
 	const roles = ['Researcher', 'Developer', 'Filmmaker', 'Designer'];
 	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
@@ -45,90 +44,74 @@
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
 
-		const lines = section.querySelectorAll('.h-row');
-		const indices = section.querySelectorAll('.h-idx');
-		const texts = section.querySelectorAll('.h-text');
+		const rows = section.querySelectorAll('.h-row');
+		const textEls = [...section.querySelectorAll('.h-text')];
 		const footer = section.querySelector('.h-footer');
-		const hint = section.querySelector('.scroll-hint');
+		const scrollLabel = section.querySelector('.scroll-label');
+		const scrollLine = section.querySelector('.scroll-track');
 		const roleSpan = section.querySelector('.h-role');
 
-		// Initial scramble reveal for each line
-		const textEls = [...texts];
+		// Store final texts, blank them out
 		const finalTexts = textEls.map((el) => el.textContent);
-		textEls.forEach((el) => {
-			el.textContent = '';
+		textEls.forEach((el) => (el.textContent = ''));
+
+		// Set initial states
+		gsap.set(rows, { opacity: 0, y: 24 });
+		gsap.set(footer, { opacity: 0, y: 12 });
+		gsap.set(scrollLabel, { opacity: 0 });
+		gsap.set(scrollLine, { scaleY: 0, transformOrigin: 'top' });
+
+		// Main reveal sequence
+		const tl = gsap.timeline({ delay: 0.3 });
+
+		// Rows appear one by one — scramble starts as each row fades in
+		rows.forEach((row, i) => {
+			tl.to(
+				row,
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.5,
+					ease: 'power3.out',
+					onStart: () => {
+						scrambleText(textEls[i], finalTexts[i], 700);
+					},
+				},
+				i * 0.18
+			);
 		});
-
-		const tl = gsap.timeline({ delay: 0.4 });
-
-		// Stagger row reveals
-		tl.from(lines, {
-			opacity: 0,
-			y: 20,
-			stagger: 0.15,
-			duration: 0.01,
-			ease: 'none',
-			onStart: () => {
-				// Trigger scramble for each line with stagger
-				textEls.forEach((el, i) => {
-					setTimeout(() => {
-						scrambleText(el, finalTexts[i], 700 + i * 100);
-					}, i * 150);
-				});
-			},
-		});
-
-		// Indices fade in
-		tl.from(
-			indices,
-			{
-				opacity: 0,
-				x: -8,
-				stagger: 0.1,
-				duration: 0.5,
-				ease: 'power2.out',
-			},
-			0.1
-		);
 
 		// Footer
-		tl.from(
+		tl.to(
 			footer,
 			{
-				opacity: 0,
-				y: 10,
-				duration: 0.8,
+				opacity: 1,
+				y: 0,
+				duration: 0.7,
 				ease: 'power3.out',
 			},
-			0.6
+			0.7
 		);
 
-		// Scroll hint
-		tl.from(
-			hint,
-			{
-				opacity: 0,
-				duration: 1,
-				ease: 'power2.out',
-			},
-			0.8
-		);
+		// Scroll indicator
+		tl.to(scrollLabel, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 1.0);
+		tl.to(scrollLine, { scaleY: 1, duration: 0.8, ease: 'power2.out' }, 1.0);
 
-		// Start role cycling after initial reveal
+		// Start role cycling
 		if (roleSpan) {
-			setTimeout(() => cycleRoles(roleSpan), 2500);
+			setTimeout(() => cycleRoles(roleSpan), 3000);
 		}
 
 		// Magnetic hover on rows
-		lines.forEach((row) => {
+		rows.forEach((row) => {
 			const text = row.querySelector('.h-text');
 			row.addEventListener('mousemove', (e) => {
 				const rect = row.getBoundingClientRect();
 				const x = e.clientX - rect.left - rect.width / 2;
 				const y = e.clientY - rect.top - rect.height / 2;
 				gsap.to(text, {
-					x: x * 0.06,
-					y: y * 0.15,
+					x: x * 0.05,
+					y: y * 0.12,
 					duration: 0.4,
 					ease: 'power2.out',
 				});
@@ -143,7 +126,7 @@
 			});
 		});
 
-		// Parallax on scroll
+		// Parallax content on scroll (not the scroll hint)
 		gsap.to(section.querySelector('.h-content'), {
 			y: -100,
 			opacity: 0.2,
@@ -152,6 +135,18 @@
 				start: 'top top',
 				end: 'bottom top',
 				scrub: 0.6,
+			},
+		});
+
+		// Fade out scroll hint on scroll
+		gsap.to(section.querySelector('.scroll-hint'), {
+			opacity: 0,
+			y: 20,
+			scrollTrigger: {
+				trigger: section,
+				start: 'top top',
+				end: '15% top',
+				scrub: true,
 			},
 		});
 	});
@@ -182,14 +177,15 @@
 			<div class="h-id">
 				<span class="h-name">Nilo Merino Recalde</span>
 				<span class="h-sep">/</span>
-				<span class="h-role" bind:this={roleEl}>{roles[0]}</span>
+				<span class="h-role">{roles[0]}</span>
 			</div>
 			<p class="h-location">Oxford & Barcelona</p>
 		</div>
 	</div>
 
 	<div class="scroll-hint">
-		<div class="scroll-line"></div>
+		<span class="scroll-label">Scroll</span>
+		<div class="scroll-track"></div>
 	</div>
 </section>
 
@@ -213,14 +209,13 @@
 	.h-lines {
 		display: flex;
 		flex-direction: column;
-		gap: 0;
 	}
 
 	.h-row {
 		display: flex;
 		align-items: baseline;
 		gap: clamp(1rem, 2vw, 2rem);
-		padding: clamp(0.6rem, 1.2vh, 1rem) 0;
+		padding: clamp(0.7rem, 1.4vh, 1.1rem) 0;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 		cursor: default;
 		transition: background 0.3s ease;
@@ -295,30 +290,42 @@
 		margin: 0;
 	}
 
+	/* Scroll indicator — bottom center, text + line */
 	.scroll-hint {
 		position: absolute;
 		bottom: 2.5rem;
-		right: clamp(2rem, 8vw, 8rem);
+		left: 50%;
+		transform: translateX(-50%);
 		display: flex;
+		flex-direction: column;
 		align-items: center;
+		gap: 0.6rem;
 	}
 
-	.scroll-line {
+	.scroll-label {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: #a09a94;
+	}
+
+	.scroll-track {
 		width: 1px;
-		height: 48px;
-		background: linear-gradient(to bottom, #c0bdb8, transparent);
-		animation: scrollPulse 2.2s ease-in-out infinite;
+		height: 40px;
+		background: linear-gradient(to bottom, #b0aba5, transparent);
+		animation: scrollPulse 2.4s ease-in-out infinite;
 	}
 
 	@keyframes scrollPulse {
 		0%,
 		100% {
-			opacity: 0.25;
-			transform: scaleY(0.5);
+			opacity: 0.3;
+			transform: scaleY(0.4);
 			transform-origin: top;
 		}
 		50% {
-			opacity: 0.8;
+			opacity: 0.9;
 			transform: scaleY(1);
 		}
 	}
