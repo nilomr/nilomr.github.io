@@ -37,11 +37,11 @@
 		camera.position.z = 3.5;
 
 		// Lighting
-		const ambient = new THREE.AmbientLight(0xfff1de, 0.08);
+		const ambient = new THREE.AmbientLight(0xfff1de, 0.05);
 		scene.add(ambient);
 
 		const keyLight = new THREE.DirectionalLight(0xffe5c8, 6.8);
-		keyLight.position.set(4.2, 5.8, -1.2);
+		keyLight.position.set(4.2, 7.8, -2);
 		keyLight.castShadow = true;
 		keyLight.shadow.mapSize.set(isMobile ? 1024 : 2048, isMobile ? 1024 : 2048);
 		keyLight.shadow.camera.near = 0.5;
@@ -54,8 +54,8 @@
 		keyLight.shadow.normalBias = 0.03;
 		scene.add(keyLight);
 
-		const rimLight = new THREE.DirectionalLight(0xc8dcff, 1);
-		rimLight.position.set(-4.5, 2.4, -5.2);
+		const rimLight = new THREE.DirectionalLight(0x407ce3, 3);
+		rimLight.position.set(-4.5, 2.4, -3.2);
 		scene.add(rimLight);
 
 		// Pivot group for rotation
@@ -697,7 +697,7 @@
 					const screenTop = projectToScreen(dimDef.top, cw, ch);
 					const screenBot = projectToScreen(dimDef.bottom, cw, ch);
 
-					const dimOffset = -56;
+					const dimOffset = -86;
 					const dx = Math.min(screenTop.x, screenBot.x) + dimOffset;
 					const tickLen = 8;
 
@@ -721,7 +721,7 @@
 					const midY = (screenTop.y + screenBot.y) / 2;
 					dimLabel.style.opacity = dimFadeIn;
 					dimLabel.textContent = '18.9 cm';
-					dimLabel.style.transform = `translate(${dx - 6}px, ${midY}px) translate(-100%, -50%) rotate(-90deg)`;
+					dimLabel.style.transform = `translate(${dx }px, ${midY}px) translate(-100%, -50%) rotate(-90deg)`;
 				}
 			}
 
