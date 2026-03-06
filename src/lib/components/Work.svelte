@@ -2,41 +2,27 @@
 	import { onMount } from "svelte";
 
 	const credits = [
-		{
-			project: "Cultural evolution of bird song",
-			role: "Researcher",
-			org: "University of Oxford",
-			period: "2020–present",
-			href: null,
-		},
-		{
-			project: "pykanto",
-			role: "Creator",
-			org: "Open source",
-			period: "2023",
-			href: "https://github.com/nilomr/pykanto",
-		},
-		{
-			project: "sedum.studio",
-			role: "Founder",
-			org: "Data viz & consulting",
-			period: "2024",
-			href: "https://www.sedum.studio",
-		},
-		{
-			project: "Voyage of Time",
-			role: "Cinematographer",
-			org: "Terrence Malick",
-			period: "2016",
-			href: "https://www.imdb.com/name/nm4945222",
-		},
-		{
-			project: "Awaken",
-			role: "Camera",
-			org: "Tom Lowe",
-			period: "2018",
-			href: "https://www.imdb.com/name/nm4945222",
-		},
+    {
+        project: "sedum.studio",
+        role: "Founder",
+        org: "Data science & design",
+        period: "2024–present",
+        href: "https://www.sedum.studio",
+    },
+    {
+        project: "RSPB",
+        role: "Senior Conservation Scientist",
+        org: "Largest nature charity in Europe",
+        period: "2026–present",
+        href: "https://www.rspb.org.uk",
+    },
+    {
+        project: "University of Oxford",
+        role: "Researcher & visiting researcher",
+        org: "Department of Biology",
+        period: "2023–present",
+        href: "https://www.ox.ac.uk/news/2025-03-10-changing-chorus-study-shows-how-movements-and-memories-influence-birdsong-evolution",
+    },
 	];
 
 	let sectionEl = $state(null);
@@ -108,13 +94,15 @@
 	<div class="about-inner">
 		<div class="about-bio">
 			<p class="bio-text">
-				"I'm a scientist, developer, and designer with a PhD from Oxford
-				— and a past life shooting documentaries for Terrence Malick. I
-				build tools and visualisations that make complex data
-				meaningful, for researchers, institutions, and organisations
-				that need to communicate at their best. I run sedum.studio, a
-				small studio at the intersection of data science and design."
-			</p>
+I’m a <em class="bio-human">scientist,</em> <span class="bio-human">developer,</span> and <em class="bio-human">designer.</em>
+My work sits between research, computation, and visual communication.
+I have been a researcher at Oxford and Senior Conservation Scientist at Europe’s largest nature conservation charity.
+Earlier in my career I worked in film, shooting projects around the world. Today
+I design analytical tools and visualizations that help researchers and
+organisations understand complex data and communicate it clearly. I run
+<a class="bio-studio" href="https://www.sedum.studio" target="_blank" rel="noopener noreferrer">sedum.studio</a>,
+a small studio at the intersection of <span class="bio-code">data science</span> and design.
+</p>
 		</div>
 
 		<div class="credits-section">
@@ -165,16 +153,58 @@
 	}
 
 	.about-bio {
-		max-width: 580px;
+		max-width: 680px;
 	}
 
 	.bio-text {
 		font-family: "Inter", sans-serif;
-		font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+		font-size: clamp(0.95rem, 1.4vw, 1.05rem);
 		font-weight: 400;
 		line-height: 1.75;
 		color: #3a3835;
 		margin: 0;
+	}
+
+	/* Space Mono for technical/computational terms */
+	.bio-code {
+		font-family: "Space Mono", monospace;
+		font-size: 0.86em;
+		letter-spacing: -0.03em;
+		color: #2a2725;
+	}
+
+	/* Italic Inter for creative/human roles */
+	.bio-human {
+		font-style: italic;
+		font-weight: 500;
+		color: #2a2725;
+	}
+
+	/* Proper noun: slight spacing lift */
+	.bio-place {
+		letter-spacing: 0.07em;
+		font-weight: 500;
+		color: #2a2725;
+	}
+
+	/* sedum.studio — monospace link with a designed underline */
+	.bio-studio {
+		font-family: "Space Mono", monospace;
+		font-size: 0.9em;
+		letter-spacing: -0.03em;
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: rgba(58, 56, 53, 0.28);
+		text-underline-offset: 4px;
+		text-decoration-thickness: 1px;
+		transition:
+			text-decoration-color 0.3s ease,
+			color 0.25s ease;
+	}
+
+	.bio-studio:hover {
+		color: #1a1a1a;
+		text-decoration-color: rgba(26, 26, 26, 0.6);
 	}
 
 	.credits-section {
