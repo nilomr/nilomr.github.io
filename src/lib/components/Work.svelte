@@ -42,9 +42,11 @@
 	let sectionEl = $state(null);
 
 	onMount(async () => {
+		if (!sectionEl) return;
 		const gsap = (await import('gsap')).default;
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
+		if (!sectionEl) return;
 
 		// Reveal bio
 		const bio = sectionEl.querySelector('.about-bio');
@@ -126,8 +128,7 @@
 						rel={credit.href ? 'noopener noreferrer' : undefined}
 					>
 						<span class="credit-project">{credit.project}</span>
-						<span class="credit-role">{credit.role}</span>
-						<span class="credit-org">{credit.org}</span>
+						<span class="credit-meta"><span class="credit-role">{credit.role}</span><span class="credit-sep"> · </span><span class="credit-org">{credit.org}</span></span>
 						<span class="credit-period">{credit.period}</span>
 						{#if credit.href}
 							<span class="credit-arrow">&nearr;</span>
@@ -184,6 +185,14 @@
 	.credits-list {
 		display: flex;
 		flex-direction: column;
+	}
+
+	.credit-meta {
+		display: contents;
+	}
+
+	.credit-sep {
+		display: none;
 	}
 
 	.credit-row {
@@ -272,24 +281,84 @@
 	}
 
 	@media (max-width: 768px) {
-		.credit-row {
-			grid-template-columns: 1fr auto;
-			gap: 0.5rem;
+		.about {
+			padding: 5rem 0 3rem;
 		}
 
-		.credit-role,
+		.about-inner {
+			gap: 3rem;
+			padding: 0 1.5rem;
+		}
+
+		.bio-text {
+			font-size: 0.95rem;
+			line-height: 1.7;
+		}
+
+		.credits-list {
+			gap: 0;
+		}
+
+		.credit-row {
+			display: flex;
+			flex-direction: column;
+			gap: 0.3rem;
+			padding: 1rem 0;
+			border-top: 1px solid rgba(0, 0, 0, 0.06);
+		}
+
+		.credit-row:last-child {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+		}
+
+		.credit-project {
+			font-size: 0.88rem;
+		}
+
+		.credit-meta {
+			display: inline;
+		}
+
+		.credit-sep {
+			display: inline;
+			color: #c0bdb8;
+			font-size: 0.72rem;
+		}
+
+		.credit-role {
+			display: inline;
+			font-size: 0.72rem;
+			text-align: left;
+		}
+
 		.credit-org {
-			display: none;
+			display: inline;
+			font-size: 0.72rem;
+			text-align: left;
+			min-width: auto;
+		}
+
+		.credit-period {
+			font-size: 0.62rem;
+			text-align: left;
+			color: #b0aba5;
 		}
 
 		.credit-arrow {
-			position: static;
+			position: absolute;
+			top: 1rem;
+			right: 0;
 			transform: none;
-			opacity: 0.5;
+			opacity: 0.4;
+			font-size: 0.9rem;
 		}
 
 		a.credit-row:hover .credit-arrow {
 			transform: translate(2px, -2px);
+		}
+
+		a.credit-row {
+			position: relative;
 		}
 	}
 </style>

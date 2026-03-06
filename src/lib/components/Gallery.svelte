@@ -1,10 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import WebGLImage from './WebGLImage.svelte';
+	import Gallery3DCard from './Gallery3DCard.svelte';
 
-	const images = [
+	const items = [
 		{
-			src: '/images/mng1.jpg',
+			src: '/images/stream-2.png',
+			ar: '2941/1670',
 			alt: 'Reindeer herders crossing a river at golden hour, Mongolia',
 			label: 'Mongolia',
 			desc: 'Tsaatan reindeer herders — Awaken',
@@ -16,7 +18,8 @@
 			link: { label: 'IMDB', href: 'https://www.imdb.com/name/nm4945222' },
 		},
 		{
-			src: '/images/lapwings.jpg',
+			src: '/images/nilo-film.webp',
+			ar: '1/1',
 			alt: 'Flock of lapwings taking flight over snow-covered trees',
 			label: 'Oxford',
 			desc: 'Wytham Woods, field research',
@@ -28,19 +31,20 @@
 			link: { label: 'pykanto', href: 'https://github.com/nilomr/pykanto' },
 		},
 		{
-			src: '/images/KSP06883_2.jpg',
-			alt: 'Cinematographer filming reindeer herders from a river',
-			label: 'On set',
-			desc: 'Northern Mongolia, 2014',
-			title: 'Voyage of Time',
+			type: '3d',
+			alt: 'Acheulean handaxe 3D model',
+			label: 'Paleoanthropology',
+			desc: 'Acheulean handaxe — Fish Hoek',
+			title: 'Acheulean Hand Axe',
 			detail:
-				"Camera operator on Terrence Malick's Voyage of Time. Shot across four continents over three years.",
-			role: 'Camera Operator',
-			year: '2013–2016',
-			link: { label: 'IMDB', href: 'https://www.imdb.com/name/nm4945222' },
+				'Large Acheulean handaxe from Brak Kloof, quartzitic sandstone. Fish Hoek valley, ESA. 19×19 cm. 3D model from 141 images (Canon EOS R5, 50mm). Curated by Fish Hoek Valley Museum.',
+			role: 'Digital Heritage',
+			year: '~500 ka BP',
+			link: { label: 'GDH', href: 'https://www.globaldigitalheritage.org/' },
 		},
 		{
-			src: '/images/garza.jpg',
+			src: '/images/journal-2.jpg',
+			ar: '1/1',
 			alt: 'Egret catching fish in backlit water',
 			label: 'Doñana',
 			desc: 'Little egret',
@@ -51,20 +55,60 @@
 			year: '2024',
 			link: { label: 'sedum.studio', href: 'https://www.sedum.studio' },
 		},
+		{
+			type: 'video',
+			src: '/images/canopyviewer.mp4',
+			ar: '16/9',
+			alt: 'Canopy viewer demo video',
+			label: 'Interactive',
+			desc: 'Canopy Viewer demo',
+			title: 'Canopy Viewer',
+			detail:
+				'Real-time canopy exploration demo. Autoplaying loop showcasing the interactive viewer and camera flow.',
+			role: 'Creative Coding',
+			year: '2024',
+		},
 	];
 
 	let wrapperEl = $state(null);
 	let activeCard = $state(-1);
+	let isMobile = $state(false);
+	let mobileScrollEl = $state(null);
+	let mobileActiveIdx = $state(0);
 
 	function toggleCard(i) {
 		activeCard = activeCard === i ? -1 : i;
 	}
 
 	onMount(async () => {
+		isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+			|| window.innerWidth <= 768;
+
 		const gsap = (await import('gsap')).default;
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
 
+		if (isMobile) {
+			// Mobile: observe scroll position for active card indicator
+			if (mobileScrollEl) {
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+								const idx = Number(entry.target.dataset.idx);
+								if (!isNaN(idx)) mobileActiveIdx = idx;
+							}
+						});
+					},
+					{ root: mobileScrollEl, threshold: 0.5 }
+				);
+				mobileScrollEl.querySelectorAll('.m-card').forEach((card) => observer.observe(card));
+				return () => observer.disconnect();
+			}
+			return;
+		}
+
+		// Desktop: horizontal scroll gallery (unchanged)
 		const track = wrapperEl.querySelector('.g-track');
 		const getScrollDistance = () => track.scrollWidth - window.innerWidth;
 
@@ -82,7 +126,6 @@
 			},
 		});
 
-		// Refresh ScrollTrigger once images have loaded and set their widths
 		let lastWidth = 0;
 		let stableFrames = 0;
 		function waitForImages() {
@@ -101,7 +144,6 @@
 		}
 		requestAnimationFrame(waitForImages);
 
-		// Counter
 		const counter = wrapperEl.querySelector('.g-counter-current');
 		if (counter) {
 			ScrollTrigger.create({
@@ -111,15 +153,14 @@
 				scrub: true,
 				onUpdate: (self) => {
 					const idx = Math.min(
-						images.length,
-						Math.floor(self.progress * images.length) + 1
+						items.length,
+						Math.floor(self.progress * items.length) + 1
 					);
 					counter.textContent = String(idx).padStart(2, '0');
 				},
 			});
 		}
 
-		// Animate overlay elements when a card is revealed
 		const observer = new MutationObserver(() => {
 			const activeOverlay = wrapperEl.querySelector('.g-card.is-active .g-overlay');
 			if (activeOverlay) {
@@ -144,39 +185,119 @@
 	});
 </script>
 
+<!-- Mobile Gallery -->
+{#if isMobile}
+<section class="m-gallery">
+	<div class="m-header">
+		<span class="m-label">Visual Work</span>
+		<div class="m-pips">
+			{#each items as _, i}
+				<span class="m-pip" class:active={mobileActiveIdx === i}>+</span>
+			{/each}
+		</div>
+	</div>
+	<div class="m-scroll" bind:this={mobileScrollEl}>
+		{#each items as item, i}
+			<article
+				class="m-card"
+				class:is-active={activeCard === i}
+				data-idx={i}
+			>
+				<div class="m-image-wrap" class:is-3d={item.type === '3d'} role="button" tabindex="0" onclick={() => toggleCard(i)} onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggleCard(i))}>
+					{#if item.type === '3d'}
+						<Gallery3DCard revealed={activeCard === i} />
+					{:else if item.type === 'video'}
+						<video
+							src={item.src}
+							class="m-video"
+							aria-label={item.alt}
+							autoplay
+							loop
+							muted
+							playsinline
+							preload="metadata"
+						></video>
+					{:else}
+						<img src={item.src} alt={item.alt} class="m-image" loading={i === 0 ? 'eager' : 'lazy'} />
+					{/if}
+
+					<!-- Overlay -->
+					<div class="m-overlay" class:visible={activeCard === i}>
+						<div class="m-ov-inner">
+							<span class="m-ov-role">{item.role}</span>
+							<h3 class="m-ov-title">{item.title}</h3>
+							<p class="m-ov-detail">{item.detail}</p>
+							<div class="m-ov-footer">
+								<span class="m-ov-year">{item.year}</span>
+								{#if item.link}
+									<a
+										href={item.link.href}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="m-ov-link"
+										onclick={(e) => e.stopPropagation()}
+									>
+										{item.link.label} &nearr;
+									</a>
+								{/if}
+							</div>
+						</div>
+						<button class="m-ov-close" onclick={(e) => { e.stopPropagation(); activeCard = -1; }} aria-label="Close">
+							<svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+								<line x1="3" y1="3" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" />
+								<line x1="15" y1="3" x2="3" y2="15" stroke="currentColor" stroke-width="1.5" />
+							</svg>
+						</button>
+					</div>
+				</div>
+
+				<div class="m-meta">
+					<span class="m-meta-label">{item.label}</span>
+					<span class="m-meta-desc">{item.desc}</span>
+				</div>
+			</article>
+		{/each}
+	</div>
+</section>
+{:else}
+<!-- Desktop Gallery (unchanged) -->
 <section class="g-wrapper" bind:this={wrapperEl}>
 	<div class="g-track">
 		<div class="g-lead">
 			<span class="g-lead-text">Visual Work</span>
 		</div>
 
-		{#each images as image, i}
-			<article class="g-card" class:is-active={activeCard === i}>
-				<div class="g-frame" role="button" tabindex="0" onclick={() => toggleCard(i)} onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggleCard(i))}>
-					<WebGLImage src={image.src} alt={image.alt} revealed={activeCard === i} />
+		{#each items as item, i}
+			<article class="g-card" class:is-active={activeCard === i} class:is-3d={item.type === '3d'}>
+				<div class="g-frame" class:is-3d={item.type === '3d'} style={item.ar ? `aspect-ratio: ${item.ar}` : ''} role="button" tabindex="0" onclick={() => toggleCard(i)} onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggleCard(i))}>
+					{#if item.type === '3d'}
+						<Gallery3DCard revealed={activeCard === i} />
+					{:else if item.type === 'video'}
+						<WebGLImage src={item.src} alt={item.alt} revealed={activeCard === i} type="video" />
+					{:else}
+						<WebGLImage src={item.src} alt={item.alt} revealed={activeCard === i} />
+					{/if}
 
-					<!-- Hover hint -->
 					<div class="g-hint" class:hidden={activeCard === i}>
 						<span>View project</span>
 					</div>
 
-					<!-- Overlay content -->
 					<div class="g-overlay" class:visible={activeCard === i}>
 						<div class="g-ov-inner">
-							<span class="g-ov-line g-ov-role">{image.role}</span>
-							<h3 class="g-ov-line g-ov-title">{image.title}</h3>
-							<p class="g-ov-line g-ov-detail">{image.detail}</p>
+							<span class="g-ov-line g-ov-role">{item.role}</span>
+							<h3 class="g-ov-line g-ov-title">{item.title}</h3>
+							<p class="g-ov-line g-ov-detail">{item.detail}</p>
 							<div class="g-ov-line g-ov-footer">
-								<span class="g-ov-year">{image.year}</span>
-								{#if image.link}
+								<span class="g-ov-year">{item.year}</span>
+								{#if item.link}
 									<a
-										href={image.link.href}
+										href={item.link.href}
 										target="_blank"
 										rel="noopener noreferrer"
 										class="g-ov-link"
 										onclick={(e) => e.stopPropagation()}
 									>
-										{image.link.label} &nearr;
+										{item.link.label} &nearr;
 									</a>
 								{/if}
 							</div>
@@ -191,8 +312,8 @@
 				</div>
 
 				<div class="g-meta">
-					<span class="g-label">{image.label}</span>
-					<span class="g-desc">{image.desc}</span>
+					<span class="g-label">{item.label}</span>
+					<span class="g-desc">{item.desc}</span>
 				</div>
 			</article>
 		{/each}
@@ -203,11 +324,232 @@
 	<div class="g-counter">
 		<span class="g-counter-current">01</span>
 		<span class="g-counter-sep">/</span>
-		<span class="g-counter-total">{String(images.length).padStart(2, '0')}</span>
+	<span class="g-counter-total">{String(items.length).padStart(2, '0')}</span>
 	</div>
 </section>
+{/if}
 
 <style>
+	/* ── Mobile Gallery ── */
+	.m-gallery {
+		padding: 4rem 0 2rem;
+	}
+
+	.m-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 1.5rem 1.2rem;
+	}
+
+	.m-label {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.62rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: #8a8580;
+	}
+
+	.m-pips {
+		display: flex;
+		gap: 0.35rem;
+		align-items: center;
+	}
+
+	.m-pip {
+		font-family: 'Space Mono', monospace;
+		font-size: 1rem;
+		font-weight: 400;
+		color: #c0bdb8;
+		line-height: 1;
+		transition: color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		display: inline-block;
+	}
+
+	.m-pip.active {
+		color: #1a1a1a;
+		transform: rotate(45deg) scale(1.3);
+	}
+
+	.m-scroll {
+		--card-w: clamp(18.5rem, 86vw, 28rem);
+		display: flex;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		gap: 0.9rem;
+		padding: 0;
+		scroll-padding-inline: calc((100% - var(--card-w)) / 2);
+	}
+
+	.m-scroll::before,
+	.m-scroll::after {
+		content: '';
+		flex: 0 0 calc((100% - var(--card-w)) / 2);
+	}
+
+	.m-scroll::-webkit-scrollbar {
+		display: none;
+	}
+
+	.m-card {
+		flex: 0 0 var(--card-w);
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.8rem;
+		position: relative;
+		isolation: isolate;
+	}
+
+	.m-image-wrap {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 2 / 3;
+		border-radius: 6px;
+		overflow: hidden;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.m-image-wrap.is-3d {
+		overflow: visible;
+	}
+
+	@media (max-width: 768px) {
+		.m-image-wrap.is-3d {
+			overflow: hidden;
+		}
+	}
+
+	.m-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.m-video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	/* Mobile overlay */
+	.m-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.6);
+		backdrop-filter: blur(2px);
+		-webkit-backdrop-filter: blur(2px);
+		display: flex;
+		align-items: flex-end;
+		padding: 1.5rem;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.35s ease;
+	}
+
+	.m-overlay.visible {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.m-ov-inner {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.m-ov-role {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	.m-ov-title {
+		font-family: 'Space Mono', monospace;
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: #fff;
+		margin: 0;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+	}
+
+	.m-ov-detail {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.82rem;
+		font-weight: 400;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.75);
+		margin: 0;
+	}
+
+	.m-ov-footer {
+		display: flex;
+		align-items: baseline;
+		gap: 1.2rem;
+		margin-top: 0.3rem;
+	}
+
+	.m-ov-year {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.65rem;
+		color: rgba(255, 255, 255, 0.4);
+		letter-spacing: 0.05em;
+	}
+
+	.m-ov-link {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.65rem;
+		color: #fff;
+		text-decoration: none;
+		letter-spacing: 0.05em;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+		padding-bottom: 1px;
+	}
+
+	.m-ov-close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: none;
+		border: none;
+		color: rgba(255, 255, 255, 0.7);
+		padding: 0.6rem;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.m-meta {
+		display: flex;
+		align-items: baseline;
+		gap: 0.8rem;
+		padding: 0 0.15rem;
+	}
+
+	.m-meta-label {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: #9a9590;
+		flex-shrink: 0;
+	}
+
+	.m-meta-desc {
+		font-family: 'Inter', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 400;
+		color: #5a5550;
+	}
+
+	/* ── Desktop Gallery (unchanged) ── */
 	.g-wrapper {
 		position: relative;
 		overflow: hidden;
@@ -254,17 +596,52 @@
 		gap: 0.8rem;
 	}
 
+	.g-card.is-3d {
+		--g-3d-min-width: clamp(30rem, 50vw, 40rem);
+		--g-3d-reserve-left: clamp(0.5rem, 1vw, 1rem);
+		margin-left: var(--g-3d-reserve-left);
+	}
+
 	.g-frame {
 		overflow: hidden;
 		border-radius: 3px;
 		height: 68vh;
-		min-width: 40vw;
 		flex-shrink: 0;
 		position: relative;
 		cursor: pointer;
 	}
 
-	/* Hover hint */
+	.g-frame.is-3d {
+		overflow: visible;
+		min-width: max(var(--g-3d-min-width), 42vw);
+	}
+
+	.g-video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.g-frame.is-3d .g-overlay.visible {
+		background: rgba(0, 0, 0, 0.55);
+		backdrop-filter: blur(3px);
+		-webkit-backdrop-filter: blur(3px);
+	}
+
+	@media (max-width: 1180px) and (min-width: 769px) {
+		.g-card.is-3d {
+			--g-3d-min-width: clamp(28rem, 54vw, 34rem);
+			--g-3d-reserve-left: clamp(0.65rem, 1.5vw, 1.25rem);
+		}
+	}
+
+	@media (min-width: 1500px) {
+		.g-card.is-3d {
+			--g-3d-reserve-left: clamp(0.2rem, 0.45vw, 0.6rem);
+		}
+	}
+
 	.g-hint {
 		position: absolute;
 		bottom: clamp(1rem, 2vh, 1.5rem);
@@ -298,7 +675,6 @@
 		border-radius: 2px;
 	}
 
-	/* Overlay */
 	.g-overlay {
 		position: absolute;
 		inset: 0;
@@ -309,6 +685,7 @@
 		pointer-events: none;
 		opacity: 0;
 		transition: opacity 0.4s ease;
+		border-radius: 3px;
 	}
 
 	.g-overlay.visible {
@@ -328,7 +705,6 @@
 	}
 
 	.g-overlay.visible .g-ov-line {
-		/* Animated via GSAP, but fallback */
 		opacity: 1;
 	}
 
@@ -463,24 +839,5 @@
 
 	.g-counter-sep {
 		opacity: 0.4;
-	}
-
-	@media (max-width: 768px) {
-		.g-frame {
-			height: 50vh;
-			width: 80vw;
-		}
-
-		.g-lead {
-			width: 10vw;
-		}
-
-		.g-lead-text {
-			display: none;
-		}
-
-		.g-ov-inner {
-			max-width: 90%;
-		}
 	}
 </style>

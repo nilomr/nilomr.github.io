@@ -4,9 +4,11 @@
 	let sectionEl = $state(null);
 
 	onMount(async () => {
+		if (!sectionEl) return;
 		const gsap = (await import('gsap')).default;
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
+		if (!sectionEl) return;
 
 		const elements = sectionEl.querySelectorAll('.reveal');
 		elements.forEach((el, i) => {
@@ -177,5 +179,72 @@
 		font-size: 0.6rem;
 		color: #9a9590;
 		letter-spacing: 0.05em;
+	}
+
+	@media (max-width: 768px) {
+		.contact {
+			padding: 5rem 0 3rem;
+		}
+
+		.contact-inner {
+			padding: 0 1.5rem;
+		}
+
+		.contact-label {
+			margin-bottom: 1.2rem;
+		}
+
+		.contact-email {
+			font-size: 0.88rem;
+			display: block;
+			padding: 1rem 0;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+			word-break: break-all;
+		}
+
+		.contact-email::after {
+			display: none;
+		}
+
+		.contact-cta {
+			font-size: 0.82rem;
+			margin-top: 1.5rem;
+			max-width: none;
+		}
+
+		.contact-links {
+			gap: 0;
+			margin-top: 2rem;
+			flex-direction: column;
+		}
+
+		.contact-links a {
+			font-size: 0.72rem;
+			padding: 0.9rem 0;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.contact-links a::after {
+			content: '\2197';
+			position: static;
+			transform: none;
+			background: none;
+			width: auto;
+			height: auto;
+			font-size: 0.85rem;
+			color: #b0aba5;
+			opacity: 1;
+		}
+
+		.contact-links a:first-child {
+			border-top: 1px solid rgba(0, 0, 0, 0.05);
+		}
+
+		.footer {
+			padding: 2rem 1.5rem 1.5rem;
+		}
 	}
 </style>

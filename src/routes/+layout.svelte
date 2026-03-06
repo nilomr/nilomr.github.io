@@ -6,8 +6,12 @@
 	let { children } = $props();
 	let WebGLBackground = $state(null);
 	let mounted = $state(false);
+	let isMobile = $state(false);
 
 	onMount(async () => {
+		isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+			|| window.innerWidth <= 768;
+
 		const mod = await import('$lib/components/WebGLBackground.svelte');
 		WebGLBackground = mod.default;
 		mounted = true;
@@ -21,10 +25,16 @@
 {#if mounted && WebGLBackground}
 	<WebGLBackground />
 {/if}
-<CustomCursor />
-<SmoothScroll>
+{#if !isMobile}
+	<CustomCursor />
+{/if}
+{#if isMobile}
 	{@render children()}
-</SmoothScroll>
+{:else}
+	<SmoothScroll>
+		{@render children()}
+	</SmoothScroll>
+{/if}
 
 <style>
 	:global(*),

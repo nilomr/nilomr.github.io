@@ -1,10 +1,36 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 
 	let section = $state(null);
+	let isMobile = $state(false);
+	let expandedRow = $state(-1);
 
-	const roles = ['Researcher', 'Developer', 'Filmmaker', 'Designer'];
-	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
+	const roles = ["Researcher", "Developer", "Filmmaker", "Designer"];
+	const chars =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&";
+
+	const disciplines = [
+		{
+			idx: "01",
+			title: "Understanding complex systems",
+			desc: "I study how patterns emerge and change over time in large behavioural datasets. My research has analysed nearly a million bird vocalisations recorded across generations in Wytham Woods, revealing how structure appears and persists in cultural systems.",
+		},
+		{
+			idx: "02",
+			title: "Data analysis & visualisation",
+			desc: "I help organisations understand complex data. From messy raw datasets to clear insight, I design analyses and visualisations that reveal structure, highlight patterns, and communicate results in ways that are both rigorous and intuitive.",
+		},
+		{
+			idx: "03",
+			title: "Machine learning & computational methods",
+			desc: "I build custom analytical tools when existing methods are not enough. My work combines machine learning, signal analysis, and statistical modelling to extract meaningful patterns from large and noisy datasets.",
+		},
+		{
+			idx: "04",
+			title: "Visual communication",
+			desc: "Clear insight deserves clear presentation. I combine analytical work with strong visual design to produce figures, maps, and visual systems that make complex results understandable to researchers, decision-makers, and the public.",
+		},
+	];
 
 	function scrambleText(el, finalText, duration = 800) {
 		return new Promise((resolve) => {
@@ -12,14 +38,15 @@
 			const start = performance.now();
 			const step = (now) => {
 				const progress = Math.min((now - start) / duration, 1);
-				let result = '';
+				let result = "";
 				for (let i = 0; i < length; i++) {
-					if (finalText[i] === ' ') {
-						result += ' ';
+					if (finalText[i] === " ") {
+						result += " ";
 					} else if (progress > (i / length) * 0.8 + 0.2) {
 						result += finalText[i];
 					} else {
-						result += chars[Math.floor(Math.random() * chars.length)];
+						result +=
+							chars[Math.floor(Math.random() * chars.length)];
 					}
 				}
 				el.textContent = result;
@@ -30,38 +57,216 @@
 		});
 	}
 
-	async function cycleRoles(el) {
+	async function cycleRoles(el, isAlive = () => true) {
 		let idx = 0;
-		while (true) {
+		while (isAlive()) {
 			await new Promise((r) => setTimeout(r, 2000));
+			if (!isAlive()) break;
 			idx = (idx + 1) % roles.length;
 			await scrambleText(el, roles[idx], 600);
 		}
 	}
 
+	let gsapRef = null;
+	// Store active tweens per row so we can kill them on re-click
+	let activeTweens = new Map();
+
+	function toggleRow(i) {
+		if (!section || !gsapRef) return;
+		const detail = section.querySelector(`.h-detail[data-row="${i}"]`);
+		if (!detail) return;
+
+		// Kill any active tween on this row
+		if (activeTweens.has(i)) {
+			activeTweens.get(i).kill();
+			activeTweens.delete(i);
+		}
+
+		if (expandedRow === i) {
+			// Close this row
+			const tween = gsapRef.to(detail, {
+				height: 0,
+				opacity: 0,
+				duration: 0.4,
+				ease: "power3.inOut",
+				onComplete: () => activeTweens.delete(i),
+			});
+			activeTweens.set(i, tween);
+			expandedRow = -1;
+		} else {
+			// Close previously open row
+			if (expandedRow !== -1) {
+				const prevIdx = expandedRow;
+				const prevDetail = section.querySelector(
+					`.h-detail[data-row="${prevIdx}"]`,
+				);
+				if (prevDetail) {
+					if (activeTweens.has(prevIdx)) {
+						activeTweens.get(prevIdx).kill();
+					}
+					const closeTween = gsapRef.to(prevDetail, {
+						height: 0,
+						opacity: 0,
+						duration: 0.3,
+						ease: "power2.inOut",
+						onComplete: () => activeTweens.delete(prevIdx),
+					});
+					activeTweens.set(prevIdx, closeTween);
+				}
+			}
+
+			// Open new row
+			expandedRow = i;
+			gsapRef.set(detail, { height: "auto", opacity: 1 });
+			const naturalHeight = detail.offsetHeight;
+			gsapRef.set(detail, { height: 0, opacity: 0 });
+
+			const tween = gsapRef.to(detail, {
+				height: naturalHeight,
+				opacity: 1,
+				duration: 0.45,
+				ease: "power3.out",
+				onComplete: () => {
+					gsapRef.set(detail, { height: "auto" });
+					activeTweens.delete(i);
+				},
+			});
+			activeTweens.set(i, tween);
+		}
+	}
+
 	onMount(async () => {
-		const gsap = (await import('gsap')).default;
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+		if (!section) return;
+		let destroyed = false;
+		isMobile =
+			window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+			window.innerWidth <= 768;
+
+		const gsap = (await import("gsap")).default;
+		if (destroyed || !section) return;
+		gsapRef = gsap;
+		const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+		if (destroyed || !section) return;
 		gsap.registerPlugin(ScrollTrigger);
 
-		const rows = section.querySelectorAll('.h-row');
-		const textEls = [...section.querySelectorAll('.h-text')];
-		const footer = section.querySelector('.h-footer');
-		const scrollHint = section.querySelector('.scroll-hint');
-		const roleSpan = section.querySelector('.h-role');
+		if (isMobile) {
+			const nameLines = section.querySelectorAll(".mh-name-line");
+			const rule = section.querySelector(".mh-rule");
+			const discEls = section.querySelectorAll(".mh-disc");
+			const discDots = section.querySelectorAll(".mh-disc-dot");
+			const footer = section.querySelector(".mh-footer");
+			const scrollHint = section.querySelector(".scroll-hint");
+			const roleSpan = section.querySelector(".mh-role");
 
-		// Store final texts, blank them out
+			const nameEls = [...nameLines];
+			const nameTexts = nameEls.map((el) => el.textContent);
+			nameEls.forEach((el) => (el.textContent = ""));
+
+			gsap.set(nameLines, { y: 20 });
+			gsap.set(rule, { scaleX: 0 });
+			gsap.set(discEls, { y: 12 });
+			gsap.set(footer, { y: 10 });
+
+			const tl = gsap.timeline({ delay: 0.2 });
+
+			nameEls.forEach((el, i) => {
+				tl.to(
+					el,
+					{
+						opacity: 1,
+						y: 0,
+						duration: 0.5,
+						ease: "power3.out",
+						onStart: () => scrambleText(el, nameTexts[i], 700),
+					},
+					i * 0.12,
+				);
+			});
+
+			tl.to(
+				rule,
+				{ scaleX: 1, duration: 0.8, ease: "power3.inOut" },
+				0.3,
+			);
+			tl.to(
+				discEls,
+				{
+					opacity: 1,
+					y: 0,
+					stagger: 0.06,
+					duration: 0.5,
+					ease: "power3.out",
+				},
+				0.5,
+			);
+			tl.to(
+				discDots,
+				{
+					opacity: 1,
+					stagger: 0.06,
+					duration: 0.4,
+					ease: "power2.out",
+				},
+				0.55,
+			);
+			tl.to(
+				footer,
+				{ opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
+				0.7,
+			);
+			tl.to(
+				scrollHint,
+				{ opacity: 1, duration: 0.8, ease: "power2.out" },
+				1.0,
+			);
+
+			if (roleSpan) setTimeout(() => cycleRoles(roleSpan, () => !destroyed && !!section), 0);
+
+			gsap.to(section.querySelector(".mh-content"), {
+				y: -60,
+				opacity: 0.15,
+				scrollTrigger: {
+					trigger: section,
+					start: "top top",
+					end: "bottom top",
+					scrub: 0.4,
+				},
+			});
+			gsap.to(scrollHint, {
+				opacity: 0,
+				y: 20,
+				scrollTrigger: {
+					trigger: section,
+					start: "top top",
+					end: "15% top",
+					scrub: true,
+				},
+			});
+
+			return () => {
+				destroyed = true;
+			};
+		}
+
+		// Desktop
+		const rows = section.querySelectorAll(".h-row");
+		const textEls = [...section.querySelectorAll(".h-text")];
+		const footer = section.querySelector(".h-footer");
+		const scrollHint = section.querySelector(".scroll-hint");
+		const roleSpan = section.querySelector(".h-role");
+
 		const finalTexts = textEls.map((el) => el.textContent);
-		textEls.forEach((el) => (el.textContent = ''));
+		textEls.forEach((el) => (el.textContent = ""));
 
-		// Nudge rows and footer down for the slide-up reveal (opacity already 0 in CSS)
+		// Initialize all detail panels as collapsed
+		const details = section.querySelectorAll(".h-detail");
+		details.forEach((d) => gsap.set(d, { height: 0, opacity: 0 }));
+
 		gsap.set(rows, { y: 24 });
 		gsap.set(footer, { y: 12 });
 
-		// Main reveal sequence
 		const tl = gsap.timeline({ delay: 0.3 });
 
-		// Rows appear one by one — scramble starts as each row fades in
 		rows.forEach((row, i) => {
 			tl.to(
 				row,
@@ -69,39 +274,30 @@
 					opacity: 1,
 					y: 0,
 					duration: 0.5,
-					ease: 'power3.out',
-					onStart: () => {
-						scrambleText(textEls[i], finalTexts[i], 900);
-					},
+					ease: "power3.out",
+					onStart: () => scrambleText(textEls[i], finalTexts[i], 900),
 				},
-				i * 0.18
+				i * 0.18,
 			);
 		});
 
-		// Footer
 		tl.to(
 			footer,
-			{
-				opacity: 1,
-				y: 0,
-				duration: 0.7,
-				ease: 'power3.out',
-			},
-			0.7
+			{ opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+			0.7,
+		);
+		tl.to(
+			scrollHint,
+			{ opacity: 1, duration: 0.8, ease: "power2.out" },
+			1.0,
 		);
 
-		// Scroll indicator
-		tl.to(scrollHint, { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.0);
+		if (roleSpan) setTimeout(() => cycleRoles(roleSpan, () => !destroyed && !!section), 0);
 
-		// Start role cycling
-		if (roleSpan) {
-			setTimeout(() => cycleRoles(roleSpan), 0);
-		}
-
-		// Magnetic hover on rows
+		// Magnetic hover
 		rows.forEach((row) => {
-			const text = row.querySelector('.h-text');
-			row.addEventListener('mousemove', (e) => {
+			const text = row.querySelector(".h-text");
+			row.addEventListener("mousemove", (e) => {
 				const rect = row.getBoundingClientRect();
 				const x = e.clientX - rect.left - rect.width / 2;
 				const y = e.clientY - rect.top - rect.height / 2;
@@ -109,75 +305,111 @@
 					x: x * 0.05,
 					y: y * 0.12,
 					duration: 0.4,
-					ease: 'power2.out',
+					ease: "power2.out",
 				});
 			});
-			row.addEventListener('mouseleave', () => {
+			row.addEventListener("mouseleave", () => {
 				gsap.to(text, {
 					x: 0,
 					y: 0,
 					duration: 0.6,
-					ease: 'elastic.out(1, 0.4)',
+					ease: "elastic.out(1, 0.4)",
 				});
 			});
 		});
 
-		// Parallax content on scroll (not the scroll hint)
-		gsap.to(section.querySelector('.h-content'), {
+		gsap.to(section.querySelector(".h-content"), {
 			y: -100,
 			opacity: 0.2,
 			scrollTrigger: {
 				trigger: section,
-				start: 'top top',
-				end: 'bottom top',
+				start: "top top",
+				end: "bottom top",
 				scrub: 0.6,
 			},
 		});
-
-		// Fade out scroll hint on scroll
 		gsap.to(scrollHint, {
 			opacity: 0,
 			y: 20,
 			scrollTrigger: {
 				trigger: section,
-				start: 'top top',
-				end: '15% top',
+				start: "top top",
+				end: "15% top",
 				scrub: true,
 			},
 		});
+
+		return () => {
+			destroyed = true;
+		};
 	});
 </script>
 
 <section class="hero" bind:this={section}>
-	<div class="h-content">
-		<div class="h-lines">
-			<div class="h-row">
-				<span class="h-idx">01</span>
-				<span class="h-text">Cultural evolution research</span>
+	{#if isMobile}
+		<div class="mh-content">
+			<div class="mh-name">
+				<span class="mh-name-line">Nilo</span>
+				<span class="mh-name-line">Merino</span>
+				<span class="mh-name-line">Recalde</span>
 			</div>
-			<div class="h-row">
-				<span class="h-idx">02</span>
-				<span class="h-text">Open-source scientific software</span>
-			</div>
-			<div class="h-row">
-				<span class="h-idx">03</span>
-				<span class="h-text">Data visualisation & design</span>
-			</div>
-			<div class="h-row">
-				<span class="h-idx">04</span>
-				<span class="h-text">Documentary cinematography</span>
-			</div>
-		</div>
 
-		<div class="h-footer">
-			<div class="h-id">
-				<span class="h-name">Nilo Merino Recalde</span>
-				<span class="h-sep">/</span>
-				<span class="h-role">{roles[0]}</span>
+			<div class="mh-rule"></div>
+
+			<div class="mh-disciplines">
+				<span class="mh-disc">Research</span>
+				<span class="mh-disc-dot"></span>
+				<span class="mh-disc">Software</span>
+				<span class="mh-disc-dot"></span>
+				<span class="mh-disc">Design</span>
+				<span class="mh-disc-dot"></span>
+				<span class="mh-disc">Film</span>
 			</div>
-			<p class="h-location">Oxford & Barcelona</p>
+
+			<div class="mh-footer">
+				<span class="mh-role">{roles[0]}</span>
+				<span class="mh-loc">Oxford & Barcelona</span>
+			</div>
 		</div>
-	</div>
+	{:else}
+		<div class="h-content">
+			<div class="h-lines">
+				{#each disciplines as disc, i}
+					<div
+						class="h-row"
+						class:is-expanded={expandedRow === i}
+						role="button"
+						tabindex="0"
+						onclick={() => toggleRow(i)}
+						onkeydown={(e) =>
+							(e.key === "Enter" || e.key === " ") &&
+							(e.preventDefault(), toggleRow(i))}
+					>
+						<div class="h-row-main">
+							<span class="h-idx">{disc.idx}</span>
+							<span class="h-text">{disc.title}</span>
+							<span
+								class="h-expand-icon"
+								class:open={expandedRow === i}>+</span
+							>
+						</div>
+						<div class="h-detail" data-row={i}>
+							<p class="h-detail-text">{disc.desc}</p>
+						</div>
+					</div>
+				{/each}
+			</div>
+
+			<div class="h-footer">
+				<div class="h-id">
+					<span class="h-name">Nilo Merino Recalde</span>
+					<span class="h-sep">/</span>
+					<span class="h-role">{roles[0]}</span>
+				</div>
+				<p class="h-location">Oxford & Barcelona</p>
+			</div>
+		</div>
+	{/if}
 
 	<div class="scroll-hint">
 		<span class="scroll-label">Scroll</span>
@@ -196,6 +428,90 @@
 		padding: 0 clamp(2rem, 8vw, 8rem);
 	}
 
+	/* ── Mobile Hero ── */
+	.mh-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		padding-bottom: 2rem;
+	}
+
+	.mh-name {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.mh-name-line {
+		font-family: "Space Mono", monospace;
+		font-size: clamp(2.8rem, 14vw, 4.5rem);
+		font-weight: 700;
+		color: #1a1a1a;
+		line-height: 0.95;
+		letter-spacing: -0.04em;
+		display: block;
+		opacity: 0;
+	}
+
+	.mh-rule {
+		height: 1px;
+		background: rgba(0, 0, 0, 0.12);
+		transform-origin: left;
+		transform: scaleX(0);
+		margin: 0.5rem 0;
+	}
+
+	.mh-disciplines {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		flex-wrap: wrap;
+	}
+
+	.mh-disc {
+		font-family: "Space Mono", monospace;
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: #5a5550;
+		opacity: 0;
+	}
+
+	.mh-disc-dot {
+		width: 3px;
+		height: 3px;
+		border-radius: 50%;
+		background: #c0bdb8;
+		flex-shrink: 0;
+		opacity: 0;
+	}
+
+	.mh-footer {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		margin-top: 0.5rem;
+		opacity: 0;
+	}
+
+	.mh-role {
+		font-family: "Space Mono", monospace;
+		font-size: 0.6rem;
+		color: #9a9590;
+		letter-spacing: 0.04em;
+		min-width: 10ch;
+		display: inline-block;
+	}
+
+	.mh-loc {
+		font-family: "Inter", sans-serif;
+		font-size: 0.62rem;
+		font-weight: 400;
+		color: #a09a94;
+		letter-spacing: 0.04em;
+	}
+
+	/* ── Desktop Hero ── */
 	.h-content {
 		display: flex;
 		flex-direction: column;
@@ -209,11 +525,10 @@
 
 	.h-row {
 		display: flex;
-		align-items: baseline;
-		gap: clamp(1rem, 2vw, 2rem);
+		flex-direction: column;
 		padding: clamp(0.7rem, 1.4vh, 1.1rem) 0;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-		cursor: default;
+		cursor: pointer;
 		transition: background 0.3s ease;
 		opacity: 0;
 	}
@@ -226,8 +541,15 @@
 		background: rgba(0, 0, 0, 0.015);
 	}
 
+	.h-row-main {
+		display: flex;
+		align-items: baseline;
+		gap: clamp(1rem, 2vw, 2rem);
+		padding-right: clamp(1rem, 2vw, 2rem);
+	}
+
 	.h-idx {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: clamp(0.55rem, 0.7vw, 0.65rem);
 		color: #b0aba5;
 		letter-spacing: 0.05em;
@@ -237,7 +559,7 @@
 	}
 
 	.h-text {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: clamp(1.1rem, 3.2vw, 2.6rem);
 		font-weight: 700;
 		color: #1a1a1a;
@@ -245,6 +567,45 @@
 		letter-spacing: -0.025em;
 		display: inline-block;
 		white-space: nowrap;
+		flex: 1;
+	}
+
+	.h-expand-icon {
+		font-family: "Space Mono", monospace;
+		font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+		color: #c0bdb8;
+		flex-shrink: 0;
+		transition:
+			transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+			color 0.3s ease;
+		user-select: none;
+		line-height: 1;
+	}
+
+	.h-expand-icon.open {
+		transform: rotate(45deg);
+		color: #1a1a1a;
+	}
+
+	.h-row:hover .h-expand-icon {
+		color: #9a9590;
+	}
+
+	.h-detail {
+		overflow: hidden;
+		padding-left: calc(2ch + clamp(1rem, 2vw, 2rem));
+	}
+
+	.h-detail-text {
+		font-family: "Space Mono", monospace;
+		font-size: clamp(0.7rem, 0.9vw, 0.8rem);
+		font-weight: 400;
+		line-height: 1.7;
+		color: #5a5550;
+		max-width: 520px;
+		margin: 0;
+		padding: 0.5rem 0 0.3rem;
+		letter-spacing: 0.01em;
 	}
 
 	.h-footer {
@@ -258,7 +619,7 @@
 		display: flex;
 		align-items: baseline;
 		gap: 0.5em;
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: clamp(0.62rem, 0.85vw, 0.75rem);
 		letter-spacing: 0.04em;
 	}
@@ -280,7 +641,7 @@
 	}
 
 	.h-location {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: clamp(0.58rem, 0.8vw, 0.68rem);
 		font-weight: 400;
 		color: #a09a94;
@@ -288,7 +649,7 @@
 		margin: 0;
 	}
 
-	/* Scroll indicator — bottom center, text + arrow */
+	/* ── Scroll indicator ── */
 	.scroll-hint {
 		position: absolute;
 		bottom: 2.5rem;
@@ -302,7 +663,7 @@
 	}
 
 	.scroll-label {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.58rem;
 		text-transform: uppercase;
 		letter-spacing: 0.2em;
@@ -310,7 +671,7 @@
 	}
 
 	.scroll-arrow {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.8rem;
 		color: #b0aba5;
 		animation: scrollBounce 2.4s ease-in-out infinite;
@@ -334,13 +695,14 @@
 	}
 
 	@media (max-width: 768px) {
-		.h-text {
-			white-space: normal;
-			font-size: clamp(1rem, 5.5vw, 1.5rem);
+		.hero {
+			padding: 0 1.5rem;
+			justify-content: flex-end;
+			padding-bottom: 5rem;
 		}
 
-		.h-row {
-			gap: 0.8rem;
+		.scroll-hint {
+			bottom: 1.5rem;
 		}
 	}
 </style>

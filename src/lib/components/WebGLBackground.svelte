@@ -102,8 +102,11 @@
 	onMount(() => {
 		if (!canvas) return;
 
+		const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+			|| window.innerWidth <= 768;
+
 		const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+		renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5));
 
 		const scene = new THREE.Scene();
 		const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -134,10 +137,18 @@
 			targetMouse.y = 1.0 - e.clientY / window.innerHeight;
 		}
 
+		// On mobile, set a gentle wandering center point instead of mouse tracking
+		if (isMobile) {
+			targetMouse.x = 0.5;
+			targetMouse.y = 0.5;
+		}
+
 		resize();
 		window.addEventListener('resize', resize, { passive: true });
 		window.addEventListener('scroll', onScroll, { passive: true });
-		window.addEventListener('mousemove', onMouse, { passive: true });
+		if (!isMobile) {
+			window.addEventListener('mousemove', onMouse, { passive: true });
+		}
 
 		let frame;
 		function animate(time) {
@@ -154,7 +165,9 @@
 			cancelAnimationFrame(frame);
 			window.removeEventListener('resize', resize);
 			window.removeEventListener('scroll', onScroll);
-			window.removeEventListener('mousemove', onMouse);
+			if (!isMobile) {
+				window.removeEventListener('mousemove', onMouse);
+			}
 			renderer.dispose(); geo.dispose(); mat.dispose();
 		};
 	});

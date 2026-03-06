@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 
-	let { src, alt = '', revealed = false } = $props();
+	let { src, alt = '', revealed = false, type = 'image' } = $props();
 	let container = $state(null);
 	let revealTarget = $derived(revealed ? 1 : 0);
 
@@ -78,6 +78,7 @@
 
 	onMount(() => {
 		if (!container) return;
+		let destroyed = false;
 
 		const canvas = document.createElement('canvas');
 		canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;';
@@ -102,20 +103,42 @@
 		const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
 		scene.add(new THREE.Mesh(geometry, material));
 
-		const loader = new THREE.TextureLoader();
-		loader.load(src, (texture) => {
+		let videoEl = null;
+
+		if (type === 'video') {
+			videoEl = document.createElement('video');
+			videoEl.src = src;
+			videoEl.autoplay = true;
+			videoEl.muted = true;
+			videoEl.loop = true;
+			videoEl.setAttribute('playsinline', '');
+			videoEl.preload = 'metadata';
+			const texture = new THREE.VideoTexture(videoEl);
 			texture.minFilter = THREE.LinearFilter;
 			texture.magFilter = THREE.LinearFilter;
 			uniforms.uTexture.value = texture;
-
-			const imageAspect = texture.image.width / texture.image.height;
-			const height = container.getBoundingClientRect().height;
-			if (height > 0) {
-				container.style.width = `${height * imageAspect}px`;
-			}
-		});
+			videoEl.addEventListener('loadedmetadata', () => {
+				if (destroyed) return;
+				resize();
+				videoEl.play().catch(() => {});
+			});
+			videoEl.load();
+		} else {
+			const loader = new THREE.TextureLoader();
+			loader.load(src, (texture) => {
+				if (destroyed || !container) {
+					texture.dispose();
+					return;
+				}
+				texture.minFilter = THREE.LinearFilter;
+				texture.magFilter = THREE.LinearFilter;
+				uniforms.uTexture.value = texture;
+				resize();
+			});
+		}
 
 		function resize() {
+			if (destroyed || !container) return;
 			const { width, height } = container.getBoundingClientRect();
 			if (width === 0 || height === 0) return;
 			renderer.setSize(width, height);
@@ -148,6 +171,7 @@
 
 		let frame;
 		function animate() {
+			if (destroyed || !container) return;
 			const rect = container.getBoundingClientRect();
 			const uvX = (screenMouse.x - rect.left) / rect.width;
 			const uvY = 1.0 - (screenMouse.y - rect.top) / rect.height;
@@ -188,11 +212,19 @@
 		frame = requestAnimationFrame(animate);
 
 		return () => {
+			destroyed = true;
 			cancelAnimationFrame(frame);
 			ro.disconnect();
 			window.removeEventListener('mousemove', onGlobalMouseMove);
-			container.removeEventListener('mouseenter', onEnter);
-			container.removeEventListener('mouseleave', onLeave);
+			if (container) {
+				container.removeEventListener('mouseenter', onEnter);
+				container.removeEventListener('mouseleave', onLeave);
+			}
+			if (videoEl) {
+				videoEl.pause();
+				videoEl.src = '';
+				videoEl.load();
+			}
 			renderer.dispose();
 			geometry.dispose();
 			material.dispose();
@@ -210,9 +242,9 @@
 <style>
 	.webgl-image {
 		position: relative;
+		width: 100%;
 		height: 100%;
 		overflow: hidden;
 		background: #e8e5e0;
-		flex-shrink: 0;
 	}
 </style>
