@@ -70,7 +70,7 @@
 			ar: "1/1",
 			alt: "Published paper in Current Biology on cultural evolution in bird song",
 			label: "Research",
-			desc: "Biology, computational and conservation science",
+			desc: "Biology & computational science",
 			title: "Scientific research",
 			detail: "I hold a PhD in Biology from the University of Oxford, where I went on to work as a postdoctoral researcher and remain a visiting researcher. My research on ecology, bioacoustics, and cultural evolution has been published in journals including Current Biology and Methods in Ecology and Evolution, and covered by international media.",
 			role: "Researcher",
