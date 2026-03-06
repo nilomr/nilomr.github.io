@@ -1,41 +1,41 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 
 	const credits = [
 		{
-			project: 'Cultural evolution of bird song',
-			role: 'Researcher',
-			org: 'University of Oxford',
-			period: '2020–present',
+			project: "Cultural evolution of bird song",
+			role: "Researcher",
+			org: "University of Oxford",
+			period: "2020–present",
 			href: null,
 		},
 		{
-			project: 'pykanto',
-			role: 'Creator',
-			org: 'Open source',
-			period: '2023',
-			href: 'https://github.com/nilomr/pykanto',
+			project: "pykanto",
+			role: "Creator",
+			org: "Open source",
+			period: "2023",
+			href: "https://github.com/nilomr/pykanto",
 		},
 		{
-			project: 'sedum.studio',
-			role: 'Founder',
-			org: 'Data viz & consulting',
-			period: '2024',
-			href: 'https://www.sedum.studio',
+			project: "sedum.studio",
+			role: "Founder",
+			org: "Data viz & consulting",
+			period: "2024",
+			href: "https://www.sedum.studio",
 		},
 		{
-			project: 'Voyage of Time',
-			role: 'Cinematographer',
-			org: 'Terrence Malick',
-			period: '2016',
-			href: 'https://www.imdb.com/name/nm4945222',
+			project: "Voyage of Time",
+			role: "Cinematographer",
+			org: "Terrence Malick",
+			period: "2016",
+			href: "https://www.imdb.com/name/nm4945222",
 		},
 		{
-			project: 'Awaken',
-			role: 'Camera',
-			org: 'Tom Lowe',
-			period: '2018',
-			href: 'https://www.imdb.com/name/nm4945222',
+			project: "Awaken",
+			role: "Camera",
+			org: "Tom Lowe",
+			period: "2018",
+			href: "https://www.imdb.com/name/nm4945222",
 		},
 	];
 
@@ -43,61 +43,61 @@
 
 	onMount(async () => {
 		if (!sectionEl) return;
-		const gsap = (await import('gsap')).default;
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+		const gsap = (await import("gsap")).default;
+		const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 		gsap.registerPlugin(ScrollTrigger);
 		if (!sectionEl) return;
 
 		// Reveal bio
-		const bio = sectionEl.querySelector('.about-bio');
+		const bio = sectionEl.querySelector(".about-bio");
 		gsap.from(bio, {
 			y: 40,
 			opacity: 0,
 			duration: 0.9,
-			ease: 'power3.out',
-			scrollTrigger: { trigger: bio, start: 'top 85%' },
+			ease: "power3.out",
+			scrollTrigger: { trigger: bio, start: "top 85%" },
 		});
 
 		// Reveal credits heading
-		const heading = sectionEl.querySelector('.credits-label');
+		const heading = sectionEl.querySelector(".credits-label");
 		gsap.from(heading, {
 			y: 20,
 			opacity: 0,
 			duration: 0.6,
-			ease: 'power3.out',
-			scrollTrigger: { trigger: heading, start: 'top 88%' },
+			ease: "power3.out",
+			scrollTrigger: { trigger: heading, start: "top 88%" },
 		});
 
 		// Stagger credit rows
-		const rows = sectionEl.querySelectorAll('.credit-row');
+		const rows = sectionEl.querySelectorAll(".credit-row");
 		rows.forEach((row, i) => {
 			gsap.from(row, {
 				y: 30,
 				opacity: 0,
 				duration: 0.6,
-				ease: 'power3.out',
-				scrollTrigger: { trigger: row, start: 'top 92%' },
+				ease: "power3.out",
+				scrollTrigger: { trigger: row, start: "top 92%" },
 				delay: i * 0.05,
 			});
 		});
 
 		// Hover: line draw on credit rows
 		rows.forEach((row) => {
-			const line = row.querySelector('.credit-line');
-			row.addEventListener('mouseenter', () => {
+			const line = row.querySelector(".credit-line");
+			row.addEventListener("mouseenter", () => {
 				gsap.to(line, {
 					scaleX: 1,
 					duration: 0.5,
-					ease: 'power3.out',
-					transformOrigin: 'left',
+					ease: "power3.out",
+					transformOrigin: "left",
 				});
 			});
-			row.addEventListener('mouseleave', () => {
+			row.addEventListener("mouseleave", () => {
 				gsap.to(line, {
 					scaleX: 0,
 					duration: 0.4,
-					ease: 'power3.in',
-					transformOrigin: 'right',
+					ease: "power3.in",
+					transformOrigin: "right",
 				});
 			});
 		});
@@ -108,10 +108,12 @@
 	<div class="about-inner">
 		<div class="about-bio">
 			<p class="bio-text">
-				I study how culture evolves in nature, build open-source tools for
-				science, and design data visualisations. Before academia, I spent five
-				years as a documentary cinematographer — shooting for Terrence Malick
-				and Tom Lowe across four continents.
+				"I'm a scientist, developer, and designer with a PhD from Oxford
+				— and a past life shooting documentaries for Terrence Malick. I
+				build tools and visualisations that make complex data
+				meaningful, for researchers, institutions, and organisations
+				that need to communicate at their best. I run sedum.studio, a
+				small studio at the intersection of data science and design."
 			</p>
 		</div>
 
@@ -119,16 +121,23 @@
 			<span class="credits-label">Selected</span>
 			<div class="credits-list">
 				{#each credits as credit}
-					{@const Tag = credit.href ? 'a' : 'div'}
+					{@const Tag = credit.href ? "a" : "div"}
 					<svelte:element
 						this={Tag}
 						class="credit-row"
 						href={credit.href}
-						target={credit.href ? '_blank' : undefined}
-						rel={credit.href ? 'noopener noreferrer' : undefined}
+						target={credit.href ? "_blank" : undefined}
+						rel={credit.href ? "noopener noreferrer" : undefined}
 					>
 						<span class="credit-project">{credit.project}</span>
-						<span class="credit-meta"><span class="credit-role">{credit.role}</span><span class="credit-sep"> · </span><span class="credit-org">{credit.org}</span></span>
+						<span class="credit-meta"
+							><span class="credit-role">{credit.role}</span><span
+								class="credit-sep"
+							>
+								·
+							</span><span class="credit-org">{credit.org}</span
+							></span
+						>
 						<span class="credit-period">{credit.period}</span>
 						{#if credit.href}
 							<span class="credit-arrow">&nearr;</span>
@@ -160,7 +169,7 @@
 	}
 
 	.bio-text {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: clamp(0.95rem, 1.4vw, 1.15rem);
 		font-weight: 400;
 		line-height: 1.75;
@@ -175,7 +184,7 @@
 	}
 
 	.credits-label {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.65rem;
 		text-transform: uppercase;
 		letter-spacing: 0.2em;
@@ -233,7 +242,7 @@
 	}
 
 	.credit-project {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: clamp(0.82rem, 1.1vw, 0.95rem);
 		font-weight: 700;
 		color: #1a1a1a;
@@ -241,14 +250,14 @@
 	}
 
 	.credit-role {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: 0.78rem;
 		color: #7a756f;
 		text-align: right;
 	}
 
 	.credit-org {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: 0.78rem;
 		color: #9a9590;
 		text-align: right;
@@ -256,7 +265,7 @@
 	}
 
 	.credit-period {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.68rem;
 		color: #b0aba5;
 		letter-spacing: 0.03em;
@@ -272,7 +281,9 @@
 		font-size: 0.85rem;
 		color: #b0aba5;
 		opacity: 0;
-		transition: opacity 0.3s ease, transform 0.3s ease;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
 	}
 
 	a.credit-row:hover .credit-arrow {

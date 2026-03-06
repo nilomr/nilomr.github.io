@@ -368,7 +368,7 @@
 
 			<div class="mh-footer">
 				<span class="mh-role">{roles[0]}</span>
-				<span class="mh-loc">Oxford & Barcelona</span>
+				<span class="mh-loc">Oxford & Cantabria</span>
 			</div>
 		</div>
 	{:else}
@@ -406,7 +406,7 @@
 					<span class="h-sep">/</span>
 					<span class="h-role">{roles[0]}</span>
 				</div>
-				<p class="h-location">Oxford & Barcelona</p>
+				<p class="h-location">Oxford & Cantabria</p>
 			</div>
 		</div>
 	{/if}

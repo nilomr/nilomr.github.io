@@ -1,73 +1,109 @@
 <script>
-	import { onMount } from 'svelte';
-	import WebGLImage from './WebGLImage.svelte';
-	import Gallery3DCard from './Gallery3DCard.svelte';
+	import { onMount } from "svelte";
+	import WebGLImage from "./WebGLImage.svelte";
+	import Gallery3DCard from "./Gallery3DCard.svelte";
 
 	const items = [
 		{
-			src: '/images/stream-2.png',
-			ar: '2941/1670',
-			alt: 'Reindeer herders crossing a river at golden hour, Mongolia',
-			label: 'Mongolia',
-			desc: 'Tsaatan reindeer herders — Awaken',
-			title: 'Awaken',
-			detail:
-				"Cinematography for Tom Lowe's feature documentary, following the last Tsaatan reindeer herders through the mountains of northern Mongolia.",
-			role: 'Cinematographer',
-			year: '2014',
-			link: { label: 'IMDB', href: 'https://www.imdb.com/name/nm4945222' },
+			src: "/images/stream-2.png",
+			ar: "2941/1670",
+			alt: "Interactive data exploration interface",
+			label: "data visualization",
+			desc: "Real-time data dashboard",
+			title: "Interactive data exploration interface",
+			detail: "Consultancy work for the citizen science project BirdNET at Cornell University. This interactive system was developed for a visitor centre, allowing the public to explore both real-time and historical patterns in biodiversity data. The interface was designed to make large acoustic monitoring datasets accessible and intuitive.",
+			role: "Design and development",
+			year: "2025",
+			link: {
+				label: "Cornell Lab of Ornithology",
+				href: "https://www.birds.cornell.edu/home/",
+			},
 		},
 		{
-			src: '/images/nilo-film.webp',
-			ar: '1/1',
-			alt: 'Flock of lapwings taking flight over snow-covered trees',
-			label: 'Oxford',
-			desc: 'Wytham Woods, field research',
-			title: 'Cultural evolution of bird song',
-			detail:
-				'Studying how song culture evolves in wild great tit populations. 950,000+ notes analysed across generations using custom ML pipelines.',
-			role: 'Researcher',
-			year: '2020–present',
-			link: { label: 'pykanto', href: 'https://github.com/nilomr/pykanto' },
+			src: "/images/nilo-film.webp",
+			ar: "1/1",
+			alt: "Trailer premiere for the documentary film Awaken in Times Square",
+			label: "cinematography",
+			desc: "Trailer premiere in Times Square",
+			title: "Second unit direction and cinematography",
+			detail: "Between 2011 and 2016, I worked in documentary film production as a cinematographer and second unit director. This sequence, shot in Belarus, opens the trailer for Awaken, which screened in Times Square, New York. Over those years I led small international units across three continents, capturing large-format landscape and nature footage in often demanding conditions.",
+			role: "Second unit director and cinematographer",
+			year: "2012–2017",
+			link: {
+				label: "IMDb",
+				href: "https://www.imdb.com/name/nm4945222",
+			},
 		},
 		{
-			type: '3d',
-			alt: 'Acheulean handaxe 3D model',
-			label: 'Paleoanthropology',
-			desc: 'Acheulean handaxe — Fish Hoek',
-			title: 'Acheulean Hand Axe',
-			detail:
-				'Large Acheulean handaxe from Brak Kloof, quartzitic sandstone. Fish Hoek valley, ESA. 19×19 cm. 3D model from 141 images (Canon EOS R5, 50mm). Curated by Fish Hoek Valley Museum.',
-			role: 'Digital Heritage',
-			year: '~500 ka BP',
-			link: { label: 'GDH', href: 'https://www.globaldigitalheritage.org/' },
+			type: "3d",
+			alt: "3D data visualization of an Acheulean handaxe",
+			label: "digital heritage",
+			desc: "Making data accessible and engaging",
+			title: "Digital data design",
+			detail: "I analyze and visualize complex data—from physical artifacts to large-scale statistical trends—to extract key insights and create compelling narratives for both experts and the public. This example shows a stone tool from the African Early Stone Age.",
+			credits:
+				"Item at the Fish Hoek Valley Museum · Scanned by Global Digital Heritage · CC BY-NC 4.0",
+			role: "Designer and developer",
+			year: "Ongoing",
+			link: {
+				label: "GDH",
+				href: "https://www.globaldigitalheritage.org/",
+			},
 		},
+
+{
+    type: "video",
+    src: "/images/canopyviewer.mp4",
+    ar: "16/9",
+    alt: "Canopy Viewer — interactive web app for exploring tree canopy data from aerial imagery",
+    label: "Interactive",
+    desc: "From aerial imagery to interactive mapping",
+    title: "Canopy viewer",
+    detail: "I built a machine learning pipeline to detect and map individual tree species from aerial photography — then turned the results into an interactive browser tool anyone can explore. Users can slide between raw imagery and segmentation overlays, and inspect species-specific data in real time. Part of a UKRI-funded project at the University of Oxford.",
+    role: "Design and development",
+    year: "2025",
+},
+
+
 		{
-			src: '/images/journal-2.jpg',
-			ar: '1/1',
-			alt: 'Egret catching fish in backlit water',
-			label: 'Doñana',
-			desc: 'Little egret',
-			title: 'sedum.studio',
-			detail:
-				'Data visualisation and consulting studio. Transforming complex scientific datasets into clear, compelling visual narratives.',
-			role: 'Founder',
-			year: '2024',
-			link: { label: 'sedum.studio', href: 'https://www.sedum.studio' },
+			src: "/images/journal-2.jpg",
+			ar: "1/1",
+			alt: "Published paper in Current Biology on cultural evolution in bird song",
+			label: "Research",
+			desc: "Biology, computational and conservation science",
+			title: "Scientific research",
+			detail: "I hold a PhD in Biology from the University of Oxford, where I went on to work as a postdoctoral researcher and remain a visiting researcher. My research on ecology, bioacoustics, and cultural evolution has been published in journals including Current Biology and Methods in Ecology and Evolution, and covered by international media.",
+			role: "Researcher",
+			year: "2019–present",
+			link: {
+				label: "Google Scholar",
+				href: "https://scholar.google.com/citations?user=X6MZnJ4AAAAJ",
+			},
+			logos: [
+				"/logos/bbc.svg",
+				"/logos/npr.svg",
+				"/logos/the-guardian.svg",
+				"/logos/the-times.svg",
+				"/logos/the-washington-post.svg",
+			],
 		},
+
 		{
-			type: 'video',
-			src: '/images/canopyviewer.mp4',
-			ar: '16/9',
-			alt: 'Canopy viewer demo video',
-			label: 'Interactive',
-			desc: 'Canopy Viewer demo',
-			title: 'Canopy Viewer',
-			detail:
-				'Real-time canopy exploration demo. Autoplaying loop showcasing the interactive viewer and camera flow.',
-			role: 'Creative Coding',
-			year: '2024',
+			src: "/images/6-starling-map.webp",
+			ar: "4/3",
+			alt: "Distribution map of starling sightings from the Big Garden Birdwatch",
+			label: "Conservation science",
+			desc: "Monitoring biodiversity at scale",
+			title: "Big Garden Birdwatch",
+			detail: "As a Senior Conservation Scientist at the RSPB, I work on the Big Garden Birdwatch — one of the world’s largest citizen science projects, engaging half a million participants each year. I develop statistical methods and data pipelines to turn millions of public observations into meaningful trends, helping to track how common garden birds are faring across the UK.",
+			role: "Senior Conservation Scientist",
+			year: "2026–present",
+			link: {
+				label: "RSPB",
+				href: "https://www.rspb.org.uk/whats-happening/big-garden-birdwatch",
+			},
 		},
+
 	];
 
 	let wrapperEl = $state(null);
@@ -81,11 +117,12 @@
 	}
 
 	onMount(async () => {
-		isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
-			|| window.innerWidth <= 768;
+		isMobile =
+			window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+			window.innerWidth <= 768;
 
-		const gsap = (await import('gsap')).default;
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+		const gsap = (await import("gsap")).default;
+		const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 		gsap.registerPlugin(ScrollTrigger);
 
 		if (isMobile) {
@@ -94,30 +131,35 @@
 				const observer = new IntersectionObserver(
 					(entries) => {
 						entries.forEach((entry) => {
-							if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+							if (
+								entry.isIntersecting &&
+								entry.intersectionRatio > 0.5
+							) {
 								const idx = Number(entry.target.dataset.idx);
 								if (!isNaN(idx)) mobileActiveIdx = idx;
 							}
 						});
 					},
-					{ root: mobileScrollEl, threshold: 0.5 }
+					{ root: mobileScrollEl, threshold: 0.5 },
 				);
-				mobileScrollEl.querySelectorAll('.m-card').forEach((card) => observer.observe(card));
+				mobileScrollEl
+					.querySelectorAll(".m-card")
+					.forEach((card) => observer.observe(card));
 				return () => observer.disconnect();
 			}
 			return;
 		}
 
 		// Desktop: horizontal scroll gallery (unchanged)
-		const track = wrapperEl.querySelector('.g-track');
+		const track = wrapperEl.querySelector(".g-track");
 		const getScrollDistance = () => track.scrollWidth - window.innerWidth;
 
 		gsap.to(track, {
 			x: () => -getScrollDistance(),
-			ease: 'none',
+			ease: "none",
 			scrollTrigger: {
 				trigger: wrapperEl,
-				start: 'top top',
+				start: "top top",
 				end: () => `+=${getScrollDistance()}`,
 				pin: true,
 				pinSpacing: true,
@@ -144,27 +186,29 @@
 		}
 		requestAnimationFrame(waitForImages);
 
-		const counter = wrapperEl.querySelector('.g-counter-current');
+		const counter = wrapperEl.querySelector(".g-counter-current");
 		if (counter) {
 			ScrollTrigger.create({
 				trigger: wrapperEl,
-				start: 'top top',
+				start: "top top",
 				end: () => `+=${getScrollDistance()}`,
 				scrub: true,
 				onUpdate: (self) => {
 					const idx = Math.min(
 						items.length,
-						Math.floor(self.progress * items.length) + 1
+						Math.floor(self.progress * items.length) + 1,
 					);
-					counter.textContent = String(idx).padStart(2, '0');
+					counter.textContent = String(idx).padStart(2, "0");
 				},
 			});
 		}
 
 		const observer = new MutationObserver(() => {
-			const activeOverlay = wrapperEl.querySelector('.g-card.is-active .g-overlay');
+			const activeOverlay = wrapperEl.querySelector(
+				".g-card.is-active .g-overlay",
+			);
 			if (activeOverlay) {
-				const els = activeOverlay.querySelectorAll('.g-ov-line');
+				const els = activeOverlay.querySelectorAll(".g-ov-line");
 				gsap.fromTo(
 					els,
 					{ y: 16, opacity: 0 },
@@ -173,13 +217,17 @@
 						opacity: 1,
 						stagger: 0.07,
 						duration: 0.5,
-						ease: 'power3.out',
+						ease: "power3.out",
 						delay: 0.15,
-					}
+					},
 				);
 			}
 		});
-		observer.observe(wrapperEl, { attributes: true, subtree: true, attributeFilter: ['class'] });
+		observer.observe(wrapperEl, {
+			attributes: true,
+			subtree: true,
+			attributeFilter: ["class"],
+		});
 
 		return () => observer.disconnect();
 	});
@@ -187,146 +235,277 @@
 
 <!-- Mobile Gallery -->
 {#if isMobile}
-<section class="m-gallery">
-	<div class="m-header">
-		<span class="m-label">Visual Work</span>
-		<div class="m-pips">
-			{#each items as _, i}
-				<span class="m-pip" class:active={mobileActiveIdx === i}>+</span>
+	<section class="m-gallery">
+		<div class="m-header">
+			<span class="m-label">Visual Work</span>
+			<div class="m-pips">
+				{#each items as _, i}
+					<span class="m-pip" class:active={mobileActiveIdx === i}
+						>+</span
+					>
+				{/each}
+			</div>
+		</div>
+		<div class="m-scroll" bind:this={mobileScrollEl}>
+			{#each items as item, i}
+				<article
+					class="m-card"
+					class:is-active={activeCard === i}
+					data-idx={i}
+				>
+					<div
+						class="m-image-wrap"
+						class:is-3d={item.type === "3d"}
+						role="button"
+						tabindex="0"
+						onclick={() => toggleCard(i)}
+						onkeydown={(e) =>
+							(e.key === "Enter" || e.key === " ") &&
+							(e.preventDefault(), toggleCard(i))}
+					>
+						{#if item.type === "3d"}
+							<Gallery3DCard revealed={activeCard === i} />
+						{:else if item.type === "video"}
+							<video
+								src={item.src}
+								class="m-video"
+								aria-label={item.alt}
+								autoplay
+								loop
+								muted
+								playsinline
+								preload="metadata"
+							></video>
+						{:else}
+							<img
+								src={item.src}
+								alt={item.alt}
+								class="m-image"
+								loading={i === 0 ? "eager" : "lazy"}
+							/>
+						{/if}
+
+						<!-- Overlay -->
+						<div class="m-overlay" class:visible={activeCard === i}>
+							<div class="m-ov-inner">
+								<span class="m-ov-role">{item.role}</span>
+								<h3 class="m-ov-title">{item.title}</h3>
+								<p class="m-ov-detail">{item.detail}</p>
+								{#if item.logos}
+									<div class="m-ov-logos">
+										{#each item.logos as logo}
+											<img
+												src={logo}
+												alt=""
+												class="g-ov-logo"
+												aria-hidden="true"
+											/>
+										{/each}
+									</div>
+								{/if}
+								{#if item.credits}
+									<p class="m-ov-credits">{item.credits}</p>
+								{/if}
+								<div class="m-ov-footer">
+									<span class="m-ov-year">{item.year}</span>
+									{#if item.link}
+										<a
+											href={item.link.href}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="m-ov-link"
+											onclick={(e) => e.stopPropagation()}
+										>
+											{item.link.label} &nearr;
+										</a>
+									{/if}
+								</div>
+							</div>
+							<button
+								class="m-ov-close"
+								onclick={(e) => {
+									e.stopPropagation();
+									activeCard = -1;
+								}}
+								aria-label="Close"
+							>
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 18 18"
+									fill="none"
+								>
+									<line
+										x1="3"
+										y1="3"
+										x2="15"
+										y2="15"
+										stroke="currentColor"
+										stroke-width="1.5"
+									/>
+									<line
+										x1="15"
+										y1="3"
+										x2="3"
+										y2="15"
+										stroke="currentColor"
+										stroke-width="1.5"
+									/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="m-meta">
+						<span class="m-meta-label">{item.label}</span>
+						<span class="m-meta-desc">{item.desc}</span>
+					</div>
+				</article>
 			{/each}
 		</div>
-	</div>
-	<div class="m-scroll" bind:this={mobileScrollEl}>
-		{#each items as item, i}
-			<article
-				class="m-card"
-				class:is-active={activeCard === i}
-				data-idx={i}
-			>
-				<div class="m-image-wrap" class:is-3d={item.type === '3d'} role="button" tabindex="0" onclick={() => toggleCard(i)} onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggleCard(i))}>
-					{#if item.type === '3d'}
-						<Gallery3DCard revealed={activeCard === i} />
-					{:else if item.type === 'video'}
-						<video
-							src={item.src}
-							class="m-video"
-							aria-label={item.alt}
-							autoplay
-							loop
-							muted
-							playsinline
-							preload="metadata"
-						></video>
-					{:else}
-						<img src={item.src} alt={item.alt} class="m-image" loading={i === 0 ? 'eager' : 'lazy'} />
-					{/if}
-
-					<!-- Overlay -->
-					<div class="m-overlay" class:visible={activeCard === i}>
-						<div class="m-ov-inner">
-							<span class="m-ov-role">{item.role}</span>
-							<h3 class="m-ov-title">{item.title}</h3>
-							<p class="m-ov-detail">{item.detail}</p>
-							<div class="m-ov-footer">
-								<span class="m-ov-year">{item.year}</span>
-								{#if item.link}
-									<a
-										href={item.link.href}
-										target="_blank"
-										rel="noopener noreferrer"
-										class="m-ov-link"
-										onclick={(e) => e.stopPropagation()}
-									>
-										{item.link.label} &nearr;
-									</a>
-								{/if}
-							</div>
-						</div>
-						<button class="m-ov-close" onclick={(e) => { e.stopPropagation(); activeCard = -1; }} aria-label="Close">
-							<svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-								<line x1="3" y1="3" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" />
-								<line x1="15" y1="3" x2="3" y2="15" stroke="currentColor" stroke-width="1.5" />
-							</svg>
-						</button>
-					</div>
-				</div>
-
-				<div class="m-meta">
-					<span class="m-meta-label">{item.label}</span>
-					<span class="m-meta-desc">{item.desc}</span>
-				</div>
-			</article>
-		{/each}
-	</div>
-</section>
+	</section>
 {:else}
-<!-- Desktop Gallery (unchanged) -->
-<section class="g-wrapper" bind:this={wrapperEl}>
-	<div class="g-track">
-		<div class="g-lead">
-			<span class="g-lead-text">Visual Work</span>
+	<!-- Desktop Gallery (unchanged) -->
+	<section class="g-wrapper" bind:this={wrapperEl}>
+		<div class="g-track">
+			<div class="g-lead">
+				<span class="g-lead-text">Visual Work</span>
+			</div>
+
+			{#each items as item, i}
+				<article
+					class="g-card"
+					class:is-active={activeCard === i}
+					class:is-3d={item.type === "3d"}
+				>
+					<div
+						class="g-frame"
+						class:is-3d={item.type === "3d"}
+						style={item.ar ? `aspect-ratio: ${item.ar}` : ""}
+						role="button"
+						tabindex="0"
+						onclick={() => toggleCard(i)}
+						onkeydown={(e) =>
+							(e.key === "Enter" || e.key === " ") &&
+							(e.preventDefault(), toggleCard(i))}
+					>
+						{#if item.type === "3d"}
+							<Gallery3DCard revealed={activeCard === i} />
+						{:else if item.type === "video"}
+							<WebGLImage
+								src={item.src}
+								alt={item.alt}
+								revealed={activeCard === i}
+								type="video"
+							/>
+						{:else}
+							<WebGLImage
+								src={item.src}
+								alt={item.alt}
+								revealed={activeCard === i}
+							/>
+						{/if}
+
+						<div class="g-hint" class:hidden={activeCard === i}>
+							<span>View project</span>
+						</div>
+
+						<div class="g-overlay" class:visible={activeCard === i}>
+							<div class="g-ov-inner">
+								<span class="g-ov-line g-ov-role"
+									>{item.role}</span
+								>
+								<h3 class="g-ov-line g-ov-title">
+									{item.title}
+								</h3>
+								<p class="g-ov-line g-ov-detail">
+									{item.detail}
+								</p>
+								{#if item.logos}
+									<div class="g-ov-line g-ov-logos">
+										{#each item.logos as logo}
+											<img
+												src={logo}
+												alt=""
+												class="g-ov-logo"
+												aria-hidden="true"
+											/>
+										{/each}
+									</div>
+								{/if}
+								{#if item.credits}
+									<p class="g-ov-line g-ov-credits">
+										{item.credits}
+									</p>
+								{/if}
+								<div class="g-ov-line g-ov-footer">
+									<span class="g-ov-year">{item.year}</span>
+									{#if item.link}
+										<a
+											href={item.link.href}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="g-ov-link"
+											onclick={(e) => e.stopPropagation()}
+										>
+											{item.link.label} &nearr;
+										</a>
+									{/if}
+								</div>
+							</div>
+							<button
+								class="g-ov-close"
+								onclick={(e) => {
+									e.stopPropagation();
+									activeCard = -1;
+								}}
+								aria-label="Close"
+							>
+								<svg
+									width="18"
+									height="18"
+									viewBox="0 0 18 18"
+									fill="none"
+								>
+									<line
+										x1="3"
+										y1="3"
+										x2="15"
+										y2="15"
+										stroke="currentColor"
+										stroke-width="1.2"
+									/>
+									<line
+										x1="15"
+										y1="3"
+										x2="3"
+										y2="15"
+										stroke="currentColor"
+										stroke-width="1.2"
+									/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="g-meta">
+						<span class="g-label">{item.label}</span>
+						<span class="g-desc">{item.desc}</span>
+					</div>
+				</article>
+			{/each}
+
+			<div class="g-trail"></div>
 		</div>
 
-		{#each items as item, i}
-			<article class="g-card" class:is-active={activeCard === i} class:is-3d={item.type === '3d'}>
-				<div class="g-frame" class:is-3d={item.type === '3d'} style={item.ar ? `aspect-ratio: ${item.ar}` : ''} role="button" tabindex="0" onclick={() => toggleCard(i)} onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggleCard(i))}>
-					{#if item.type === '3d'}
-						<Gallery3DCard revealed={activeCard === i} />
-					{:else if item.type === 'video'}
-						<WebGLImage src={item.src} alt={item.alt} revealed={activeCard === i} type="video" />
-					{:else}
-						<WebGLImage src={item.src} alt={item.alt} revealed={activeCard === i} />
-					{/if}
-
-					<div class="g-hint" class:hidden={activeCard === i}>
-						<span>View project</span>
-					</div>
-
-					<div class="g-overlay" class:visible={activeCard === i}>
-						<div class="g-ov-inner">
-							<span class="g-ov-line g-ov-role">{item.role}</span>
-							<h3 class="g-ov-line g-ov-title">{item.title}</h3>
-							<p class="g-ov-line g-ov-detail">{item.detail}</p>
-							<div class="g-ov-line g-ov-footer">
-								<span class="g-ov-year">{item.year}</span>
-								{#if item.link}
-									<a
-										href={item.link.href}
-										target="_blank"
-										rel="noopener noreferrer"
-										class="g-ov-link"
-										onclick={(e) => e.stopPropagation()}
-									>
-										{item.link.label} &nearr;
-									</a>
-								{/if}
-							</div>
-						</div>
-						<button class="g-ov-close" onclick={(e) => { e.stopPropagation(); activeCard = -1; }} aria-label="Close">
-							<svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-								<line x1="3" y1="3" x2="15" y2="15" stroke="currentColor" stroke-width="1.2" />
-								<line x1="15" y1="3" x2="3" y2="15" stroke="currentColor" stroke-width="1.2" />
-							</svg>
-						</button>
-					</div>
-				</div>
-
-				<div class="g-meta">
-					<span class="g-label">{item.label}</span>
-					<span class="g-desc">{item.desc}</span>
-				</div>
-			</article>
-		{/each}
-
-		<div class="g-trail"></div>
-	</div>
-
-	<div class="g-counter">
-		<span class="g-counter-current">01</span>
-		<span class="g-counter-sep">/</span>
-	<span class="g-counter-total">{String(items.length).padStart(2, '0')}</span>
-	</div>
-</section>
+		<div class="g-counter">
+			<span class="g-counter-current">01</span>
+			<span class="g-counter-sep">/</span>
+			<span class="g-counter-total"
+				>{String(items.length).padStart(2, "0")}</span
+			>
+		</div>
+	</section>
 {/if}
 
 <style>
@@ -343,7 +522,7 @@
 	}
 
 	.m-label {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.62rem;
 		text-transform: uppercase;
 		letter-spacing: 0.2em;
@@ -357,12 +536,14 @@
 	}
 
 	.m-pip {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 1rem;
 		font-weight: 400;
 		color: #c0bdb8;
 		line-height: 1;
-		transition: color 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		transition:
+			color 0.35s ease,
+			transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 		display: inline-block;
 	}
 
@@ -385,7 +566,7 @@
 
 	.m-scroll::before,
 	.m-scroll::after {
-		content: '';
+		content: "";
 		flex: 0 0 calc((100% - var(--card-w)) / 2);
 	}
 
@@ -465,7 +646,7 @@
 	}
 
 	.m-ov-role {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.58rem;
 		text-transform: uppercase;
 		letter-spacing: 0.18em;
@@ -473,7 +654,7 @@
 	}
 
 	.m-ov-title {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 1.2rem;
 		font-weight: 700;
 		color: #fff;
@@ -483,12 +664,21 @@
 	}
 
 	.m-ov-detail {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: 0.82rem;
 		font-weight: 400;
 		line-height: 1.6;
 		color: rgba(255, 255, 255, 0.75);
 		margin: 0;
+	}
+
+	.m-ov-credits {
+		font-family: "Inter", sans-serif;
+		font-size: 0.68rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.55);
+		margin: 0.4rem 0 0;
 	}
 
 	.m-ov-footer {
@@ -499,14 +689,14 @@
 	}
 
 	.m-ov-year {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.65rem;
 		color: rgba(255, 255, 255, 0.4);
 		letter-spacing: 0.05em;
 	}
 
 	.m-ov-link {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.65rem;
 		color: #fff;
 		text-decoration: none;
@@ -534,7 +724,7 @@
 	}
 
 	.m-meta-label {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.58rem;
 		text-transform: uppercase;
 		letter-spacing: 0.15em;
@@ -543,7 +733,7 @@
 	}
 
 	.m-meta-desc {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: 0.75rem;
 		font-weight: 400;
 		color: #5a5550;
@@ -575,7 +765,7 @@
 	}
 
 	.g-lead-text {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.68rem;
 		text-transform: uppercase;
 		letter-spacing: 0.2em;
@@ -649,7 +839,9 @@
 		z-index: 1;
 		opacity: 0;
 		transform: translateY(4px);
-		transition: opacity 0.35s ease, transform 0.35s ease;
+		transition:
+			opacity 0.35s ease,
+			transform 0.35s ease;
 		pointer-events: none;
 	}
 
@@ -663,7 +855,7 @@
 	}
 
 	.g-hint span {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.58rem;
 		text-transform: uppercase;
 		letter-spacing: 0.15em;
@@ -709,7 +901,7 @@
 	}
 
 	.g-ov-role {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.6rem;
 		text-transform: uppercase;
 		letter-spacing: 0.18em;
@@ -717,7 +909,7 @@
 	}
 
 	.g-ov-title {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: clamp(1.1rem, 2vw, 1.6rem);
 		font-weight: 700;
 		color: #fff;
@@ -727,12 +919,21 @@
 	}
 
 	.g-ov-detail {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: 0.82rem;
 		font-weight: 400;
 		line-height: 1.6;
 		color: rgba(255, 255, 255, 0.75);
 		margin: 0;
+	}
+
+	.g-ov-credits {
+		font-family: "Inter", sans-serif;
+		font-size: 0.7rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0.5rem 0 0;
 	}
 
 	.g-ov-footer {
@@ -743,14 +944,14 @@
 	}
 
 	.g-ov-year {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.65rem;
 		color: rgba(255, 255, 255, 0.4);
 		letter-spacing: 0.05em;
 	}
 
 	.g-ov-link {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.65rem;
 		color: #fff;
 		text-decoration: none;
@@ -761,7 +962,7 @@
 	}
 
 	.g-ov-link::after {
-		content: '';
+		content: "";
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -787,7 +988,9 @@
 		color: rgba(255, 255, 255, 0.6);
 		cursor: pointer;
 		padding: 0.5rem;
-		transition: color 0.2s ease, transform 0.2s ease;
+		transition:
+			color 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.g-ov-close:hover {
@@ -803,7 +1006,7 @@
 	}
 
 	.g-label {
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.6rem;
 		text-transform: uppercase;
 		letter-spacing: 0.15em;
@@ -812,7 +1015,7 @@
 	}
 
 	.g-desc {
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		font-size: 0.78rem;
 		font-weight: 400;
 		color: #5a5550;
@@ -825,7 +1028,7 @@
 		display: flex;
 		align-items: baseline;
 		gap: 0.3em;
-		font-family: 'Space Mono', monospace;
+		font-family: "Space Mono", monospace;
 		font-size: 0.65rem;
 		letter-spacing: 0.05em;
 		color: #9a9590;
@@ -839,5 +1042,21 @@
 
 	.g-counter-sep {
 		opacity: 0.4;
+	}
+
+	.g-ov-logos,
+	.m-ov-logos {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		align-items: center;
+		margin-top: 0.25rem;
+	}
+
+	.g-ov-logo {
+		height: 14px;
+		width: auto;
+		filter: brightness(0) invert(1);
+		opacity: 0.7;
 	}
 </style>
