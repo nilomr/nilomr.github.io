@@ -80,11 +80,26 @@
 				href: "https://scholar.google.com/citations?user=X6MZnJ4AAAAJ",
 			},
 			logos: [
-				"/logos/bbc.svg",
-				"/logos/npr.svg",
-				"/logos/the-guardian.svg",
-				"/logos/the-times.svg",
-				"/logos/the-washington-post.svg",
+				{
+					logo: "/logos/npr.svg",
+					href: "https://www.npr.org/2025/03/10/nx-s1-5323124/birds-can-change-their-tunes-as-their-populations-evolve-researchers-find",
+				},
+				{
+					logo: "/logos/the-guardian.svg",
+					href: "https://www.theguardian.com/science/2025/mar/07/birds-song-repertoires-age-migration-study",
+				},
+				{
+					logo: "/logos/the-times.svg",
+					href: "https://www.thetimes.com/uk/science/article/birds-like-humans-change-their-tunes-with-the-generations-m6f07xr3n",
+				},
+				{
+					logo: "/logos/bbc.svg",
+					href: "https://gb.readly.com/magazines/bbc-countryfile-magazine/2025-04-17/67ee6a365184d772194aa570",
+				},
+				{
+					logo: "/logos/the-washington-post.svg",
+					href: "https://www.washingtonpost.com/science/2025/03/07/bird-song-oxford-study-great-tit/",
+				},
 			],
 		},
 
@@ -293,13 +308,20 @@
 								<p class="m-ov-detail">{item.detail}</p>
 								{#if item.logos}
 									<div class="m-ov-logos">
-										{#each item.logos as logo}
-											<img
-												src={logo}
-												alt=""
-												class="g-ov-logo"
-												aria-hidden="true"
-											/>
+										{#each item.logos as logoItem}
+											<a
+												href={logoItem.href}
+												target="_blank"
+												rel="noopener noreferrer"
+												class="g-ov-logo-link"
+											>
+												<img
+													src={logoItem.logo}
+													alt=""
+													class="g-ov-logo"
+													aria-hidden="true"
+												/>
+											</a>
 										{/each}
 									</div>
 								{/if}
@@ -423,13 +445,20 @@
 								</p>
 								{#if item.logos}
 									<div class="g-ov-line g-ov-logos">
-										{#each item.logos as logo}
-											<img
-												src={logo}
-												alt=""
-												class="g-ov-logo"
-												aria-hidden="true"
-											/>
+										{#each item.logos as logoItem}
+											<a
+												href={logoItem.href}
+												target="_blank"
+												rel="noopener noreferrer"
+												class="g-ov-logo-link"
+											>
+												<img
+													src={logoItem.logo}
+													alt=""
+													class="g-ov-logo"
+													aria-hidden="true"
+												/>
+											</a>
 										{/each}
 									</div>
 								{/if}
@@ -1058,5 +1087,16 @@
 		width: auto;
 		filter: brightness(0) invert(1);
 		opacity: 0.7;
+		transition: opacity 0.3s ease;
+	}
+
+	.g-ov-logo-link {
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+	}
+
+	.g-ov-logo-link:hover .g-ov-logo {
+		opacity: 1;
 	}
 </style>
