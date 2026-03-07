@@ -138,8 +138,10 @@
 		}
 
 		function resize() {
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+			const w = window.innerWidth;
+			const h = window.innerHeight;
+			renderer.setSize(w, h, false);
+			uniforms.uResolution.value.set(w, h);
 		}
 
 		function onScroll() { uniforms.uScroll.value = window.scrollY; }
@@ -156,6 +158,7 @@
 
 		resize();
 		window.addEventListener('resize', resize, { passive: true });
+		window.visualViewport?.addEventListener('resize', resize, { passive: true });
 		window.addEventListener('scroll', onScroll, { passive: true });
 		if (!isMobile) {
 			window.addEventListener('mousemove', onMouseMove, { passive: true });
@@ -191,6 +194,7 @@
 		return () => {
 			cancelAnimationFrame(frame);
 			window.removeEventListener('resize', resize);
+			window.visualViewport?.removeEventListener('resize', resize);
 			window.removeEventListener('scroll', onScroll);
 			if (!isMobile) {
 				window.removeEventListener('mousemove', onMouseMove);
@@ -205,9 +209,11 @@
 <style>
 	.webgl-bg {
 		position: fixed;
-		inset: 0;
-		width: 100%;
-		height: 100%;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		height: 100lvh;
 		z-index: -1;
 		pointer-events: none;
 	}
