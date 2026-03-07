@@ -21,11 +21,28 @@
 		uniform float uHover;
 		uniform float uVelocity;
 		uniform vec2 uResolution;
+		uniform vec2 uTextureSize;
+		uniform float uBaseZoom;
 		uniform float uReveal;
 		varying vec2 vUv;
 
+		vec2 coverUv(vec2 uv, vec2 containerSize, vec2 textureSize, float zoom) {
+			float containerAspect = containerSize.x / containerSize.y;
+			float textureAspect = textureSize.x / textureSize.y;
+			vec2 scale = vec2(1.0);
+
+			if (containerAspect > textureAspect) {
+				scale.y = textureAspect / containerAspect;
+			} else {
+				scale.x = containerAspect / textureAspect;
+			}
+
+			scale /= max(zoom, 0.0001);
+			return (uv - 0.5) * scale + 0.5;
+		}
+
 		void main() {
-			vec2 uv = vUv;
+			vec2 uv = coverUv(vUv, uResolution, uTextureSize, uBaseZoom);
 			float aspect = uResolution.x / uResolution.y;
 			vec2 aspectVec = vec2(aspect, 1.0);
 
@@ -97,6 +114,8 @@
 			uHover: { value: 0 },
 			uVelocity: { value: 0 },
 			uResolution: { value: new THREE.Vector2(1, 1) },
+			uTextureSize: { value: new THREE.Vector2(1, 1) },
+			uBaseZoom: { value: type === 'video' ? 1.08 : 1.0 },
 			uReveal: { value: 0 },
 		};
 
@@ -119,6 +138,10 @@
 			uniforms.uTexture.value = texture;
 			videoEl.addEventListener('loadedmetadata', () => {
 				if (destroyed) return;
+				uniforms.uTextureSize.value.set(
+					Math.max(videoEl.videoWidth, 1),
+					Math.max(videoEl.videoHeight, 1)
+				);
 				resize();
 				videoEl.play().catch(() => {});
 			});
@@ -132,6 +155,11 @@
 				}
 				texture.minFilter = THREE.LinearFilter;
 				texture.magFilter = THREE.LinearFilter;
+				const img = texture.image;
+				uniforms.uTextureSize.value.set(
+					Math.max(img?.naturalWidth || img?.width || 1, 1),
+					Math.max(img?.naturalHeight || img?.height || 1, 1)
+				);
 				uniforms.uTexture.value = texture;
 				resize();
 			});

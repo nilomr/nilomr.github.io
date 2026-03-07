@@ -51,22 +51,21 @@
 			},
 		},
 
-{
-    type: "video",
-    src: "/images/canopyviewer.mp4",
-    ar: "16/9",
-    alt: "Canopy Viewer — interactive web app for exploring tree canopy data from aerial imagery",
-    label: "Interactive",
-    desc: "From aerial imagery to interactive mapping",
-    title: "Canopy viewer",
-    detail: "I built a machine learning pipeline to detect and map individual tree species from aerial photography — then turned the results into an interactive browser tool anyone can explore. Users can slide between raw imagery and segmentation overlays, and inspect species-specific data in real time. Part of a UKRI-funded project at the University of Oxford.",
-    role: "Design and development",
-    year: "2025",
-},
-
+		{
+			type: "video",
+			src: "/images/canopyviewer.mp4",
+			ar: "4/3",
+			alt: "Canopy Viewer — interactive web app for exploring tree canopy data from aerial imagery",
+			label: "Interactive",
+			desc: "From aerial imagery to interactive mapping",
+			title: "Canopy viewer",
+			detail: "I built a machine learning pipeline to detect and map individual tree species from aerial photography — then turned the results into an interactive browser tool anyone can explore. Users can slide between raw imagery and segmentation overlays, and inspect species-specific data in real time. Part of a UKRI-funded project at the University of Oxford.",
+			role: "Design and development",
+			year: "2025",
+		},
 
 		{
-			src: "/images/journal-2.jpg",
+			src: "/images/currbiol.webp",
 			ar: "1/1",
 			alt: "Published paper in Current Biology on cultural evolution in bird song",
 			label: "Research",
@@ -118,7 +117,6 @@
 				href: "https://www.rspb.org.uk/whats-happening/big-garden-birdwatch",
 			},
 		},
-
 	];
 
 	let wrapperEl = $state(null);

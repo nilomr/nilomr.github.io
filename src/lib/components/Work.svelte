@@ -5,7 +5,7 @@
 	const credits = [
 		{
 			project: "sedum.studio",
-			role: "Founder",
+			role: "Founder & Lead Designer",
 			org: "Data science & design",
 			period: "2024–present",
 			href: "https://www.sedum.studio",
@@ -109,9 +109,9 @@
 				<span class="bio-human">developer,</span>
 				and <em class="bio-human">designer.</em>
 				My work sits between research, computation, and visual communication.
-				I have been a researcher at Oxford and Senior Conservation Scientist
+				I have been a researcher at the University of Oxford and Senior Conservation Scientist
 				at Europe’s largest nature conservation charity. Earlier in my career
-				I worked in film, shooting projects around the world. Today I design
+				I worked in film, shooting projects around the world. Today, I design
 				analytical tools and visualizations that help researchers and organisations
 				understand complex data and communicate it clearly. I run
 				<a

@@ -14,7 +14,7 @@
 		{
 			idx: "01",
 			title: "Understanding complex systems",
-			desc: "I study how patterns emerge and change over time in large behavioural datasets. My research has analysed nearly a million bird vocalisations recorded across generations in Wytham Woods, revealing how structure appears and persists in cultural systems.",
+			desc: "I work with just about every kind of data — video, audio, image, text, spatial and tabular — to understand how complex systems are structured and how they change over time.",
 		},
 		{
 			idx: "02",
@@ -23,13 +23,13 @@
 		},
 		{
 			idx: "03",
-			title: "Machine learning & computational methods",
-			desc: "I build custom analytical tools when existing methods are not enough. My work combines machine learning, signal analysis, and statistical modelling to extract meaningful patterns from large and noisy datasets.",
+			title: "Custom tools & machine learning",
+			desc: "I build custom analytical tools when existing methods are not enough. My work combines machine learning, signal analysis, and advanced statistical modelling to extract meaningful patterns from large and noisy datasets.",
 		},
 		{
 			idx: "04",
 			title: "Visual communication",
-			desc: "Clear insight deserves clear presentation. I combine analytical work with strong visual design to produce figures, maps, and visual systems that make complex results understandable to researchers, decision-makers, and the public.",
+			desc: "Analysis only works if people understand it. I craft figures, maps, and interactive visuals that respect the nuance of the data while staying legible to researchers, funders, and the wider public.",
 		},
 	];
 
@@ -611,7 +611,7 @@
 		font-weight: 400;
 		line-height: 1.7;
 		color: #5a5550;
-		max-width: 520px;
+		max-width: 620px;
 		margin: 0;
 		padding: 0.5rem 0 0.3rem;
 		letter-spacing: 0.01em;

@@ -58,7 +58,6 @@
 			<a href="https://github.com/nilomr" target="_blank" rel="noopener noreferrer">GitHub</a>
 			<a href="https://www.sedum.studio" target="_blank" rel="noopener noreferrer">sedum.studio</a>
 			<a href="https://www.imdb.com/name/nm4945222" target="_blank" rel="noopener noreferrer">IMDB</a>
-			<a href="/images/docs/nilo_cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
 		</nav>
 	</div>
 </section>

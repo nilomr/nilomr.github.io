@@ -95,7 +95,7 @@
 		display: block;
 		will-change: transform;
 		transform-origin: center;
-		filter: sepia(0.12) saturate(0.9) brightness(0.96);
+		filter: sepia(0.1);
 	}
 
 	.portrait-ticks {
@@ -121,7 +121,7 @@
 	.portrait-caption {
 		position: absolute;
 		bottom: -1.2rem;
-		left: 0.5rem;
+		left: 0.7rem;
 		font-family: 'Space Mono', monospace;
 		font-size: 0.45rem;
 		letter-spacing: 0.18em;
