@@ -2,27 +2,34 @@
 	import { onMount } from "svelte";
 
 	const credits = [
-    {
-        project: "sedum.studio",
-        role: "Founder",
-        org: "Data science & design",
-        period: "2024–present",
-        href: "https://www.sedum.studio",
-    },
-    {
-        project: "RSPB",
-        role: "Senior Conservation Scientist",
-        org: "Largest nature NGO in Europe",
-        period: "2026–present",
-        href: "https://www.rspb.org.uk",
-    },
-    {
-        project: "University of Oxford",
-        role: "Researcher & visiting researcher",
-        org: "Department of Biology",
-        period: "2023–present",
-        href: "https://www.ox.ac.uk/news/2025-03-10-changing-chorus-study-shows-how-movements-and-memories-influence-birdsong-evolution",
-    },
+		{
+			project: "sedum.studio",
+			role: "Founder",
+			org: "Data science & design",
+			period: "2024–present",
+			href: "https://www.sedum.studio",
+		},
+		{
+			project: "RSPB",
+			role: "Senior Conservation Scientist",
+			org: "Largest nature NGO in Europe",
+			period: "2026–present",
+			href: "https://www.rspb.org.uk",
+		},
+		{
+			project: "University of Oxford",
+			role: "Researcher · Guest lecturer · Tutor",
+			org: "Department of Biology",
+			period: "2019–2026",
+			href: "https://www.ox.ac.uk/news/2025-03-10-changing-chorus-study-shows-how-movements-and-memories-influence-birdsong-evolution",
+		},
+		{
+			project: "Cornell University",
+			role: "Data Visualization Consultant",
+			org: "BirdNET project · freelance",
+			period: "2025–present",
+			href: "https://www.birds.cornell.edu",
+		},
 	];
 
 	let sectionEl = $state(null);
@@ -94,15 +101,23 @@
 	<div class="about-inner">
 		<div class="about-bio">
 			<p class="bio-text">
-I’m a <em class="bio-human">scientist,</em> <span class="bio-human">developer,</span> and <em class="bio-human">designer.</em>
-My work sits between research, computation, and visual communication.
-I have been a researcher at Oxford and Senior Conservation Scientist at Europe’s largest nature conservation charity.
-Earlier in my career I worked in film, shooting projects around the world. Today
-I design analytical tools and visualizations that help researchers and
-organisations understand complex data and communicate it clearly. I run
-<a class="bio-studio" href="https://www.sedum.studio" target="_blank" rel="noopener noreferrer">sedum.studio</a>,
-a small studio at the intersection of data science and design.
-</p>
+				I’m a <em class="bio-human">scientist,</em>
+				<span class="bio-human">developer,</span>
+				and <em class="bio-human">designer.</em>
+				My work sits between research, computation, and visual communication.
+				I have been a researcher at Oxford and Senior Conservation Scientist
+				at Europe’s largest nature conservation charity. Earlier in my career
+				I worked in film, shooting projects around the world. Today I design
+				analytical tools and visualizations that help researchers and organisations
+				understand complex data and communicate it clearly. I run
+				<a
+					class="bio-studio"
+					href="https://www.sedum.studio"
+					target="_blank"
+					rel="noopener noreferrer">sedum.studio</a
+				>, a small studio at the intersection of data science and
+				design.
+			</p>
 		</div>
 
 		<div class="credits-section">

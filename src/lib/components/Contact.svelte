@@ -52,7 +52,7 @@
 			nilo.recalde@biology.ox.ac.uk
 		</a>
 		<p class="contact-cta reveal">
-			Available for consulting, research collaborations, and visualisation projects.
+			Available for consulting and collaborations. Reach out if you have an interesting project or just want to say hi!
 		</p>
 		<nav class="contact-links reveal">
 			<a href="https://github.com/nilomr" target="_blank" rel="noopener noreferrer">GitHub</a>
