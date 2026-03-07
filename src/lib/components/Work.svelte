@@ -12,7 +12,7 @@
     {
         project: "RSPB",
         role: "Senior Conservation Scientist",
-        org: "Largest nature charity in Europe",
+        org: "Largest nature NGO in Europe",
         period: "2026–present",
         href: "https://www.rspb.org.uk",
     },
@@ -101,7 +101,7 @@ Earlier in my career I worked in film, shooting projects around the world. Today
 I design analytical tools and visualizations that help researchers and
 organisations understand complex data and communicate it clearly. I run
 <a class="bio-studio" href="https://www.sedum.studio" target="_blank" rel="noopener noreferrer">sedum.studio</a>,
-a small studio at the intersection of <span class="bio-code">data science</span> and design.
+a small studio at the intersection of data science and design.
 </p>
 		</div>
 

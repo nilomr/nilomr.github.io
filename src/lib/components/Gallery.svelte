@@ -39,10 +39,10 @@
 			alt: "3D data visualization of an Acheulean handaxe",
 			label: "digital heritage",
 			desc: "Making data accessible and engaging",
-			title: "Digital data design",
-			detail: "I analyze and visualize complex data—from physical artifacts to large-scale statistical trends—to extract key insights and create compelling narratives for both experts and the public. This example shows a stone tool from the African Early Stone Age.",
+			title: "Digital data-centric design",
+			detail: "I analyze and visualize complex data—from physical artifacts to large-scale statistical trends—to extract insights and create evidence-based narratives for both experts and the public. This example shows a stone tool from the African Early Stone Age.",
 			credits:
-				"Item at the Fish Hoek Valley Museum · Scanned by Global Digital Heritage · CC BY-NC 4.0",
+				"From the Fish Hoek Valley Museum collection · Scanned by Global Digital Heritage · CC BY-NC 4.0",
 			role: "Designer and developer",
 			year: "Ongoing",
 			link: {

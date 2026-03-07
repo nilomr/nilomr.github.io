@@ -2,17 +2,50 @@
 	import { onMount } from 'svelte';
 	import SmoothScroll from '$lib/components/SmoothScroll.svelte';
 	import CustomCursor from '$lib/components/CustomCursor.svelte';
+	import { contentReady } from '$lib/stores/ready';
 
 	let { children } = $props();
 	let WebGLBackground = $state(null);
 	let mounted = $state(false);
 	let isMobile = $state(false);
 
+	const pageLoadTime = typeof performance !== 'undefined' ? performance.now() : 0;
+	const MIN_LOADING_MS = 1500;
+
+	function setProgress(pct, label) {
+		if (typeof window !== 'undefined' && window.__lsSetProgress) {
+			window.__lsSetProgress(pct, label);
+		}
+	}
+
+	function dismissLoading() {
+		setProgress(100, 'READY');
+		const el = document.getElementById('loading-screen');
+		if (!el) return;
+		el.classList.add('fade-out');
+		setTimeout(() => el.remove(), 700);
+	}
+
+	function handleBgReady({ startReveal }) {
+		setProgress(80, 'RENDERING');
+		const elapsed = performance.now() - pageLoadTime;
+		const remaining = Math.max(0, MIN_LOADING_MS - elapsed);
+
+		setTimeout(() => {
+			dismissLoading();
+			startReveal();
+
+			setTimeout(() => { contentReady.set(true); }, 1400);
+		}, remaining);
+	}
+
 	onMount(async () => {
+		setProgress(20, 'LOADING MODULES');
 		isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
 			|| window.innerWidth <= 768;
 
 		const mod = await import('$lib/components/WebGLBackground.svelte');
+		setProgress(50, 'BUILDING TERRAIN');
 		WebGLBackground = mod.default;
 		mounted = true;
 	});
@@ -23,7 +56,7 @@
 </svelte:head>
 
 {#if mounted && WebGLBackground}
-	<WebGLBackground />
+	<WebGLBackground onReady={handleBgReady} />
 {/if}
 {#if !isMobile}
 	<CustomCursor />

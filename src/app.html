@@ -20,6 +20,292 @@
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
+		<!-- Loading screen — renders instantly before JS -->
+		<div id="loading-screen" aria-hidden="true">
+			<div class="ls-grid"></div>
+			<div class="ls-scan"></div>
+			<div class="ls-center">
+				<div class="ls-crosshair" id="ls-crosshair">
+					<div class="ls-ch-h"></div>
+					<div class="ls-ch-v"></div>
+				</div>
+				<div class="ls-coords" id="ls-coords">
+					<span class="ls-coord-line" id="ls-lat">51.7520&deg;N</span>
+					<span class="ls-coord-line" id="ls-lon">001.2577&deg;W</span>
+				</div>
+			</div>
+			<div class="ls-corners">
+				<div class="ls-corner ls-tl"></div>
+				<div class="ls-corner ls-tr"></div>
+				<div class="ls-corner ls-bl"></div>
+				<div class="ls-corner ls-br"></div>
+			</div>
+			<div class="ls-status">
+				<div class="ls-progress-track">
+					<div class="ls-progress-bar" id="ls-progress-bar"></div>
+				</div>
+				<span class="ls-status-text" id="ls-status-text">INITIALISING</span>
+			</div>
+		</div>
+		<style>
+			#loading-screen {
+				position: fixed;
+				inset: 0;
+				z-index: 9999;
+				background: #f5f2ed;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+			#loading-screen.fade-out {
+				opacity: 0;
+				pointer-events: none;
+			}
+			.ls-grid {
+				position: absolute;
+				inset: 0;
+				background-image:
+					linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+					linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
+				background-size: 60px 60px;
+				animation: lsGridIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+			}
+			@keyframes lsGridIn {
+				from { opacity: 0; background-size: 80px 80px; }
+				to { opacity: 1; background-size: 60px 60px; }
+			}
+			.ls-scan {
+				position: absolute;
+				left: 0;
+				right: 0;
+				height: 1px;
+				background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.08) 20%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.08) 80%, transparent 100%);
+				animation: lsScan 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+			}
+			@keyframes lsScan {
+				0% { top: 10%; opacity: 0; }
+				10% { opacity: 1; }
+				90% { opacity: 1; }
+				100% { top: 90%; opacity: 0; }
+			}
+			.ls-center {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 1.5rem;
+				animation: lsCenterIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+				transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+			@keyframes lsCenterIn {
+				from { opacity: 0; transform: scale(0.9); }
+				to { opacity: 1; transform: scale(1); }
+			}
+			.ls-crosshair {
+				position: relative;
+				width: 40px;
+				height: 40px;
+			}
+			.ls-ch-h, .ls-ch-v {
+				position: absolute;
+				background: rgba(0,0,0,0.12);
+			}
+			.ls-ch-h {
+				top: 50%;
+				left: 0;
+				right: 0;
+				height: 1px;
+				transform: translateY(-0.5px);
+				animation: lsChH 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+			}
+			.ls-ch-v {
+				left: 50%;
+				top: 0;
+				bottom: 0;
+				width: 1px;
+				transform: translateX(-0.5px);
+				animation: lsChV 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+			}
+			@keyframes lsChH {
+				from { transform: translateY(-0.5px) scaleX(0); }
+				to { transform: translateY(-0.5px) scaleX(1); }
+			}
+			@keyframes lsChV {
+				from { transform: translateX(-0.5px) scaleY(0); }
+				to { transform: translateX(-0.5px) scaleY(1); }
+			}
+			.ls-coords {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 0.15rem;
+			}
+			.ls-coord-line {
+				font-family: 'Space Mono', monospace;
+				font-size: 0.6rem;
+				letter-spacing: 0.18em;
+				color: rgba(0,0,0,0.2);
+				animation: lsCoordIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+				transition: opacity 0.3s ease;
+			}
+			.ls-coord-line:nth-child(1) { animation-delay: 0.6s; }
+			.ls-coord-line:nth-child(2) { animation-delay: 0.7s; }
+			@keyframes lsCoordIn {
+				from { opacity: 0; transform: translateY(4px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+			.ls-corners { position: absolute; inset: 2rem; pointer-events: none; }
+			.ls-corner {
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				border-color: rgba(0,0,0,0.08);
+				border-style: solid;
+				border-width: 0;
+				animation: lsCornerIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+			}
+			@keyframes lsCornerIn {
+				from { opacity: 0; }
+				to { opacity: 1; }
+			}
+			.ls-tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+			.ls-tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+			.ls-bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+			.ls-br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+			/* Progress + status */
+			.ls-status {
+				position: absolute;
+				bottom: 2.5rem;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 0.6rem;
+				animation: lsStatusIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+			}
+			@keyframes lsStatusIn {
+				from { opacity: 0; }
+				to { opacity: 1; }
+			}
+			.ls-progress-track {
+				width: 120px;
+				height: 1px;
+				background: rgba(0,0,0,0.06);
+				overflow: hidden;
+			}
+			.ls-progress-bar {
+				height: 100%;
+				width: 0%;
+				background: rgba(0,0,0,0.18);
+				transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+			.ls-status-text {
+				font-family: 'Space Mono', monospace;
+				font-size: 0.55rem;
+				letter-spacing: 0.3em;
+				color: rgba(0,0,0,0.18);
+				transition: opacity 0.2s ease;
+			}
+		</style>
+		<script>
+			// Loading screen controller — vanilla JS, runs immediately
+			(function() {
+				// Waypoints: { lat, lon, latDir, lonDir }
+				var waypoints = [
+					{ lat: 51.7520, lon: 1.2577, latD: 'N', lonD: 'W' },
+					{ lat: 43.1828, lon: 3.9878, latD: 'N', lonD: 'W' },
+					{ lat: 51.5074, lon: 0.1278, latD: 'N', lonD: 'W' },
+					{ lat: 40.4168, lon: 3.7038, latD: 'N', lonD: 'W' },
+				];
+				// Screen offsets for crosshair drift (px from center)
+				var offsets = [
+					{ x: 0, y: 0 },
+					{ x: -60, y: 40 },
+					{ x: 30, y: -30 },
+					{ x: -20, y: 20 },
+				];
+
+				var wpIdx = 0;
+				var center = document.getElementById('ls-center');
+				if (!center) center = document.querySelector('.ls-center');
+				var latEl = document.getElementById('ls-lat');
+				var lonEl = document.getElementById('ls-lon');
+
+				function fmtCoord(val, dir, decimals) {
+					return val.toFixed(decimals) + '\u00B0' + dir;
+				}
+
+				function lerp(a, b, t) { return a + (b - a) * t; }
+
+				// Animate coordinates as scrambled digits resolving
+				var coordFrame = null;
+				var chars = '0123456789.';
+				function scrambleCoord(el, finalStr, duration) {
+					var start = performance.now();
+					var len = finalStr.length;
+					function step(now) {
+						var p = Math.min((now - start) / duration, 1);
+						var result = '';
+						for (var i = 0; i < len; i++) {
+							if (finalStr[i] === '.' || finalStr[i] === '\u00B0' || /[A-Z]/.test(finalStr[i])) {
+								result += finalStr[i];
+							} else if (p > (i / len) * 0.6 + 0.4) {
+								result += finalStr[i];
+							} else {
+								result += chars[Math.floor(Math.random() * 10)];
+							}
+						}
+						el.textContent = result;
+						if (p < 1) requestAnimationFrame(step);
+					}
+					requestAnimationFrame(step);
+				}
+
+				function moveToWaypoint() {
+					wpIdx = (wpIdx + 1) % waypoints.length;
+					var wp = waypoints[wpIdx];
+					var off = offsets[wpIdx];
+					var centerEl = document.querySelector('.ls-center');
+					if (centerEl) {
+						centerEl.style.transform = 'translate(' + off.x + 'px, ' + off.y + 'px)';
+					}
+					var latStr = fmtCoord(wp.lat, wp.latD, 4);
+					var lonStr = fmtCoord(wp.lon, wp.lonD, 4);
+					if (latEl) scrambleCoord(latEl, latStr, 500);
+					if (lonEl) scrambleCoord(lonEl, lonStr, 500);
+				}
+
+				// Cycle waypoints every 1.6s, starting after initial animations settle
+				var wpTimer = setTimeout(function tick() {
+					moveToWaypoint();
+					wpTimer = setTimeout(tick, 1600);
+				}, 1400);
+
+				// Progress API — called by SvelteKit layout
+				window.__lsSetProgress = function(pct, label) {
+					var bar = document.getElementById('ls-progress-bar');
+					var text = document.getElementById('ls-status-text');
+					if (bar) bar.style.width = Math.min(pct, 100) + '%';
+					if (text && label) text.textContent = label;
+				};
+
+				// Clean up when loading screen is removed
+				var observer = new MutationObserver(function(mutations) {
+					for (var i = 0; i < mutations.length; i++) {
+						for (var j = 0; j < mutations[i].removedNodes.length; j++) {
+							if (mutations[i].removedNodes[j].id === 'loading-screen') {
+								clearTimeout(wpTimer);
+								observer.disconnect();
+								return;
+							}
+						}
+					}
+				});
+				observer.observe(document.body, { childList: true });
+			})();
+		</script>
 		<div style="display: contents">%sveltekit.body%</div>
 
 		<!-- Google tag (gtag.js) -->

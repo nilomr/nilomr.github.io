@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 
+	let { onReady } = $props();
 	let canvas = $state(null);
 
 	const vertexShader = `
@@ -12,13 +13,13 @@
 		}
 	`;
 
-	// Extremely subtle topographic contours — watermark level
 	const fragmentShader = `
 		precision highp float;
 		uniform float uTime;
 		uniform float uScroll;
 		uniform vec2 uMouse;
 		uniform vec2 uResolution;
+		uniform float uReveal;
 		varying vec2 vUv;
 
 		vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -56,16 +57,21 @@
 			float t = uTime * 0.015;
 			float scroll = uScroll * 0.00015;
 
-			// Terrain
+			// Terrain — amplitude rises from 0 (flat) to full height
+			// Like watching geological formation: flat plane → contours emerge
+			float amplitude = smoothstep(0.0, 1.0, uReveal);
+
 			float terrain = 0.0;
 			terrain += snoise(p * 0.8 + vec2(t, scroll)) * 1.0;
 			terrain += snoise(p * 1.6 + vec2(-t * 0.4, scroll * 1.1)) * 0.5;
 			terrain += snoise(p * 3.2 + vec2(t * 0.2, -scroll * 0.4)) * 0.25;
+			terrain *= amplitude;
 
-			// Cursor raises terrain
+			// Cursor raises terrain (only after reveal mostly done)
 			vec2 mouse = uMouse * vec2(aspect, 1.0);
 			float mouseDist = length(p - mouse);
-			float hill = exp(-mouseDist * mouseDist * 3.5) * 1.5;
+			float cursorStrength = smoothstep(0.6, 1.0, uReveal);
+			float hill = exp(-mouseDist * mouseDist * 3.5) * 1.5 * cursorStrength;
 			terrain += hill;
 
 			// Contour lines
@@ -83,14 +89,13 @@
 			// Background
 			vec3 bg = vec3(0.965, 0.955, 0.935);
 
-			// Very low opacity — lines are barely visible until cursor approaches
-			float nearCursor = smoothstep(1.2, 0.0, mouseDist);
-			float baseOpacity = 0.07;
-			float hoverOpacity = 0.22;
+			float nearCursor = smoothstep(1.2, 0.0, mouseDist) * cursorStrength;
+			float baseOpacity = 0.13;
+			float hoverOpacity = 0.26;
 			float lineAlpha = mix(baseOpacity, hoverOpacity, nearCursor);
 			float indexAlpha = mix(baseOpacity * 1.4, hoverOpacity * 1.3, nearCursor);
 
-			vec3 lineCol = vec3(0.75, 0.73, 0.70);
+			vec3 lineCol = vec3(0.72, 0.70, 0.67);
 			vec3 color = bg;
 			color = mix(color, lineCol, line * lineAlpha);
 			color = mix(color, lineCol * 0.85, indexLine * indexAlpha);
@@ -117,6 +122,7 @@
 			uScroll: { value: 0 },
 			uMouse: { value: new THREE.Vector2(-1, -1) },
 			uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+			uReveal: { value: 0 },
 		};
 
 		const mat = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
@@ -124,6 +130,12 @@
 
 		let targetMouse = { x: -1, y: -1 };
 		let currentMouse = { x: -1, y: -1 };
+		let revealStart = -1;
+		const REVEAL_DURATION = 2800;
+
+		function startReveal() {
+			revealStart = performance.now();
+		}
 
 		function resize() {
 			renderer.setSize(window.innerWidth, window.innerHeight);
@@ -132,12 +144,11 @@
 
 		function onScroll() { uniforms.uScroll.value = window.scrollY; }
 
-		function onMouse(e) {
+		function onMouseMove(e) {
 			targetMouse.x = e.clientX / window.innerWidth;
 			targetMouse.y = 1.0 - e.clientY / window.innerHeight;
 		}
 
-		// On mobile, set a gentle wandering center point instead of mouse tracking
 		if (isMobile) {
 			targetMouse.x = 0.5;
 			targetMouse.y = 0.5;
@@ -147,16 +158,32 @@
 		window.addEventListener('resize', resize, { passive: true });
 		window.addEventListener('scroll', onScroll, { passive: true });
 		if (!isMobile) {
-			window.addEventListener('mousemove', onMouse, { passive: true });
+			window.addEventListener('mousemove', onMouseMove, { passive: true });
 		}
 
 		let frame;
+		let notifiedReady = false;
+
 		function animate(time) {
 			currentMouse.x += (targetMouse.x - currentMouse.x) * 0.035;
 			currentMouse.y += (targetMouse.y - currentMouse.y) * 0.035;
 			uniforms.uMouse.value.set(currentMouse.x, currentMouse.y);
 			uniforms.uTime.value = time * 0.001;
+
+			if (revealStart >= 0) {
+				const elapsed = time - revealStart;
+				const progress = Math.min(elapsed / REVEAL_DURATION, 1);
+				// Ease out quint — slow, elegant deceleration
+				uniforms.uReveal.value = 1 - Math.pow(1 - progress, 5);
+			}
+
 			renderer.render(scene, camera);
+
+			if (!notifiedReady) {
+				notifiedReady = true;
+				if (onReady) onReady({ startReveal });
+			}
+
 			frame = requestAnimationFrame(animate);
 		}
 		frame = requestAnimationFrame(animate);
@@ -166,7 +193,7 @@
 			window.removeEventListener('resize', resize);
 			window.removeEventListener('scroll', onScroll);
 			if (!isMobile) {
-				window.removeEventListener('mousemove', onMouse);
+				window.removeEventListener('mousemove', onMouseMove);
 			}
 			renderer.dispose(); geo.dispose(); mat.dispose();
 		};

@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+	import { contentReady } from "$lib/stores/ready";
 
 	let section = $state(null);
 	let isMobile = $state(false);
@@ -135,19 +136,26 @@
 		}
 	}
 
-	onMount(async () => {
+	onMount(() => {
 		if (!section) return;
 		let destroyed = false;
 		isMobile =
 			window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
 			window.innerWidth <= 768;
 
-		const gsap = (await import("gsap")).default;
-		if (destroyed || !section) return;
-		gsapRef = gsap;
-		const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-		if (destroyed || !section) return;
-		gsap.registerPlugin(ScrollTrigger);
+		// Eagerly load GSAP so it's ready when content signal fires
+		let gsapLoaded = Promise.all([
+			import("gsap").then((m) => m.default),
+			import("gsap/ScrollTrigger").then((m) => m.ScrollTrigger),
+		]);
+
+		// Wait for content-ready signal, then run all animations
+		const unsub = contentReady.subscribe(async (ready) => {
+			if (!ready || destroyed || !section) return;
+			const [gsap, ScrollTrigger] = await gsapLoaded;
+			if (destroyed || !section) return;
+			gsapRef = gsap;
+			gsap.registerPlugin(ScrollTrigger);
 
 		if (isMobile) {
 			const nameLines = section.querySelectorAll(".mh-name-line");
@@ -243,9 +251,7 @@
 				},
 			});
 
-			return () => {
-				destroyed = true;
-			};
+			return;
 		}
 
 		// Desktop
@@ -339,8 +345,11 @@
 			},
 		});
 
+		});
+
 		return () => {
 			destroyed = true;
+			unsub();
 		};
 	});
 </script>
