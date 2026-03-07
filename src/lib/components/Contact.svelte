@@ -48,8 +48,8 @@
 <section class="contact" bind:this={sectionEl}>
 	<div class="contact-inner">
 		<p class="contact-label reveal">Get in touch</p>
-		<a href="mailto:nilo.recalde@biology.ox.ac.uk" class="contact-email reveal">
-			nilo.recalde@biology.ox.ac.uk
+		<a href="mailto:nilo@sedum.studio" class="contact-email reveal">
+			nilo@sedum.studio
 		</a>
 		<p class="contact-cta reveal">
 			Available for consulting and collaborations. Reach out if you have an interesting project or just want to say hi!
