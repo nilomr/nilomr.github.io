@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+	import BioPortrait from './BioPortrait.svelte';
 
 	const credits = [
 		{
@@ -100,6 +101,9 @@
 <section class="about" bind:this={sectionEl}>
 	<div class="about-inner">
 		<div class="about-bio">
+			<div class="portrait-col">
+				<BioPortrait />
+			</div>
 			<p class="bio-text">
 				I’m a <em class="bio-human">scientist,</em>
 				<span class="bio-human">developer,</span>
@@ -168,12 +172,29 @@
 	}
 
 	.about-bio {
-		max-width: 680px;
+		display: grid;
+		grid-template-columns: 190px 1fr;
+		gap: 3.5rem;
+		align-items: start;
+	}
+
+	@media (min-width: 769px) {
+		.about-bio {
+			/* Break out of the inner container so only the bio row is wider */
+			width: min(900px, calc(100vw - clamp(4rem, 10vw, 10rem)));
+			margin-left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+
+	.portrait-col {
+		position: sticky;
+		top: 4rem;
 	}
 
 	.bio-text {
 		font-family: "Inter", sans-serif;
-		font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+		font-size: clamp(0.95rem, 1.4vw, 1rem);
 		font-weight: 400;
 		line-height: 1.75;
 		color: #3a3835;
@@ -344,6 +365,16 @@
 		.about-inner {
 			gap: 3rem;
 			padding: 0 1.5rem;
+		}
+
+		.about-bio {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+
+		.portrait-col {
+			position: static;
+			max-width: 160px;
 		}
 
 		.bio-text {
