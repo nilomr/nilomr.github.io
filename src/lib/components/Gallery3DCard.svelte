@@ -667,7 +667,11 @@
 				raycaster.setFromCamera(ndcMouse, camera);
 				const hits = raycaster.intersectObjects(meshesForRaycast, false);
 				if (hits.length > 0) {
-					hitPointSmooth.lerp(hits[0].point, 0.15);
+					if (hitActiveSmooth < 0.05) {
+						hitPointSmooth.copy(hits[0].point);
+					} else {
+						hitPointSmooth.lerp(hits[0].point, 0.15);
+					}
 					hitTarget = 1;
 				}
 			}
