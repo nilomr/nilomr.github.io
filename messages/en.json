@@ -1,9 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"role_researcher": "Researcher",
-	"role_developer": "Developer",
-	"role_filmmaker": "Filmmaker",
-	"role_designer": "Designer",
+	"role_developer": "Programmer",
+	"role_filmmaker": "Creative developer",
+	"role_designer": "Visual Designer",
 
 	"disc_01_title": "Understanding complex systems",
 	"disc_01_desc": "I work with just about every kind of data — video, audio, image, text, spatial and tabular — to understand how complex systems are structured and how they change over time.",

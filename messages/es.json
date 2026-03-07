@@ -1,9 +1,9 @@
 {
     "$schema": "https://inlang.com/schema/inlang-message-format",
-    "role_researcher": "Investigador",
-    "role_developer": "Desarrollador",
-    "role_filmmaker": "Cineasta",
-    "role_designer": "Diseñador",
+	"role_researcher": "Investigador",
+	"role_developer": "Programador",
+	"role_filmmaker": "Desarrollador creativo",
+	"role_designer": "Diseñador visual",
 
     "disc_01_title": "Sistemas complejos",
     "disc_01_desc": "Trabajo con todo tipo de datos — vídeo, audio, imagen, texto, datos espaciales y tabulares — para entender cómo se estructuran los sistemas complejos y cómo evolucionan con el tiempo.",
