@@ -238,7 +238,8 @@
 		line-height: 0.88;
 		letter-spacing: -0.055em;
 		margin: 0;
-		white-space: nowrap;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
 	}
 
 	.about-divider {
@@ -285,6 +286,10 @@
 		line-height: 1.75;
 		color: #3a3835;
 		margin: 0;
+		text-wrap: pretty;
+		hyphens: none;
+		orphans: 2;
+		widows: 2;
 	}
 
 	.bio-human {
