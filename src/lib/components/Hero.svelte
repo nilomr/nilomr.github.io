@@ -393,8 +393,6 @@
 				<span class="mh-disc">{m.mh_disc_software()}</span>
 				<span class="mh-disc-dot"></span>
 				<span class="mh-disc">{m.mh_disc_design()}</span>
-				<span class="mh-disc-dot"></span>
-				<span class="mh-disc">{m.mh_disc_film()}</span>
 			</div>
 
 			<div class="mh-footer">
