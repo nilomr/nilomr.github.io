@@ -169,6 +169,10 @@
 			svgEl.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;';
 			labelsLayer.appendChild(svgEl);
 
+			const ac = isMobile
+				? { ring: 'rgba(220,215,210,0.2)', cross: 'rgba(220,215,210,0.25)', dot: 'rgba(220,215,210,0.35)', pulse: 'rgba(220,215,210,0.1)', leader: 'rgba(220,215,210,0.15)', dim: 'rgba(220,215,210,0.18)', dimTick: 'rgba(220,215,210,0.2)' }
+				: { ring: 'rgba(90,80,70,0.25)', cross: 'rgba(90,80,70,0.3)', dot: 'rgba(90,80,70,0.4)', pulse: 'rgba(90,80,70,0.12)', leader: 'rgba(90,80,70,0.15)', dim: 'rgba(90,80,70,0.2)', dimTick: 'rgba(90,80,70,0.25)' };
+
 			// ── Callout annotations ──
 			for (let i = 0; i < calloutDefs.length; i++) {
 				const def = calloutDefs[i];
@@ -180,7 +184,7 @@
 				const ring = document.createElementNS(svgNS, 'circle');
 				ring.setAttribute('r', '6');
 				ring.setAttribute('fill', 'none');
-				ring.setAttribute('stroke', 'rgba(90,80,70,0.25)');
+				ring.setAttribute('stroke', ac.ring);
 				ring.setAttribute('stroke-width', '0.5');
 				g.appendChild(ring);
 
@@ -188,20 +192,20 @@
 					const l = document.createElementNS(svgNS, 'line');
 					l.setAttribute('x1', x1); l.setAttribute('y1', y1);
 					l.setAttribute('x2', x2); l.setAttribute('y2', y2);
-					l.setAttribute('stroke', 'rgba(90,80,70,0.3)');
+					l.setAttribute('stroke', ac.cross);
 					l.setAttribute('stroke-width', '0.75');
 					g.appendChild(l);
 				}
 
 				const dot = document.createElementNS(svgNS, 'circle');
 				dot.setAttribute('r', '1.5');
-				dot.setAttribute('fill', 'rgba(90,80,70,0.4)');
+				dot.setAttribute('fill', ac.dot);
 				g.appendChild(dot);
 
 				const pulse = document.createElementNS(svgNS, 'circle');
 				pulse.setAttribute('r', '6');
 				pulse.setAttribute('fill', 'none');
-				pulse.setAttribute('stroke', 'rgba(90,80,70,0.12)');
+				pulse.setAttribute('stroke', ac.pulse);
 				pulse.setAttribute('stroke-width', '0.75');
 				pulse.style.cssText = `animation:label-pulse 3s ease-in-out ${0.5 + i * 0.5}s infinite;transform-origin:center;`;
 				g.appendChild(pulse);
@@ -212,7 +216,7 @@
 				// Elbow leader line
 				const path = document.createElementNS(svgNS, 'path');
 				path.setAttribute('fill', 'none');
-				path.setAttribute('stroke', 'rgba(90,80,70,0.15)');
+				path.setAttribute('stroke', ac.leader);
 				path.setAttribute('stroke-width', '0.75');
 				path.setAttribute('stroke-dasharray', '4,2');
 				svgEl.appendChild(path);
@@ -252,17 +256,17 @@
 			dimGroup.setAttribute('opacity', '0');
 
 			dimLine = document.createElementNS(svgNS, 'line');
-			dimLine.setAttribute('stroke', 'rgba(90,80,70,0.2)');
+			dimLine.setAttribute('stroke', ac.dim);
 			dimLine.setAttribute('stroke-width', '0.75');
 			dimGroup.appendChild(dimLine);
 
 			dimTickStart = document.createElementNS(svgNS, 'line');
-			dimTickStart.setAttribute('stroke', 'rgba(90,80,70,0.25)');
+			dimTickStart.setAttribute('stroke', ac.dimTick);
 			dimTickStart.setAttribute('stroke-width', '0.75');
 			dimGroup.appendChild(dimTickStart);
 
 			dimTickEnd = document.createElementNS(svgNS, 'line');
-			dimTickEnd.setAttribute('stroke', 'rgba(90,80,70,0.25)');
+			dimTickEnd.setAttribute('stroke', ac.dimTick);
 			dimTickEnd.setAttribute('stroke-width', '0.75');
 			dimGroup.appendChild(dimTickEnd);
 
@@ -436,7 +440,7 @@
 			const box = new THREE.Box3().setFromObject(model);
 			const size = box.getSize(new THREE.Vector3());
 			const maxDim = Math.max(size.x, size.y, size.z);
-			const scale = (isMobile ? 2.2 : 2.0) / maxDim;
+			const scale = (isMobile ? 2.4 : 2.0) / maxDim;
 			model.scale.setScalar(scale);
 
 			const box2 = new THREE.Box3().setFromObject(model);
@@ -647,7 +651,7 @@
 			const progressRaw = Math.max(0, Math.min(1, (vw - rect.left) / (vw + rect.width)));
 			const scrollRotationTarget = progressRaw * Math.PI * 1.5;
 			scrollRotationSmooth += (scrollRotationTarget - scrollRotationSmooth) * 0.2;
-			if (isMobile) autoRotateAngle += 0.004;
+			if (isMobile) autoRotateAngle = Math.sin(t * 0.35) * 0.07;
 
 			pivot.rotation.y = scrollRotationSmooth + autoRotateAngle;
 			pivot.rotation.x = 0;
@@ -741,7 +745,7 @@
 				}
 
 				// ── Dimension line ──
-				if (dimDef.top && dimDef.bottom) {
+				if (!isMobile && dimDef.top && dimDef.bottom) {
 					const dimFadeIn = Math.min(1, Math.max(0, (timeSinceLoad - 1.8) / 0.8));
 					const screenTop = projectToScreen(dimDef.top, cw, ch);
 					const screenBot = projectToScreen(dimDef.bottom, cw, ch);
@@ -1022,27 +1026,43 @@
 		.scene3d {
 			overflow: hidden;
 			background: #101217de;
-			
+
 		}
 
 		.labels-layer :global(.callout-title) {
 			font-size: 0.42rem;
 			letter-spacing: 0.12em;
+			color: rgba(220, 215, 210, 0.7);
 		}
 
 		.labels-layer :global(.callout-id) {
 			width: 12px;
 			height: 12px;
 			font-size: 0.38rem;
+			color: rgba(220, 215, 210, 0.55);
+			border-color: rgba(220, 215, 210, 0.2);
 		}
 
 		.labels-layer :global(.callout-content) {
 			display: none;
 		}
 
+		.labels-layer :global(.callout-row) {
+			color: rgba(220, 215, 210, 0.65);
+		}
+
+		.labels-layer :global(.row-label) {
+			color: rgba(220, 215, 210, 0.35);
+		}
+
+		.labels-layer :global(.row-value) {
+			color: rgba(220, 215, 210, 0.75);
+		}
+
 		.labels-layer :global(.dim-label) {
 			font-size: 0.42rem;
 			letter-spacing: 0.1em;
+			color: rgba(220, 215, 210, 0.5);
 		}
 	}
 
