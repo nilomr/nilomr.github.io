@@ -73,6 +73,15 @@
 		// Lightweight overlay refs for cleanup
 		const overlayObjects = [];
 
+		// Hint polygon cutout for hover discovery (desktop only)
+		const uHintCenter = { value: new THREE.Vector3(999, 999, 999) };
+		const uHintReveal = { value: 0.0 };
+		let hintAnchor = null;
+		let hintDismissed = false;
+		let hintActiveSmooth = 0;
+		let hintLabelEl = null;
+		const _hintWorld = new THREE.Vector3();
+
 		// ── GLSL 3D simplex noise ──
 		const noiseGLSL = /* glsl */ `
 			vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -279,16 +288,29 @@
 				`;
 				labelsLayer.appendChild(legend);
 			}
+
+			// ── Hover hint label (desktop only) ──
+			if (!isMobile) {
+				hintLabelEl = document.createElement('div');
+				hintLabelEl.className = 'hint-label';
+				hintLabelEl.innerHTML = `
+				<svg width="45" height="1" viewBox="0 0 45 1" style="flex-shrink:0">
+					<line x1="0" y1="0.5" x2="45" y2="0.5" stroke="rgba(90,80,70,0.25)" stroke-width="0.75" stroke-dasharray="3,2"/>
+				</svg>
+				<span>hover to explore</span>
+			`;
+			labelsLayer.appendChild(hintLabelEl);
 		}
-		createAnnotations();
+	}
+	createAnnotations();
 
-		function populateCalloutContent() {
-			if (calloutContentEls.length < 3) return;
+	function populateCalloutContent() {
+		if (calloutContentEls.length < 3) return;
 
-			// A — LITHOLOGY
-			const c0 = calloutContentEls[0];
-			c0.innerHTML = '';
-			for (const [label, value] of [['material', 'quartz sandstone'], ['grain', 'fine-grained']]) {
+		// A — LITHOLOGY
+		const c0 = calloutContentEls[0];
+		c0.innerHTML = '';
+		for (const [label, value] of [['material', 'quartz sandstone'], ['grain', 'fine-grained']]) {
 				const row = document.createElement('div');
 				row.className = 'callout-row';
 				row.innerHTML = `<span class="row-label">${label}</span><span class="row-value">${value}</span>`;
@@ -393,6 +415,14 @@
 			allVerts.sort((a, b) => b.pos.y - a.pos.y);
 			dimDef.top = allVerts[0].pos.clone();
 			dimDef.bottom = allVerts[allVerts.length - 1].pos.clone();
+
+			// Hint anchor: front-facing vertex ~35% from top
+			if (!isMobile) {
+				const frontForHint = allVerts.filter(v => v.normal.z > 0.2);
+				frontForHint.sort((a, b) => b.pos.y - a.pos.y);
+				const hIdx = Math.floor(frontForHint.length * 0.18);
+				if (frontForHint[hIdx]) hintAnchor = frontForHint[hIdx].pos.clone();
+			}
 		}
 
 		const loader = new GLTFLoader();
@@ -438,6 +468,8 @@
 							shader.uniforms.uHitPoint = uHitPoint;
 							shader.uniforms.uHitActive = uHitActive;
 							shader.uniforms.uRadius = uRadius;
+							shader.uniforms.uHintCenter = uHintCenter;
+							shader.uniforms.uHintReveal = uHintReveal;
 
 							shader.vertexShader = shader.vertexShader.replace(
 								'#include <common>',
@@ -450,7 +482,7 @@
 
 							shader.fragmentShader = shader.fragmentShader.replace(
 								'#include <common>',
-								'#include <common>\nvarying vec3 vWPos;\nuniform vec3 uHitPoint;\nuniform float uHitActive;\nuniform float uRadius;\n' + noiseGLSL
+								'#include <common>\nvarying vec3 vWPos;\nuniform vec3 uHitPoint;\nuniform float uHitActive;\nuniform float uRadius;\nuniform vec3 uHintCenter;\nuniform float uHintReveal;\n' + noiseGLSL
 							);
 							shader.fragmentShader = shader.fragmentShader.replace(
 								'#include <dithering_fragment>',
@@ -470,6 +502,16 @@
 							// Thin shadow rim, very tight
 							float rim = step(r, dist) * (1.0 - step(r + 0.004, dist)) * uHitActive;
 							gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.3, 0.3, 0.3), rim * 0.3);
+
+							// Hint cutout — spherical like hover, but with noisy irregular edge
+							vec3 hDelta = vWPos - uHintCenter;
+							float hDist = length(hDelta);
+							vec3 hDir = hDelta / max(hDist, 0.001);
+							float hNoise = snoise(hDir * 1.0);
+							float hR = 0.28 * (1.0 + hNoise * 0.35) * uHintReveal;
+							if (hR > 0.001 && hDist < hR) discard;
+							float hRim = step(hR, hDist) * (1.0 - step(hR + 0.005, hDist)) * uHintReveal;
+							gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.3, 0.3, 0.3), hRim * 0.25);
 							`
 							);
 						};
@@ -524,6 +566,7 @@
 		let mouseXSmooth = 0;
 		let mouseYSmooth = 0;
 		let scrollRotationSmooth = 0;
+		let autoRotateAngle = 0;
 		let displayVertices = 0;
 		let displayFaces = 0;
 
@@ -604,8 +647,9 @@
 			const progressRaw = Math.max(0, Math.min(1, (vw - rect.left) / (vw + rect.width)));
 			const scrollRotationTarget = progressRaw * Math.PI * 1.5;
 			scrollRotationSmooth += (scrollRotationTarget - scrollRotationSmooth) * 0.2;
+			if (isMobile) autoRotateAngle += 0.004;
 
-			pivot.rotation.y = scrollRotationSmooth;
+			pivot.rotation.y = scrollRotationSmooth + autoRotateAngle;
 			pivot.rotation.x = 0;
 
 			if (!isMobile) {
@@ -675,8 +719,9 @@
 					const onScreen = screen.z < 1 && screen.x > -50 && screen.x < cw + 50;
 					const alpha = onScreen ? fadeIn : 0;
 
-					const lx = screen.x + def.offset[0];
-					const ly = screen.y + def.offset[1];
+					const offsetScale = isMobile ? 0.42 : 1.0;
+					const lx = screen.x + def.offset[0] * offsetScale;
+					const ly = screen.y + def.offset[1] * offsetScale;
 
 					// Crosshair
 					crosshairGroups[i].setAttribute('transform', `translate(${screen.x},${screen.y})`);
@@ -697,7 +742,7 @@
 					const screenTop = projectToScreen(dimDef.top, cw, ch);
 					const screenBot = projectToScreen(dimDef.bottom, cw, ch);
 
-					const dimOffset = -86;
+					const dimOffset = isMobile ? -38 : -86;
 					const dx = Math.min(screenTop.x, screenBot.x) + dimOffset;
 					const tickLen = 8;
 
@@ -722,6 +767,46 @@
 					dimLabel.style.opacity = dimFadeIn;
 					dimLabel.textContent = '18.9 cm';
 					dimLabel.style.transform = `translate(${dx }px, ${midY}px) translate(-100%, -50%) rotate(-90deg)`;
+				}
+
+				// ── Hint polygon cutout animation (desktop) ──
+				if (!isMobile && hintAnchor) {
+					if (!hintDismissed) {
+						const HINT_DELAY = 2.5;
+						const HINT_OPEN = 0.8;
+						const HINT_HOLD = 2.0;
+						const HINT_CLOSE = 0.6;
+						const HINT_PAUSE = 4.0;
+						const HINT_CYCLE = HINT_OPEN + HINT_HOLD + HINT_CLOSE + HINT_PAUSE;
+						const ht = Math.max(0, timeSinceLoad - HINT_DELAY);
+						const hCycle = ht % HINT_CYCLE;
+						let hTarget = 0;
+						if (hCycle < HINT_OPEN) {
+							hTarget = hCycle / HINT_OPEN;
+						} else if (hCycle < HINT_OPEN + HINT_HOLD) {
+							hTarget = 1;
+						} else if (hCycle < HINT_OPEN + HINT_HOLD + HINT_CLOSE) {
+							hTarget = 1 - (hCycle - HINT_OPEN - HINT_HOLD) / HINT_CLOSE;
+						}
+						if (hitTarget > 0) hintDismissed = true;
+						hintActiveSmooth += (hTarget - hintActiveSmooth) * 0.08;
+					} else {
+						hintActiveSmooth += (0 - hintActiveSmooth) * 0.08;
+					}
+					if (hintActiveSmooth < 0.001) hintActiveSmooth = 0;
+
+					_hintWorld.copy(hintAnchor);
+					pivot.localToWorld(_hintWorld);
+					uHintCenter.value.copy(_hintWorld);
+					uHintReveal.value = hintActiveSmooth;
+
+					// Position hint label
+					if (hintLabelEl) {
+						const hs = projectToScreen(hintAnchor, cw, ch);
+						const hAlpha = hintActiveSmooth > 0.05 ? Math.min(hintActiveSmooth * 1.5, 1) : 0;
+						hintLabelEl.style.opacity = hAlpha;
+						hintLabelEl.style.transform = `translate(${hs.x + 30}px, ${hs.y}px) translate(0, -50%)`;
+					}
 				}
 			}
 
@@ -926,5 +1011,52 @@
 	@keyframes -global-label-pulse {
 		0%, 100% { r: 6; opacity: 0.12; }
 		50% { r: 11; opacity: 0; }
+	}
+
+	/* ── Mobile overrides ── */
+	@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+		.scene3d {
+			overflow: hidden;
+			background: #f6f3eed0;
+			
+		}
+
+		.labels-layer :global(.callout-title) {
+			font-size: 0.42rem;
+			letter-spacing: 0.12em;
+		}
+
+		.labels-layer :global(.callout-id) {
+			width: 12px;
+			height: 12px;
+			font-size: 0.38rem;
+		}
+
+		.labels-layer :global(.callout-content) {
+			display: none;
+		}
+
+		.labels-layer :global(.dim-label) {
+			font-size: 0.42rem;
+			letter-spacing: 0.1em;
+		}
+	}
+
+	/* ── Hover hint label ── */
+	.labels-layer :global(.hint-label) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		pointer-events: none;
+		opacity: 0;
+		will-change: transform, opacity;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.68rem;
+		letter-spacing: 0.1em;
+		color: rgba(80, 72, 65, 0.4);
+		white-space: nowrap;
 	}
 </style>
