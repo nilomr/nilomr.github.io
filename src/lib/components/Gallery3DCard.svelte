@@ -19,8 +19,8 @@
 		// so the model can overflow the card boundary visually.
 		const BLEED = isMobile ? 0 : Math.round(Math.max(28, Math.min(72, window.innerWidth * 0.045)));
 
-		const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
-		renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.setClearColor(0x000000, 0);
 		renderer.shadowMap.enabled = true;
 		renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -1021,7 +1021,7 @@
 	@media (hover: none) and (pointer: coarse), (max-width: 768px) {
 		.scene3d {
 			overflow: hidden;
-			background: #f6f3eed0;
+			background: #101217de;
 			
 		}
 
