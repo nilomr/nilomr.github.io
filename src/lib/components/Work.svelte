@@ -202,7 +202,10 @@
 	/* ── Section header ── */
 	.about-header {
 		padding: 5rem clamp(2rem, 6vw, 6rem) 0;
-		overflow: hidden;
+		overflow-x: clip;
+		overflow-y: visible;
+		position: relative;
+		z-index: 1;
 	}
 
 	.about-header-meta {
