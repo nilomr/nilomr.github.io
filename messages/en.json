@@ -1,0 +1,89 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"role_researcher": "Researcher",
+	"role_developer": "Developer",
+	"role_filmmaker": "Filmmaker",
+	"role_designer": "Designer",
+
+	"disc_01_title": "Understanding complex systems",
+	"disc_01_desc": "I work with just about every kind of data — video, audio, image, text, spatial and tabular — to understand how complex systems are structured and how they change over time.",
+	"disc_02_title": "Data analysis & visualisation",
+	"disc_02_desc": "I help organisations understand complex data. From messy raw datasets to clear insight, I design analyses and visualisations that reveal structure, highlight patterns, and communicate results in ways that are both rigorous and intuitive.",
+	"disc_03_title": "Custom tools & machine learning",
+	"disc_03_desc": "I build custom analytical tools when existing methods are not enough. My work combines machine learning, signal analysis, and advanced statistical modelling to extract meaningful patterns from large and noisy datasets.",
+	"disc_04_title": "Visual communication",
+	"disc_04_desc": "Analysis only works if people understand it. I craft figures, maps, and interactive visuals that respect the nuance of the data while staying legible to researchers, funders, and the wider public.",
+
+	"hero_location": "Oxford & Cantabria",
+	"hero_scroll": "Scroll",
+
+	"mh_disc_research": "Research",
+	"mh_disc_software": "Software",
+	"mh_disc_design": "Design",
+	"mh_disc_film": "Film",
+
+	"gallery_visual_work": "Visual Work",
+	"gallery_view_project": "View project",
+
+	"gallery_item_1_label": "data visualization",
+	"gallery_item_1_desc": "Real-time data dashboard",
+	"gallery_item_1_title": "Interactive data exploration interface",
+	"gallery_item_1_detail": "Consultancy work for the citizen science project BirdNET at Cornell University. This interactive system was developed for a visitor centre, allowing the public to explore both real-time and historical patterns in biodiversity data. The interface was designed to make large acoustic monitoring datasets accessible and intuitive.",
+	"gallery_item_1_role": "Design and development",
+
+	"gallery_item_2_label": "cinematography",
+	"gallery_item_2_desc": "Trailer premiere in Times Square",
+	"gallery_item_2_title": "Second unit direction and cinematography",
+	"gallery_item_2_detail": "Between 2011 and 2016, I worked in documentary film production as a cinematographer and second unit director. This sequence, shot in Belarus, opens the trailer for Awaken, which screened in Times Square, New York. Over those years I led small international units across three continents, capturing large-format landscape and nature footage in often demanding conditions.",
+	"gallery_item_2_role": "Second unit director and cinematographer",
+
+	"gallery_item_3_label": "digital heritage",
+	"gallery_item_3_desc": "Making data accessible and engaging",
+	"gallery_item_3_title": "Digital data-centric design",
+	"gallery_item_3_detail": "I analyze and visualize complex data—from physical artifacts to large-scale statistical trends—to extract insights and create evidence-based narratives for both experts and the public. This example shows a stone tool from the African Early Stone Age.",
+	"gallery_item_3_role": "Designer and developer",
+	"gallery_item_3_credits": "From the Fish Hoek Valley Museum collection · Scanned by Global Digital Heritage · CC BY-NC 4.0",
+
+	"gallery_item_4_label": "Interactive",
+	"gallery_item_4_desc": "From aerial imagery to interactive mapping",
+	"gallery_item_4_title": "Canopy viewer",
+	"gallery_item_4_detail": "I built a machine learning pipeline to detect and map individual tree species from aerial photography — then turned the results into an interactive browser tool anyone can explore. Users can slide between raw imagery and segmentation overlays, and inspect species-specific data in real time. Part of a UKRI-funded project at the University of Oxford.",
+	"gallery_item_4_role": "Design and development",
+
+	"gallery_item_5_label": "Research",
+	"gallery_item_5_desc": "Biology & computational science",
+	"gallery_item_5_title": "Scientific research",
+	"gallery_item_5_detail": "I hold a PhD in Biology from the University of Oxford, where I went on to work as a postdoctoral researcher and remain a visiting researcher. My research on ecology, bioacoustics, and cultural evolution has been published in journals including Current Biology and Methods in Ecology and Evolution, and covered by international media.",
+	"gallery_item_5_role": "Researcher",
+
+	"gallery_item_6_label": "Conservation science",
+	"gallery_item_6_desc": "Monitoring biodiversity at scale",
+	"gallery_item_6_title": "Big Garden Birdwatch",
+	"gallery_item_6_detail": "As a Senior Conservation Scientist at the RSPB, I work on the Big Garden Birdwatch — one of the world's largest citizen science projects, engaging half a million participants each year. I develop statistical methods and data pipelines to turn millions of public observations into meaningful trends, helping to track how common garden birds are faring across the UK.",
+	"gallery_item_6_role": "Senior Conservation Scientist",
+
+	"about_header_label": "Biography",
+	"about_header_display": "About",
+	"about_credits_label": "Selected",
+
+	"bio_intro": "I'm a",
+	"bio_role1": "scientist,",
+	"bio_role2": "developer,",
+	"bio_connector": "and",
+	"bio_role3": "designer.",
+	"bio_body": " My work sits between research, computation, and visual communication. I have been a researcher at the University of Oxford and Senior Conservation Scientist at Europe's largest nature conservation charity. Earlier in my career I worked in film, shooting projects around the world. Today, I design analytical tools and visualizations that help researchers and organisations understand complex data and communicate it clearly. I run ",
+	"bio_studio_suffix": ", a small studio at the intersection of data science and design.",
+
+	"credit_sedum_role": "Founder & Lead Designer",
+	"credit_sedum_org": "Data science & design",
+	"credit_rspb_role": "Senior Conservation Scientist",
+	"credit_rspb_org": "Largest nature NGO in Europe",
+	"credit_oxford_role": "Researcher · Guest lecturer · Tutor",
+	"credit_oxford_org": "Department of Biology",
+	"credit_cornell_role": "Data Visualization Consultant",
+	"credit_cornell_org": "BirdNET project · freelance",
+
+	"contact_label": "Get in touch!",
+	"contact_cta": "Available for consulting and collaborations. Reach out if you have an interesting project or just want to say hi!",
+	"footer_copyright": "© 2026 Nilo Merino Recalde"
+}

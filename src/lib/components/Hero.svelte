@@ -1,37 +1,39 @@
 <script>
 	import { onMount } from "svelte";
 	import { contentReady } from "$lib/stores/ready";
+	import { m } from "$lib/paraglide/messages";
+	import { page } from "$app/state";
+	import { localizeHref, getLocale } from "$lib/paraglide/runtime";
 
 	let section = $state(null);
 	let isMobile = $state(false);
 	let expandedRow = $state(-1);
 
-	const roles = ["Researcher", "Developer", "Filmmaker", "Designer"];
 	const chars =
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&";
 
-	const disciplines = [
+	let disciplines = $derived([
 		{
 			idx: "01",
-			title: "Understanding complex systems",
-			desc: "I work with just about every kind of data — video, audio, image, text, spatial and tabular — to understand how complex systems are structured and how they change over time.",
+			title: m.disc_01_title(),
+			desc: m.disc_01_desc(),
 		},
 		{
 			idx: "02",
-			title: "Data analysis & visualisation",
-			desc: "I help organisations understand complex data. From messy raw datasets to clear insight, I design analyses and visualisations that reveal structure, highlight patterns, and communicate results in ways that are both rigorous and intuitive.",
+			title: m.disc_02_title(),
+			desc: m.disc_02_desc(),
 		},
 		{
 			idx: "03",
-			title: "Custom tools & machine learning",
-			desc: "I build custom analytical tools when existing methods are not enough. My work combines machine learning, signal analysis, and advanced statistical modelling to extract meaningful patterns from large and noisy datasets.",
+			title: m.disc_03_title(),
+			desc: m.disc_03_desc(),
 		},
 		{
 			idx: "04",
-			title: "Visual communication",
-			desc: "Analysis only works if people understand it. I craft figures, maps, and interactive visuals that respect the nuance of the data while staying legible to researchers, funders, and the wider public.",
+			title: m.disc_04_title(),
+			desc: m.disc_04_desc(),
 		},
-	];
+	]);
 
 	function scrambleText(el, finalText, duration = 800) {
 		return new Promise((resolve) => {
@@ -58,18 +60,27 @@
 		});
 	}
 
+	function getRoles() {
+		return [
+			m.role_researcher(),
+			m.role_developer(),
+			m.role_filmmaker(),
+			m.role_designer(),
+		];
+	}
+
 	async function cycleRoles(el, isAlive = () => true) {
 		let idx = 0;
 		while (isAlive()) {
 			await new Promise((r) => setTimeout(r, 2000));
 			if (!isAlive()) break;
+			const roles = getRoles();
 			idx = (idx + 1) % roles.length;
 			await scrambleText(el, roles[idx], 600);
 		}
 	}
 
 	let gsapRef = null;
-	// Store active tweens per row so we can kill them on re-click
 	let activeTweens = new Map();
 
 	function toggleRow(i) {
@@ -77,14 +88,12 @@
 		const detail = section.querySelector(`.h-detail[data-row="${i}"]`);
 		if (!detail) return;
 
-		// Kill any active tween on this row
 		if (activeTweens.has(i)) {
 			activeTweens.get(i).kill();
 			activeTweens.delete(i);
 		}
 
 		if (expandedRow === i) {
-			// Close this row
 			const tween = gsapRef.to(detail, {
 				height: 0,
 				opacity: 0,
@@ -95,7 +104,6 @@
 			activeTweens.set(i, tween);
 			expandedRow = -1;
 		} else {
-			// Close previously open row
 			if (expandedRow !== -1) {
 				const prevIdx = expandedRow;
 				const prevDetail = section.querySelector(
@@ -116,7 +124,6 @@
 				}
 			}
 
-			// Open new row
 			expandedRow = i;
 			gsapRef.set(detail, { height: "auto", opacity: 1 });
 			const naturalHeight = detail.offsetHeight;
@@ -143,13 +150,11 @@
 			window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
 			window.innerWidth <= 768;
 
-		// Eagerly load GSAP so it's ready when content signal fires
 		let gsapLoaded = Promise.all([
 			import("gsap").then((m) => m.default),
 			import("gsap/ScrollTrigger").then((m) => m.ScrollTrigger),
 		]);
 
-		// Wait for content-ready signal, then run all animations
 		const unsub = contentReady.subscribe(async (ready) => {
 			if (!ready || destroyed || !section) return;
 			const [gsap, ScrollTrigger] = await gsapLoaded;
@@ -228,7 +233,10 @@
 				1.0,
 			);
 
-			if (roleSpan) setTimeout(() => cycleRoles(roleSpan, () => !destroyed && !!section), 0);
+			if (roleSpan) {
+				roleSpan.textContent = getRoles()[0];
+				setTimeout(() => cycleRoles(roleSpan, () => !destroyed && !!section), 0);
+			}
 
 			gsap.to(section.querySelector(".mh-content"), {
 				y: -60,
@@ -264,7 +272,6 @@
 		const finalTexts = textEls.map((el) => el.textContent);
 		textEls.forEach((el) => (el.textContent = ""));
 
-		// Initialize all detail panels as collapsed
 		const details = section.querySelectorAll(".h-detail");
 		details.forEach((d) => gsap.set(d, { height: 0, opacity: 0 }));
 
@@ -298,7 +305,10 @@
 			1.0,
 		);
 
-		if (roleSpan) setTimeout(() => cycleRoles(roleSpan, () => !destroyed && !!section), 0);
+		if (roleSpan) {
+			roleSpan.textContent = getRoles()[0];
+			setTimeout(() => cycleRoles(roleSpan, () => !destroyed && !!section), 0);
+		}
 
 		// Magnetic hover
 		rows.forEach((row) => {
@@ -355,6 +365,18 @@
 </script>
 
 <section class="hero" bind:this={section}>
+	<!-- Language switcher -->
+	<nav class="lang-switch" aria-label="Language">
+		{#each ['en', 'es'] as loc}
+			<a
+				href={localizeHref(page.url.pathname, { locale: loc })}
+				class="lang-btn"
+				class:active={getLocale() === loc}
+				data-sveltekit-reload
+			>{loc.toUpperCase()}</a>
+		{/each}
+	</nav>
+
 	{#if isMobile}
 		<div class="mh-content">
 			<div class="mh-name">
@@ -366,18 +388,18 @@
 			<div class="mh-rule"></div>
 
 			<div class="mh-disciplines">
-				<span class="mh-disc">Research</span>
+				<span class="mh-disc">{m.mh_disc_research()}</span>
 				<span class="mh-disc-dot"></span>
-				<span class="mh-disc">Software</span>
+				<span class="mh-disc">{m.mh_disc_software()}</span>
 				<span class="mh-disc-dot"></span>
-				<span class="mh-disc">Design</span>
+				<span class="mh-disc">{m.mh_disc_design()}</span>
 				<span class="mh-disc-dot"></span>
-				<span class="mh-disc">Film</span>
+				<span class="mh-disc">{m.mh_disc_film()}</span>
 			</div>
 
 			<div class="mh-footer">
-				<span class="mh-role">{roles[0]}</span>
-				<span class="mh-loc">Oxford & Cantabria</span>
+				<span class="mh-role"></span>
+				<span class="mh-loc">{m.hero_location()}</span>
 			</div>
 		</div>
 	{:else}
@@ -413,15 +435,15 @@
 				<div class="h-id">
 					<span class="h-name">Nilo Merino Recalde</span>
 					<span class="h-sep">/</span>
-					<span class="h-role">{roles[0]}</span>
+					<span class="h-role"></span>
 				</div>
-				<p class="h-location">Oxford & Cantabria</p>
+				<p class="h-location">{m.hero_location()}</p>
 			</div>
 		</div>
 	{/if}
 
 	<div class="scroll-hint">
-		<span class="scroll-label">Scroll</span>
+		<span class="scroll-label">{m.hero_scroll()}</span>
 		<div class="scroll-arrow">↓</div>
 	</div>
 </section>
@@ -435,6 +457,42 @@
 		justify-content: center;
 		position: relative;
 		padding: 0 clamp(2rem, 8vw, 8rem);
+	}
+
+	/* ── Language switcher ── */
+	.lang-switch {
+		position: absolute;
+		top: 1.5rem;
+		right: clamp(2rem, 8vw, 8rem);
+		display: flex;
+		align-items: center;
+		gap: 0.4em;
+		z-index: 10;
+	}
+
+	.lang-btn {
+		font-family: "Space Mono", monospace;
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: #b0aba5;
+		text-decoration: none;
+		transition: color 0.25s ease;
+		line-height: 1;
+	}
+
+	.lang-btn:hover {
+		color: #5a5550;
+	}
+
+	.lang-btn.active {
+		color: #5a5550;
+	}
+
+	.lang-btn + .lang-btn::before {
+		content: "·";
+		margin-right: 0.4em;
+		color: #d0cdc8;
 	}
 
 	/* ── Mobile Hero ── */
@@ -708,6 +766,11 @@
 			padding: 0 1.5rem;
 			justify-content: flex-end;
 			padding-bottom: 5rem;
+		}
+
+		.lang-switch {
+			top: 1.2rem;
+			right: 1.5rem;
 		}
 
 		.scroll-hint {

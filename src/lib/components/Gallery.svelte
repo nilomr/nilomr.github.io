@@ -2,17 +2,18 @@
 	import { onMount } from "svelte";
 	import WebGLImage from "./WebGLImage.svelte";
 	import Gallery3DCard from "./Gallery3DCard.svelte";
+	import { m } from "$lib/paraglide/messages";
 
-	const items = [
+	let items = $derived([
 		{
 			src: "/images/stream-2.png",
 			ar: "2941/1670",
 			alt: "Interactive data exploration interface",
-			label: "data visualization",
-			desc: "Real-time data dashboard",
-			title: "Interactive data exploration interface",
-			detail: "Consultancy work for the citizen science project BirdNET at Cornell University. This interactive system was developed for a visitor centre, allowing the public to explore both real-time and historical patterns in biodiversity data. The interface was designed to make large acoustic monitoring datasets accessible and intuitive.",
-			role: "Design and development",
+			label: m.gallery_item_1_label(),
+			desc: m.gallery_item_1_desc(),
+			title: m.gallery_item_1_title(),
+			detail: m.gallery_item_1_detail(),
+			role: m.gallery_item_1_role(),
 			year: "2025",
 			link: {
 				label: "Cornell Lab of Ornithology",
@@ -23,11 +24,11 @@
 			src: "/images/nilo-film.webp",
 			ar: "1/1",
 			alt: "Trailer premiere for the documentary film Awaken in Times Square",
-			label: "cinematography",
-			desc: "Trailer premiere in Times Square",
-			title: "Second unit direction and cinematography",
-			detail: "Between 2011 and 2016, I worked in documentary film production as a cinematographer and second unit director. This sequence, shot in Belarus, opens the trailer for Awaken, which screened in Times Square, New York. Over those years I led small international units across three continents, capturing large-format landscape and nature footage in often demanding conditions.",
-			role: "Second unit director and cinematographer",
+			label: m.gallery_item_2_label(),
+			desc: m.gallery_item_2_desc(),
+			title: m.gallery_item_2_title(),
+			detail: m.gallery_item_2_detail(),
+			role: m.gallery_item_2_role(),
 			year: "2012–2017",
 			link: {
 				label: "IMDb",
@@ -37,42 +38,39 @@
 		{
 			type: "3d",
 			alt: "3D data visualization of an Acheulean handaxe",
-			label: "digital heritage",
-			desc: "Making data accessible and engaging",
-			title: "Digital data-centric design",
-			detail: "I analyze and visualize complex data—from physical artifacts to large-scale statistical trends—to extract insights and create evidence-based narratives for both experts and the public. This example shows a stone tool from the African Early Stone Age.",
-			credits:
-				"From the Fish Hoek Valley Museum collection · Scanned by Global Digital Heritage · CC BY-NC 4.0",
-			role: "Designer and developer",
+			label: m.gallery_item_3_label(),
+			desc: m.gallery_item_3_desc(),
+			title: m.gallery_item_3_title(),
+			detail: m.gallery_item_3_detail(),
+			credits: m.gallery_item_3_credits(),
+			role: m.gallery_item_3_role(),
 			year: "Ongoing",
 			link: {
 				label: "GDH",
 				href: "https://www.globaldigitalheritage.org/",
 			},
 		},
-
 		{
 			type: "video",
 			src: "/images/canopyviewer.mp4",
 			ar: "4/3",
 			alt: "Canopy Viewer — interactive web app for exploring tree canopy data from aerial imagery",
-			label: "Interactive",
-			desc: "From aerial imagery to interactive mapping",
-			title: "Canopy viewer",
-			detail: "I built a machine learning pipeline to detect and map individual tree species from aerial photography — then turned the results into an interactive browser tool anyone can explore. Users can slide between raw imagery and segmentation overlays, and inspect species-specific data in real time. Part of a UKRI-funded project at the University of Oxford.",
-			role: "Design and development",
+			label: m.gallery_item_4_label(),
+			desc: m.gallery_item_4_desc(),
+			title: m.gallery_item_4_title(),
+			detail: m.gallery_item_4_detail(),
+			role: m.gallery_item_4_role(),
 			year: "2025",
 		},
-
 		{
 			src: "/images/currbiol.webp",
 			ar: "1/1",
 			alt: "Published paper in Current Biology on cultural evolution in bird song",
-			label: "Research",
-			desc: "Biology & computational science",
-			title: "Scientific research",
-			detail: "I hold a PhD in Biology from the University of Oxford, where I went on to work as a postdoctoral researcher and remain a visiting researcher. My research on ecology, bioacoustics, and cultural evolution has been published in journals including Current Biology and Methods in Ecology and Evolution, and covered by international media.",
-			role: "Researcher",
+			label: m.gallery_item_5_label(),
+			desc: m.gallery_item_5_desc(),
+			title: m.gallery_item_5_title(),
+			detail: m.gallery_item_5_detail(),
+			role: m.gallery_item_5_role(),
 			year: "2019–present",
 			link: {
 				label: "Google Scholar",
@@ -101,23 +99,22 @@
 				},
 			],
 		},
-
 		{
 			src: "/images/6-starling-map.webp",
 			ar: "4/3",
 			alt: "Distribution map of starling sightings from the Big Garden Birdwatch",
-			label: "Conservation science",
-			desc: "Monitoring biodiversity at scale",
-			title: "Big Garden Birdwatch",
-			detail: "As a Senior Conservation Scientist at the RSPB, I work on the Big Garden Birdwatch — one of the world’s largest citizen science projects, engaging half a million participants each year. I develop statistical methods and data pipelines to turn millions of public observations into meaningful trends, helping to track how common garden birds are faring across the UK.",
-			role: "Senior Conservation Scientist",
+			label: m.gallery_item_6_label(),
+			desc: m.gallery_item_6_desc(),
+			title: m.gallery_item_6_title(),
+			detail: m.gallery_item_6_detail(),
+			role: m.gallery_item_6_role(),
 			year: "2026–present",
 			link: {
 				label: "RSPB",
 				href: "https://www.rspb.org.uk/whats-happening/big-garden-birdwatch",
 			},
 		},
-	];
+	]);
 
 	let wrapperEl = $state(null);
 	let activeCard = $state(-1);
@@ -250,7 +247,7 @@
 {#if isMobile}
 	<section class="m-gallery">
 		<div class="m-header">
-			<span class="m-label">Visual Work</span>
+			<span class="m-label">{m.gallery_visual_work()}</span>
 			<div class="m-pips">
 				{#each items as _, i}
 					<span class="m-pip" class:active={mobileActiveIdx === i}
@@ -389,7 +386,7 @@
 	<section class="g-wrapper" bind:this={wrapperEl}>
 		<div class="g-track">
 			<div class="g-lead">
-				<span class="g-lead-text">Visual Work</span>
+				<span class="g-lead-text">{m.gallery_visual_work()}</span>
 			</div>
 
 			{#each items as item, i}
@@ -427,7 +424,7 @@
 						{/if}
 
 						<div class="g-hint" class:hidden={activeCard === i}>
-							<span>View project</span>
+							<span>{m.gallery_view_project()}</span>
 						</div>
 
 						<div class="g-overlay" class:visible={activeCard === i}>

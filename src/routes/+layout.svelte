@@ -3,6 +3,8 @@
 	import SmoothScroll from '$lib/components/SmoothScroll.svelte';
 	import CustomCursor from '$lib/components/CustomCursor.svelte';
 	import { contentReady } from '$lib/stores/ready';
+	import { page } from '$app/state';
+	import { locales, localizeHref } from '$lib/paraglide/runtime';
 
 	let { children } = $props();
 	let WebGLBackground = $state(null);
@@ -58,6 +60,15 @@
 {#if mounted && WebGLBackground}
 	<WebGLBackground onReady={handleBgReady} />
 {/if}
+
+<!-- Hidden locale links so SvelteKit prerenderer generates all locale pages -->
+<nav aria-hidden="true" style="display:none">
+	{#each locales as locale}
+		<a href={localizeHref(page.url.pathname, { locale })} data-sveltekit-reload>
+			{locale}
+		</a>
+	{/each}
+</nav>
 {#if !isMobile}
 	<CustomCursor />
 {/if}

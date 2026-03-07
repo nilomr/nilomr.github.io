@@ -1,0 +1,88 @@
+{
+    "$schema": "https://inlang.com/schema/inlang-message-format",
+    "role_researcher": "Investigador",
+    "role_developer": "Desarrollador",
+    "role_filmmaker": "Cineasta",
+    "role_designer": "Diseñador",
+
+    "disc_01_title": "Sistemas complejos",
+    "disc_01_desc": "Trabajo con todo tipo de datos — vídeo, audio, imagen, texto, datos espaciales y tabulares — para entender cómo se estructuran los sistemas complejos y cómo evolucionan con el tiempo.",
+    "disc_02_title": "Análisis y visualización de datos",
+    "disc_02_desc": "Ayudo a organizaciones a sacar partido de sus datos. Diseño análisis y visualizaciones que van desde datos en bruto hasta información accionable, con rigor y claridad.",
+    "disc_03_title": "Machine learning a medida",
+    "disc_03_desc": "Cuando los métodos estándar no son suficientes, construyo los míos. Combino aprendizaje automático, análisis de señales y modelado estadístico para extraer patrones en datos grandes, ruidosos o heterogéneos.",
+    "disc_04_title": "Comunicación visual",
+    "disc_04_desc": "Los datos bien presentados convencen. Diseño visualizaciones, mapas y figuras interactivas que comunican con precisión y claridad a cualquier tipo de audiencia.",
+    "hero_location": "Oxford y Cantabria",
+    "hero_scroll": "Explorar",
+
+    "mh_disc_research": "Investigación",
+    "mh_disc_software": "Software",
+    "mh_disc_design": "Diseño",
+    "mh_disc_film": "Cine",
+
+    "gallery_visual_work": "Trabajo visual",
+    "gallery_view_project": "Ver proyecto",
+
+    "gallery_item_1_label": "Visualización de datos",
+    "gallery_item_1_desc": "Panel de datos en tiempo real",
+    "gallery_item_1_title": "Interfaz interactiva de exploración de datos",
+    "gallery_item_1_detail": "Consultoría para el proyecto de ciencia ciudadana BirdNET en la Universidad de Cornell. Desarrollé un sistema interactivo para un centro de visitantes que permite al público explorar patrones históricos y en tiempo real en datos de biodiversidad acústica. La interfaz fue diseñada para hacer grandes volúmenes de datos de monitoreo accesibles e intuitivos.",
+    "gallery_item_1_role": "Diseño y desarrollo",
+
+    "gallery_item_2_label": "Cinematografía",
+    "gallery_item_2_desc": "Estreno del tráiler en Times Square",
+    "gallery_item_2_title": "Segunda unidad y dirección de fotografía",
+    "gallery_item_2_detail": "Entre 2011 y 2016 trabajé en cine documental como director de fotografía y director de segunda unidad. Esta secuencia, rodada en Bielorrusia, abre el tráiler de Awaken, proyectado en Times Square, Nueva York. Durante esos años dirigí pequeñas unidades internacionales en tres continentes, captando imágenes de paisajes y naturaleza en condiciones exigentes.",
+    "gallery_item_2_role": "Director de segunda unidad y director de fotografía",
+
+    "gallery_item_3_label": "Patrimonio digital",
+    "gallery_item_3_desc": "Haciendo los datos accesibles y atractivos",
+    "gallery_item_3_title": "Diseño digital orientado a datos",
+    "gallery_item_3_detail": "Analizo y visualizo datos complejos — desde artefactos físicos hasta tendencias estadísticas a gran escala — para construir narrativas basadas en evidencia, tanto para especialistas como para el público general. Este ejemplo muestra una herramienta lítica del Paleolítico africano.",
+    "gallery_item_3_role": "Diseñador y desarrollador",
+    "gallery_item_3_credits": "Colección del Museo del Valle de Fish Hoek · Digitalizado por Global Digital Heritage · CC BY-NC 4.0",
+
+    "gallery_item_4_label": "Interactivo",
+    "gallery_item_4_desc": "De imagen aérea a cartografía interactiva",
+    "gallery_item_4_title": "Visor de copas de árboles",
+    "gallery_item_4_detail": "Desarrollé un pipeline de machine learning para detectar y cartografiar especies arbóreas individuales a partir de fotografía aérea, y convertí los resultados en una herramienta web interactiva que cualquiera puede explorar. Los usuarios pueden comparar la imagen original con las capas de segmentación e inspeccionar datos por especie. Parte de un proyecto financiado por UKRI en la Universidad de Oxford.",
+    "gallery_item_4_role": "Diseño y desarrollo",
+
+    "gallery_item_5_label": "Investigación",
+    "gallery_item_5_desc": "Biología y ciencia computacional",
+    "gallery_item_5_title": "Investigación científica",
+    "gallery_item_5_detail": "Tengo un doctorado en Biología por la Universidad de Oxford, donde trabajé como investigador postdoctoral y sigo vinculado como investigador visitante. Mi investigación sobre ecología, bioacústica y evolución cultural ha sido publicada en revistas como Current Biology y Methods in Ecology and Evolution, y recogida por medios internacionales.",
+    "gallery_item_5_role": "Investigador",
+
+    "gallery_item_6_label": "Ciencia de la conservación",
+    "gallery_item_6_desc": "Seguimiento de la biodiversidad a escala",
+    "gallery_item_6_title": "Big Garden Birdwatch",
+    "gallery_item_6_detail": "Como Científico Principal de Conservación en la RSPB, trabajo en el Big Garden Birdwatch — uno de los mayores proyectos de ciencia ciudadana del mundo, con medio millón de participantes al año. Desarrollo métodos estadísticos y pipelines de datos para convertir millones de observaciones en tendencias significativas sobre el estado de las aves comunes en el Reino Unido.",
+    "gallery_item_6_role": "Científico Principal de Conservación",
+
+    "about_header_label": "Biografía",
+    "about_header_display": "Quién soy",
+    "about_credits_label": "Trayectoria",
+
+    "bio_intro": "Soy",
+    "bio_role1": "científico,",
+    "bio_role2": "desarrollador",
+    "bio_connector": "y",
+    "bio_role3": "diseñador.",
+    "bio_body": " Mi trabajo se mueve entre la investigación, la programación y la comunicación visual. He sido investigador en la Universidad de Oxford y Científico Principal de Conservación en la mayor organización de conservación de la naturaleza de Europa. Al principio de mi carrera trabajé en cine, rodando en todo el mundo. Hoy diseño herramientas analíticas y visualizaciones que ayudan a investigadores y organizaciones a entender y comunicar datos complejos. Dirijo ",
+    "bio_studio_suffix": ", un estudio en la intersección de la ciencia de datos y el diseño.",
+
+    "credit_sedum_role": "Fundador",
+    "credit_sedum_org": "Ciencia de datos y diseño",
+    "credit_rspb_role": "Científico Principal de Conservación",
+    "credit_rspb_org": "Mayor ONG de naturaleza de Europa",
+    "credit_oxford_role": "Investigador · Docente · Tutor",
+    "credit_oxford_org": "Departamento de Biología",
+    "credit_cornell_role": "Consultor de visualización de datos",
+    "credit_cornell_org": "BirdNET · freelance",
+
+    "contact_label": "Contacto",
+    "contact_cta": "Disponible para consultoría y colaboraciones. Si tienes un proyecto interesante o simplemente quieres ponerte en contacto, escríbeme.",
+    "footer_copyright": "© 2026 Nilo Merino Recalde"
+}

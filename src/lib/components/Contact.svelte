@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { m } from '$lib/paraglide/messages';
 
 	let sectionEl = $state(null);
 
@@ -47,13 +48,13 @@
 
 <section class="contact" bind:this={sectionEl}>
 	<div class="contact-inner">
-		<p class="contact-label reveal">Get in touch!</p>
+		<p class="contact-label reveal">{m.contact_label()}</p>
 		<div class="contact-divider"></div>
 		<a href="mailto:nilo@sedum.studio" class="contact-email reveal">
 			nilo@sedum.studio
 		</a>
 		<p class="contact-cta reveal">
-			Available for consulting and collaborations. Reach out if you have an interesting project or just want to say hi!
+			{m.contact_cta()}
 		</p>
 		<nav class="contact-links reveal">
 			<a href="https://github.com/nilomr" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -64,7 +65,7 @@
 </section>
 
 <footer class="footer">
-	<span>&copy; 2026 Nilo Merino Recalde</span>
+	<span>{m.footer_copyright()}</span>
 </footer>
 
 <style>
