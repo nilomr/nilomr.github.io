@@ -47,7 +47,8 @@
 
 <section class="contact" bind:this={sectionEl}>
 	<div class="contact-inner">
-		<p class="contact-label reveal">Get in touch</p>
+		<p class="contact-label reveal">Get in touch!</p>
+		<div class="contact-divider"></div>
 		<a href="mailto:nilo@sedum.studio" class="contact-email reveal">
 			nilo@sedum.studio
 		</a>
@@ -84,6 +85,13 @@
 		letter-spacing: 0.2em;
 		color: #8a8580;
 		margin-bottom: 1.5rem;
+	}
+
+	.contact-divider {
+		width: 100%;
+		margin: 0 auto 2.5rem;
+		height: 1px;
+		background: rgba(0, 0, 0, 0.08);
 	}
 
 	.contact-email {

@@ -42,6 +42,41 @@
 		gsap.registerPlugin(ScrollTrigger);
 		if (!sectionEl) return;
 
+		// Reveal section header
+		const headerDisplay = sectionEl.querySelector(".about-header-display");
+		const headerMeta = sectionEl.querySelector(".about-header-meta");
+		const headerDivider = sectionEl.querySelector(".about-divider");
+
+		if (headerDisplay) {
+			gsap.from(headerDisplay, {
+				x: -60,
+				opacity: 0,
+				duration: 1.1,
+				ease: "power3.out",
+				scrollTrigger: { trigger: headerDisplay, start: "top 90%" },
+			});
+		}
+		if (headerMeta) {
+			gsap.from(headerMeta, {
+				y: 10,
+				opacity: 0,
+				duration: 0.6,
+				ease: "power3.out",
+				scrollTrigger: { trigger: headerMeta, start: "top 90%" },
+				delay: 0.2,
+			});
+		}
+		if (headerDivider) {
+			gsap.from(headerDivider, {
+				scaleX: 0,
+				transformOrigin: "left",
+				duration: 1.2,
+				ease: "power3.inOut",
+				scrollTrigger: { trigger: headerDivider, start: "top 90%" },
+				delay: 0.1,
+			});
+		}
+
 		// Reveal bio
 		const bio = sectionEl.querySelector(".about-bio");
 		gsap.from(bio, {
@@ -99,6 +134,15 @@
 </script>
 
 <section class="about" bind:this={sectionEl}>
+	<div class="about-header">
+		<div class="about-header-meta">
+			<span class="about-header-label">Biography</span>
+			<span class="about-header-mark">+</span>
+		</div>
+		<div class="about-header-display" aria-hidden="true">About</div>
+	</div>
+	<div class="about-divider"></div>
+
 	<div class="about-inner">
 		<div class="about-bio">
 			<div class="portrait-col">
@@ -159,13 +203,60 @@
 
 <style>
 	.about {
-		padding: 10rem 0 6rem;
+		padding: 0 0 6rem;
+	}
+
+	/* ── Section header ── */
+	.about-header {
+		padding: 5rem clamp(2rem, 6vw, 6rem) 0;
+		overflow: hidden;
+	}
+
+	.about-header-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.about-header-label {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.62rem;
+		text-transform: uppercase;
+		letter-spacing: 0.22em;
+		color: #8a8580;
+	}
+
+	.about-header-mark {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.75rem;
+		color: #c0bdb8;
+		line-height: 1;
+	}
+
+	.about-header-display {
+		font-family: 'Space Mono', monospace;
+		font-size: clamp(4.5rem, 17vw, 14rem);
+		font-weight: 700;
+		color: #1a1a1a;
+		line-height: 0.88;
+		letter-spacing: -0.055em;
+		margin: 0;
+		white-space: nowrap;
+	}
+
+	.about-divider {
+		width: calc(100% - clamp(4rem, 12vw, 12rem));
+		margin: 2.5rem auto 0;
+		height: 1px;
+		background: rgba(0, 0, 0, 0.08);
 	}
 
 	.about-inner {
 		max-width: 900px;
-		margin: 0 auto;
+		margin: 4rem auto 0;
 		padding: 0 clamp(2rem, 6vw, 6rem);
+		padding-top: 3rem;
 		display: flex;
 		flex-direction: column;
 		gap: 5rem;
@@ -359,10 +450,24 @@
 
 	@media (max-width: 768px) {
 		.about {
-			padding: 5rem 0 3rem;
+			padding: 0 0 3rem;
+		}
+
+		.about-header {
+			padding: 4rem 1.5rem 0;
+		}
+
+		.about-header-display {
+			font-size: clamp(3.5rem, 20vw, 6rem);
+		}
+
+		.about-divider {
+			width: calc(100% - 3rem);
+			margin: 2rem auto 0;
 		}
 
 		.about-inner {
+			margin-top: 3rem;
 			gap: 3rem;
 			padding: 0 1.5rem;
 		}
