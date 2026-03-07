@@ -6,7 +6,7 @@
 
 	let items = $derived([
 		{
-			src: "/images/stream-2.png",
+			src: "/images/stream-2.webp",
 			ar: "2941/1670",
 			alt: "Interactive data exploration interface",
 			label: m.gallery_item_1_label(),
