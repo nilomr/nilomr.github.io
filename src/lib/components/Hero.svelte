@@ -367,7 +367,7 @@
 <section class="hero" bind:this={section}>
 	<!-- Language switcher -->
 	<nav class="lang-switch" aria-label="Language">
-		{#each ['en', 'es'] as loc}
+		{#each ['en', 'es', 'fr'] as loc}
 			<a
 				href={localizeHref(page.url.pathname, { locale: loc })}
 				class="lang-btn"
@@ -490,7 +490,7 @@
 	}
 
 	.lang-btn + .lang-btn::before {
-		content: "·";
+		content: "/";
 		margin-right: 0.4em;
 		color: #d0cdc8;
 	}
