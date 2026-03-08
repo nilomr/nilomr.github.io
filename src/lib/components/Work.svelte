@@ -12,13 +12,6 @@
 			href: "https://www.sedum.studio",
 		},
 		{
-			project: "RSPB",
-			role: m.credit_rspb_role(),
-			org: m.credit_rspb_org(),
-			period: "2026–present",
-			href: "https://www.rspb.org.uk",
-		},
-		{
 			project: "University of Oxford",
 			role: m.credit_oxford_role(),
 			org: m.credit_oxford_org(),
@@ -31,6 +24,13 @@
 			org: m.credit_cornell_org(),
 			period: "2025–present",
 			href: "https://www.birds.cornell.edu",
+		},
+		{
+			project: "RSPB",
+			role: m.credit_rspb_role(),
+			org: m.credit_rspb_org(),
+			period: "2026–present",
+			href: "https://www.rspb.org.uk",
 		},
 	]);
 
