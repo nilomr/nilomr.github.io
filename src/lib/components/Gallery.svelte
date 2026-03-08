@@ -47,7 +47,7 @@
 			year: "Ongoing",
 			link: {
 				label: "GDH",
-				href: "https://www.globaldigitalheritage.org/",
+				href: "https://globaldigitalheritage.org/",
 			},
 		},
 		{
