@@ -1,0 +1,27 @@
+# Nilo Merino Recalde
+
+Researcher, developer, and designer. My work sits between research, computation, and visual communication — I build analytical tools, machine learning systems, and data visualisations that help researchers and organisations understand complex data and communicate it clearly. I run sedum.studio, a small studio at the intersection of data science and design. I hold a PhD in Biology from the University of Oxford and am a Senior Conservation Scientist at the RSPB; earlier in my career I worked in documentary film across three continents.
+
+## Current roles
+- Senior Conservation Scientist, RSPB — leading statistical analysis for the Big Garden Birdwatch, one of the world's largest citizen science projects
+- Visiting Researcher, University of Oxford, Department of Biology
+- Founder & Lead Designer, sedum.studio — data science and design consultancy
+- Data Visualization Consultant, Cornell University — BirdNET citizen science project
+
+## Expertise
+Data analysis and machine learning · Statistical modelling · Scientific research · Citizen science · Spatial analysis · Custom software development · Interactive visualisation
+
+## Selected publications
+Research published in Current Biology, Methods in Ecology and Evolution. Covered by international media.
+
+## Skills
+Data analysis and visualisation · Machine learning · Statistical modelling · Software development · Interactive tools · Research communication · Visual design
+
+## Contact
+Email: nilo@sedum.studio
+GitHub: https://github.com/nilomr
+Studio: https://www.sedum.studio
+IMDB: https://www.imdb.com/name/nm4945222
+
+## Languages
+English, Spanish, French

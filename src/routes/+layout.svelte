@@ -55,6 +55,29 @@
 
 <svelte:head>
 	<title>Nilo Merino Recalde</title>
+	<link rel="canonical" href={`https://nilomr.github.io${page.url.pathname}`} />
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "Nilo Merino Recalde",
+		"jobTitle": "Researcher, Developer, and Designer",
+		"affiliation": [
+			{ "@type": "Organization", "name": "RSPB", "url": "https://www.rspb.org.uk" },
+			{ "@type": "Organization", "name": "University of Oxford", "url": "https://www.ox.ac.uk" }
+		],
+		"url": "https://nilomr.github.io/",
+		"email": "nilo@sedum.studio",
+		"sameAs": [
+			"https://github.com/nilomr",
+			"https://www.sedum.studio",
+			"https://www.imdb.com/name/nm4945222"
+		],
+		"knowsAbout": [
+			"Data Science", "Machine Learning", "Statistical Modelling",
+			"Data Visualisation", "Software Development", "Interactive Tools",
+			"Research Communication", "Visual Design"
+		]
+	})}</script>`}
 </svelte:head>
 
 {#if mounted && WebGLBackground}

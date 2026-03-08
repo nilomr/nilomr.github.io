@@ -57,7 +57,7 @@
 			{m.contact_cta()}
 		</p>
 		<nav class="contact-links reveal">
-			<a href="https://github.com/nilomr" target="_blank" rel="noopener noreferrer">GitHub</a>
+			<a href="https://github.com/nilomr" target="_blank" rel="me noopener noreferrer">GitHub</a>
 			<a href="https://www.sedum.studio" target="_blank" rel="noopener noreferrer">sedum.studio</a>
 			<a href="https://www.imdb.com/name/nm4945222" target="_blank" rel="noopener noreferrer">IMDB</a>
 		</nav>
