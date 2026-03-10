@@ -239,7 +239,26 @@
 			attributeFilter: ["class"],
 		});
 
-		return () => observer.disconnect();
+		// Redirect horizontal trackpad scroll into vertical scroll
+		// so that ScrollTrigger picks it up while the gallery is pinned.
+		const st = ScrollTrigger.getAll().find(
+			(t) => t.trigger === wrapperEl || t.pin === wrapperEl,
+		);
+		function onWheel(e) {
+			if (!st || !st.isActive) return;
+			const absX = Math.abs(e.deltaX);
+			const absY = Math.abs(e.deltaY);
+			if (absX > absY && absX > 4) {
+				e.preventDefault();
+				window.scrollBy({ top: e.deltaX, behavior: "instant" });
+			}
+		}
+		wrapperEl.addEventListener("wheel", onWheel, { passive: false });
+
+		return () => {
+			observer.disconnect();
+			wrapperEl.removeEventListener("wheel", onWheel);
+		};
 	});
 </script>
 
