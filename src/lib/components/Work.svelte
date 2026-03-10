@@ -232,7 +232,7 @@
 
 	.about-header-display {
 		font-family: 'Space Mono', monospace;
-		font-size: clamp(4.5rem, 17vw, 14rem);
+		font-size: clamp(4.5rem, 17vw, 13rem);
 		font-weight: 700;
 		color: #1a1a1a;
 		line-height: 0.88;
@@ -268,7 +268,7 @@
 
 	@media (min-width: 769px) {
 		.about-bio {
-			width: min(900px, calc(100vw - clamp(4rem, 10vw, 10rem)));
+			width: min(850px, calc(100vw - clamp(4rem, 10vw, 10rem)));
 			margin-left: 50%;
 			transform: translateX(-50%);
 		}
@@ -429,6 +429,12 @@
 	a.credit-row:hover .credit-arrow {
 		opacity: 1;
 		transform: translateY(-50%) translate(2px, -2px);
+	}
+
+	@media (min-width: 1100px) {
+		.about-header {
+			padding-left: max(clamp(2rem, 6vw, 6rem), calc((100vw - 900px) / 2));
+		}
 	}
 
 	@media (max-width: 768px) {

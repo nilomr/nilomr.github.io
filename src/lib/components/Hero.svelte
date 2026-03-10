@@ -685,13 +685,13 @@
 		align-items: baseline;
 		gap: 0.5em;
 		font-family: "Space Mono", monospace;
-		font-size: clamp(0.62rem, 0.85vw, 0.75rem);
+		font-size: clamp(0.75rem, 1.1vw, 0.95rem);
 		letter-spacing: 0.04em;
 	}
 
 	.h-name {
 		color: #7a756f;
-		font-weight: 400;
+		font-weight: 600;
 	}
 
 	.h-sep {

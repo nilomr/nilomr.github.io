@@ -70,7 +70,7 @@
 
 <style>
 	.contact {
-		padding: 10rem 0 6rem;
+		padding: 8rem 0 6rem;
 	}
 
 	.contact-inner {
