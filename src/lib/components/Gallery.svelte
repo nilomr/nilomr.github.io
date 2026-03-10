@@ -314,6 +314,12 @@
 							/>
 						{/if}
 
+						<span
+							class="m-tap-hint"
+							class:hidden={activeCard === i}
+							aria-hidden="true">+</span
+						>
+
 						<!-- Overlay -->
 						<div class="m-overlay" class:visible={activeCard === i}>
 							<div class="m-ov-inner">
@@ -780,6 +786,27 @@
 		font-size: 0.75rem;
 		font-weight: 400;
 		color: #5a5550;
+	}
+
+	.m-tap-hint {
+		position: absolute;
+		bottom: 0.85rem;
+		right: 0.85rem;
+		z-index: 2;
+		font-family: "Space Mono", monospace;
+		font-size: 1.75rem;
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.9);
+		line-height: 1;
+		pointer-events: none;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.m-tap-hint.hidden {
+		opacity: 0;
+		transform: rotate(45deg) scale(0.8);
 	}
 
 	/* ── Desktop Gallery (unchanged) ── */
