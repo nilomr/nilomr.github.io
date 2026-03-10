@@ -46,10 +46,18 @@
 		isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches
 			|| window.innerWidth <= 768;
 
+		// Reload when crossing the mobile/desktop breakpoint so all
+		// GSAP ScrollTrigger and WebGL instances reinitialise cleanly.
+		const mql = window.matchMedia('(max-width: 768px)');
+		const onBreakpoint = () => location.reload();
+		mql.addEventListener('change', onBreakpoint);
+
 		const mod = await import('$lib/components/WebGLBackground.svelte');
 		setProgress(50, 'BUILDING TERRAIN');
 		WebGLBackground = mod.default;
 		mounted = true;
+
+		return () => mql.removeEventListener('change', onBreakpoint);
 	});
 </script>
 
