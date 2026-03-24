@@ -55,11 +55,11 @@
     "gallery_item_5_detail": "Titulaire d'un doctorat en biologie de l'Université d'Oxford, où j'ai ensuite travaillé comme chercheur postdoctoral et où je reste chercheur associé. Mes travaux sur l'écologie, la bioacoustique et l'évolution culturelle ont été publiés dans des revues telles que Current Biology et Methods in Ecology and Evolution, et repris par des médias internationaux.",
     "gallery_item_5_role": "Chercheur",
 
-    "gallery_item_6_label": "Sciences de la conservation",
-    "gallery_item_6_desc": "Suivi de la biodiversité à grande échelle",
-    "gallery_item_6_title": "Big Garden Birdwatch",
-    "gallery_item_6_detail": "En tant que Scientifique Principal de la Conservation à la RSPB, je travaille sur le Big Garden Birdwatch — l'un des plus grands projets de science citoyenne au monde, mobilisant un demi-million de participants chaque année. Je développe des méthodes statistiques et des pipelines de données pour transformer des millions d'observations en tendances significatives sur l'état des oiseaux communs au Royaume-Uni.",
-    "gallery_item_6_role": "Scientifique Principal de la Conservation",
+    "gallery_item_6_label": "Traitement du signal",
+    "gallery_item_6_desc": "Traitement et visualisation du signal",
+    "gallery_item_6_title": "Sonomaps",
+    "gallery_item_6_detail": "Sonomaps est un outil interactif que j'ai conçu pendant mes enseignements à l'Université d'Oxford pour aider à développer l'intuition sur les signaux audio. Il permet d'enregistrer, de transformer et de visualiser le son en temps réel — rendant les concepts abstraits de traitement du signal tangibles et explorables directement dans le navigateur.",
+    "gallery_item_6_role": "Concepteur & Développeur",
 
     "about_header_label": "Biographie",
     "about_header_display": "À propos",

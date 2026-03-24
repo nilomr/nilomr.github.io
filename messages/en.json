@@ -55,11 +55,11 @@
 	"gallery_item_5_detail": "I hold a PhD in Biology from the University of Oxford, where I went on to work as a postdoctoral researcher and remain a visiting researcher. My research on ecology, bioacoustics, and cultural evolution has been published in journals including Current Biology and Methods in Ecology and Evolution, and covered by international media.",
 	"gallery_item_5_role": "Researcher",
 
-	"gallery_item_6_label": "Conservation science",
-	"gallery_item_6_desc": "Monitoring biodiversity at scale",
-	"gallery_item_6_title": "Big Garden Birdwatch",
-	"gallery_item_6_detail": "As a Senior Conservation Scientist at the RSPB, I work on the Big Garden Birdwatch — one of the world's largest citizen science projects, engaging half a million participants each year. I develop statistical methods and data pipelines to turn millions of public observations into meaningful trends, helping to track how common garden birds are faring across the UK.",
-	"gallery_item_6_role": "Senior Conservation Scientist",
+	"gallery_item_6_label": "Signal processing",
+	"gallery_item_6_desc": "Signal processing and visualization",
+	"gallery_item_6_title": "Sonomaps",
+	"gallery_item_6_detail": "Sonomaps is an interactive tool built while teaching at the University of Oxford to help learners build intuition around audio signals. It lets you visualize sound in real time — making abstract signal processing concepts tangible and explorable directly in the browser.",
+	"gallery_item_6_role": "Designer & Developer",
 
 	"about_header_label": "Biography",
 	"about_header_display": "About",
